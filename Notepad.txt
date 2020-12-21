@@ -16,6 +16,6 @@ Categorie 3 mlx_new_window : (gerer la creation de fenetres)
     int mlx_clear_window ( void *mlx_ptr, void *win_ptr );
     int mlx_destroy_window ( void *mlx_ptr, void *win_ptr );
 
-Categorie 4 mlx_pixel_put : (afficher des pixel a l'ecran)
+Categorie 4 mlx_pixel_put : (afficher des pixel a l'ecran) 
     int mlx_pixel_put ( void *mlx_ptr, void *win_ptr, int x, int y, int color );
     int mlx_string_put ( void *mlx_ptr, void *win_ptr, int x, int y, int color, char *string );
