@@ -9,6 +9,8 @@ void ft_putchar(char c)
 int deal_key(int key, void *param)
 {
 	ft_putchar('X');
+	(void)param;
+	(void)key;
 //	mlx_pixel_put(mlx_ptr, win_ptr
 	return (0);
 }
@@ -21,6 +23,6 @@ int main()
 	mlx_ptr = mlx_init();
 	win_ptr = mlx_new_window(mlx_ptr, 100, 100, "Test MLX");
 	mlx_pixel_put(mlx_ptr, win_ptr, 20, 30, 0xFFAA99);
-	mlx_key_hook(win_ptr, deal_key, (void *)0);
+//	mlx_key_hook(win_ptr, deal_key, (void *)0);
 	mlx_loop(mlx_ptr);
 }
