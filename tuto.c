@@ -7,6 +7,7 @@ int main(void)
 // 	void *window;
   
   	mlx = mlx_init();
+	(void)mlx;
 //  	window = mlx_new_window(mlx, 1000, 1000, "Title");
   
 //  	mlx_loop(mlx);
