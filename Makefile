@@ -1,6 +1,6 @@
 NAME	=	cub3D
 CC		=	clang
-SRC		=	tuto.c
+SRC		=	training_mlx_functions.c
 OBJ 	=	$(SRC:.c=.o)
 CFLAGS	=	-Wall -Wextra -Werror
 MLX_DIR	=	mlx
@@ -29,6 +29,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean all re mlx
+.PHONY: clean fclean all re mlx bonus
 
 #I don't compile the mlx .o where the .c changed again when I do make. Should I fix that ?
