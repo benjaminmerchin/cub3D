@@ -6,7 +6,7 @@
 /*   By: bmerchin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:02:12 by bmerchin          #+#    #+#             */
-/*   Updated: 2021/01/08 13:53:16 by bmerchin         ###   ########.fr       */
+/*   Updated: 2021/01/09 18:54:24 by bmerchin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ typedef struct	s_struct
 
 typedef struct s_data
 {
-	char			no[4096];
-	char			so[4096];
-	char			we[4096];
-	char			ea[4096];
-	char			sprite[4096];
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
+	char			*sprite;
 	unsigned short	x_screen_size;
 	unsigned short	y_screen_size;
 	int				floor;
@@ -46,6 +46,7 @@ typedef struct s_data
 	char			direction_player_start;
 	short			x_player_start;
 	short			y_player_start;
+	int				security[20];
 }				t_data;
 
 int				get_next_line(int fd, char **line);
@@ -57,5 +58,14 @@ char			*free_null(char *s1);
 int				free_int(char **line);
 
 void			ft_putstr_bn(char *str);
+int				ft_atoi(char *str);
+int				ft_atoi_parsing(char *str, int *i);
+char			*ft_strdup(char *s1);
+
+int				get_t(int i);
+int				get_r(int i);
+int				get_g(int i);
+int				get_b(int i);
+int				store_color(int i, int j, int k, int l);
 
 #endif
