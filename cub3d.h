@@ -6,7 +6,7 @@
 /*   By: bmerchin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:02:12 by bmerchin          #+#    #+#             */
-/*   Updated: 2021/01/09 18:54:24 by bmerchin         ###   ########.fr       */
+/*   Updated: 2021/01/10 18:57:18 by bmerchin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-#define BUFFER_SIZE 4095
+# define BUFFER_SIZE 4095
 
 typedef struct	s_struct
 {
@@ -31,7 +31,7 @@ typedef struct	s_struct
 	int		curs;
 }				t_struct;
 
-typedef struct s_data
+typedef struct	s_data
 {
 	char			*no;
 	char			*so;
@@ -42,8 +42,10 @@ typedef struct s_data
 	unsigned short	y_screen_size;
 	int				floor;
 	int				ceiling;
-	char			map[512][512];
-	char			direction_player_start;
+	int				y_map;
+	int				x_map;
+	char			*map[1024];
+	char			starting_direction;
 	short			x_player_start;
 	short			y_player_start;
 	int				security[20];
