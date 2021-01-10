@@ -6,7 +6,7 @@
 /*   By: bmerchin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 10:56:04 by bmerchin          #+#    #+#             */
-/*   Updated: 2021/01/10 18:57:24 by bmerchin         ###   ########.fr       */
+/*   Updated: 2021/01/10 23:12:23 by bmerchin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,30 @@
 //	free(mlx);
   	return (0);
 }*/
+
+void print_info(t_data *data)
+{
+	printf("\n\nScreen Size x : %hu\n", data->x_screen_size);
+	printf("Screen Size y : %hu\n", data->y_screen_size);
+	printf("Floor Color : %d\n", data->floor);
+	printf("Ceiling Color : %d\n", data->ceiling);
+	printf("Sprite Texture Path : %s\n", data->sprite);
+	printf("NO Texture Path : %s\n", data->no);
+	printf("SO Texture Path : %s\n", data->so);
+	printf("WE Texture Path : %s\n", data->we);
+	printf("EA Texture Path : %s\n", data->ea);
+}
+
+void joke(void)
+{
+	int i;
+
+	i = 0;
+	ft_putstr_bn("\n[1]    66083 segmentation fault  ./cub3D map.cub");
+	while (i < 1000000000)
+		i++;
+	ft_putstr_bn("Just Kidding, I got you ;)");
+}
 
 void store_rfc(t_data *data, int *i, char *line)
 {
@@ -171,7 +195,7 @@ void store_map(int fd, t_data *data)
 			break ;
 		free(data->map[0]);
 	}
-	while ((retour = get_next_line(fd, &data->map[data->y_map])) == 1)
+	while ((retour = get_next_line(fd, &data->map[data->y_map])) == 1 || data->map[data->y_map][0] != '\0')
 	{
 		ft_putstr_bn(data->map[data->y_map]);
 		data->y_map = data->y_map + 1;
@@ -260,7 +284,7 @@ void check_map(t_data *data)
 				find_wall(data, x, y);
 				data->security[8] = data->security[8] + 1;
 			}
-			else if (data->map[y][x] != ' ')
+			else if (data->map[y][x] != ' ' && data->map[y][x] != '1' )
 				data->security[10] = data->security[10] + 1;
 			x++;
 		}
@@ -283,8 +307,8 @@ void check_map(t_data *data)
 ** security 10 : Wrong character
 ** security 11 : 
 ** security 12 : 
-** security 13 : 
-** security 14 : 
+** security 13 : //check ici si les ouvertures de textures sont valides 
+** security 14 : //check si le deuxieme sprite est valide
 ** security 15 : 
 ** security 16 : 
 */
@@ -356,7 +380,7 @@ int main(int ac, char **av)
 	store_map(fd, &data);
 	check_map(&data);
 
-	printf("======%d=====", data.security[10]);//
+//	printf("======%d=====", data.security[10]);
 
 	if (data.security[8] != 1)
 	{
@@ -375,24 +399,11 @@ int main(int ac, char **av)
 		return (free_struct(&data, 1));
 	}
 
-	printf("\n\nScreen Size x : %hu\n", data.x_screen_size);
-	printf("Screen Size y : %hu\n", data.y_screen_size);
-	printf("Floor Color : %d\n", data.floor);
-	printf("Ceiling Color : %d\n", data.ceiling);
-	printf("Sprite Texture Path : %s\n", data.sprite);
-	printf("NO Texture Path : %s\n", data.no);
-	printf("SO Texture Path : %s\n", data.so);
-	printf("WE Texture Path : %s\n", data.we);
-	printf("EA Texture Path : %s\n", data.ea);
+
+	print_info(&data);
+//	joke();
 
 
-
-
-/*	ft_putstr_bn("");
-	ft_putstr_bn("[1]    66083 segmentation fault  ./cub3D map.cub");
-	while (fd < 1000000000)
-		fd++;
-	ft_putstr_bn("nan j'dec");*/
 
 	return (0);
 }
