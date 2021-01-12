@@ -70,6 +70,8 @@ int	ft_atoi_parsing(char *str, int *i)
 		nbr = nbr * 10 + str[*i] - '0';
 		*i = *i + 1;
 	}
+	while (str[*i] >= '0')
+		*i = *i + 1;
 	return (nbr * sign);
 }
 

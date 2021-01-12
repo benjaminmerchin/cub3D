@@ -6,7 +6,7 @@
 /*   By: bmerchin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:02:12 by bmerchin          #+#    #+#             */
-/*   Updated: 2021/01/10 18:57:18 by bmerchin         ###   ########.fr       */
+/*   Updated: 2021/01/12 16:06:08 by bmerchin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,16 @@ int				get_r(int i);
 int				get_g(int i);
 int				get_b(int i);
 int				store_color(int i, int j, int k, int l);
+
+void			store_info(int fd, t_data *data, char *line);
+
+void			print_info(t_data *data);
+int				free_struct(t_data *data, int m);
+
+int				security_check(t_data *data);
+int				security_cub(int ac, char **av, t_data *data, int fd);
+int				security_data(t_data *data);
+
+void			check_map(t_data *data);
 
 #endif

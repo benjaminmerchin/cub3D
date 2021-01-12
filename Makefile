@@ -1,6 +1,7 @@
 NAME	=	cub3D
 CC		=	clang
-SRC		=	cub3d.c get_next_line.c get_next_line_utils.c utils_basic.c utils_color.c
+SRC		=	cub3d.c get_next_line.c get_next_line_utils.c utils_basic.c utils_color.c store_map.c \
+			utils_parsing.c security.c map_verification.c
 OBJ 	=	$(SRC:.c=.o)
 CFLAGS	=	-Wall -Wextra -Werror
 MLX_DIR	=	mlx

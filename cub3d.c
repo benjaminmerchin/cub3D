@@ -6,170 +6,11 @@
 /*   By: bmerchin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 10:56:04 by bmerchin          #+#    #+#             */
-/*   Updated: 2021/01/10 23:12:23 by bmerchin         ###   ########.fr       */
+/*   Updated: 2021/01/12 16:17:14 by bmerchin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//void check_missing
-
-//void store_data
-
-/*int main(void)
-{
-//	void *mlx;
-//	void *window;
-//	t_data	data;
-  
-	write(1, "124", 3);
-//  	mlx = mlx_init();
-//	(void)mlx;
-//	window = mlx_new_window(mlx, 400, 400, "Title");
-//	mlx_loop(mlx);
-	
-	
-
-	ft_putstr_bn("ok");
-
-//	free(mlx);
-  	return (0);
-}*/
-
-void print_info(t_data *data)
-{
-	printf("\n\nScreen Size x : %hu\n", data->x_screen_size);
-	printf("Screen Size y : %hu\n", data->y_screen_size);
-	printf("Floor Color : %d\n", data->floor);
-	printf("Ceiling Color : %d\n", data->ceiling);
-	printf("Sprite Texture Path : %s\n", data->sprite);
-	printf("NO Texture Path : %s\n", data->no);
-	printf("SO Texture Path : %s\n", data->so);
-	printf("WE Texture Path : %s\n", data->we);
-	printf("EA Texture Path : %s\n", data->ea);
-}
-
-void joke(void)
-{
-	int i;
-
-	i = 0;
-	ft_putstr_bn("\n[1]    66083 segmentation fault  ./cub3D map.cub");
-	while (i < 1000000000)
-		i++;
-	ft_putstr_bn("Just Kidding, I got you ;)");
-}
-
-void store_rfc(t_data *data, int *i, char *line)
-{
-	unsigned short red;
-	unsigned short green;
-	unsigned short blue;
-	
-	*i = *i + 1;
-	if (line[0] == 'R')
-	{
-		data->x_screen_size = ft_atoi_parsing(&line[*i], i);
-		while (line[*i] != ' ')
-			*i = *i + 1;
-		data->y_screen_size = ft_atoi(&line[*i]);
-		data->security[0] += 1;
-	}
-	else
-	{
-		red = ft_atoi_parsing(&line[*i], i);
-		*i = *i + 1;
-		green = ft_atoi_parsing(&line[*i], i);
-		*i = *i + 1;
-		blue = ft_atoi_parsing(&line[*i], i);
-		if (line[0] == 'F')
-		{
-			data->floor = store_color(0, red, green, blue);
-			data->security[1] += 1;
-		}
-		else
-		{
-			data->ceiling = store_color(0, red, green, blue);
-			data->security[2] += 1;
-		}
-	}
-}
-
-void store_path(t_data *data, char *line)
-{
-	int i;
-
-	if (line[0] == 'S' && line[1] == ' ')
-	{
-		i = 2;
-		while (line[i] == ' ')
-			i++;
-		data->sprite = ft_strdup(&line[i]);
-		data->security[3] += 1;
-	}
-	else
-	{
-		i = 3;
-		while (line[i] == ' ')
-			i++;
-		if (line[0] == 'N')
-		{
-			data->no = ft_strdup(&line[i]);
-			data->security[4] += 1;
-		}
-		else if (line[0] == 'S')
-		{
-			data->so = ft_strdup(&line[i]);
-			data->security[5] += 1;
-		}
-		else if (line[0] == 'W')
-		{
-			data->we = ft_strdup(&line[i]);
-			data->security[6] += 1;
-		}
-		else if (line[0] == 'E')
-		{
-			data->ea = ft_strdup(&line[i]);
-			data->security[7] += 1;
-		}
-	}
-}
-
-int free_struct(t_data *data, int m)
-{
-	int i;
-	
-	i = 0;
-	free(data->sprite);
-	free(data->no);
-	free(data->so);
-	free(data->we);
-	free(data->ea);
-	if (m == 1)
-	{
-		while (i < data->y_map)
-		{
-			free(data->map[i]);
-			i++;
-		}
-	}
-	return (0);
-}
-
-int all_good(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while (i < 8)
-	{
-		if (data->security[i] != 1)
-			return (0);
-		else
-			i++;
-	}
-	return (1);
-}
 
 void store_map(int fd, t_data *data)
 {
@@ -207,91 +48,6 @@ void store_map(int fd, t_data *data)
 	}
 }
 
-void find_wall(t_data *data, int x, int y)
-{
-	int start_x;
-	int start_y;
-
-	start_x = x;
-	start_y = y;
-	while (x + 1 < ft_strlen(data->map[y]))
-	{
-		x++;
-		if (data->map[y][x] == '1')
-			break ;
-		else if (data->map[y][x] == ' ' || x + 1 == ft_strlen(data->map[y]))
-		{
-			data->security[9] = data->security[9] + 1;
-			break ;
-		}
-	}
-	x = start_x;
-	while (x - 1 >= 0)
-	{
-		x--;
-		if (data->map[y][x] == '1')
-			break ;
-		else if (data->map[y][x] == ' ' || x == 0)
-		{
-			data->security[9] = data->security[9] + 1;
-			break ;
-		}
-	}
-	x = start_x;
-	while (y - 1 >= 0)
-	{
-		y--;
-		if (data->map[y][x] == '1')
-			break ;
-		else if (data->map[y][x] == ' ' || y == 0 || ft_strlen(data->map[y - 1]) <= x)
-		{
-			data->security[9] = data->security[9] + 1;
-			break ;
-		}
-	}
-	y = start_y;
-	while (y + 1 <= data->y_map)
-	{
-		y++;
-		if (data->map[y][x] == '1')
-			break ;
-		else if (data->map[y][x] == ' ' || y == data->y_map || ft_strlen(data->map[y + 1]) <= x)
-		{
-			data->security[9] = data->security[9] + 1;
-			break ;
-		}	
-	}
-}
-
-void check_map(t_data *data)
-{
-	int x;
-	int y;
-	int len;
-
-	y = 0;
-	while (y <= data->y_map)
-	{
-		x = 0;
-		len = ft_strlen(data->map[y]);
-		while (x < len)
-		{
-			if (data->map[y][x] == '0' || data->map[y][x] == '2' || data->map[y][x] == '3')
-				find_wall(data, x, y);
-			else if (data->map[y][x] == 'N' || data->map[y][x] == 'S' || data->map[y][x] == 'E' || data->map[y][x] == 'W')
-			{
-				data->starting_direction = data->map[y][x];
-				find_wall(data, x, y);
-				data->security[8] = data->security[8] + 1;
-			}
-			else if (data->map[y][x] != ' ' && data->map[y][x] != '1' )
-				data->security[10] = data->security[10] + 1;
-			x++;
-		}
-		y++;
-	}
-}
-
 /*
 ** List data->security possible errors
 ** security 0 : Resolution
@@ -313,97 +69,97 @@ void check_map(t_data *data)
 ** security 16 : 
 */
 
+typedef struct  s_mlx {
+    void        *img;
+    char        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         endian;
+}               t_mlx;
+
+void            my_mlx_pixel_put(t_mlx *img, int x, int y, int color)
+{
+    char    *dst;
+
+    dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+    *(unsigned int*)dst = color;
+}
+
+int             main(void)
+{
+    void    *mlx;
+    void    *window;
+    t_mlx	img;
+//	int color = 0x00FF0000;
+	int i = -1;
+
+//	printf("\n\n%d\n\n", color);
+
+    mlx = mlx_init();
+    window = mlx_new_window(mlx, 256, 256, "First Window");
+    img.img = mlx_new_image(mlx, 256, 256);
+    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	while (++i < 256*256)
+		my_mlx_pixel_put(&img, i%256, i/256, 256*256*i + i*255 - 1);
+	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
+//  mlx_loop(mlx);
+	free(mlx);
+	free(window);
+	free(img.img);
+}
+
+
+/*void            my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
+{
+    char    *dst;
+
+    dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
+    *(unsigned int*)dst = color;
+}
+
+int     main(void)
+{
+    void    *mlx;
+    t_mlx  img;
+
+    mlx = mlx_init();
+    img.img = mlx_new_image(mlx, 400, 400);
+
+    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+}*/
+
+/*void run_mlx(t_data *data)
+{
+	void *mlx;
+	void *window;
+    void *img;
+	
+	mlx = mlx_init();
+    img = mlx_new_image(mlx, 1920, 1080);
+	(void)data;
+	window = mlx_new_window(mlx, 400, 400, "Title");
+	mlx_loop(mlx);
+}*/
+/*
 int main(int ac, char **av)
 {
 	int fd;
-	int retour;
 	char *line;
 	t_data data;
-	int i;
 
-	i = 0;
-	while (i < 20)
-		data.security[i++] = 0;
 	line = NULL;
-	if (ac != 2)
-	{
-		ft_putstr_bn("Error\nWrong number of arguments");
+	fd = open(av[1], O_RDONLY);
+	if (security_cub(ac, av, &data, fd) == 1)
 		return (0);
-	}
-	if ((fd = open(av[1], O_RDONLY)) < 0)
-	{
-		ft_putstr_bn("Error\nOpen Folder");
-		return (0);
-	}
-	while ((retour = get_next_line(fd, &line)) == 1)
-	{
-		ft_putstr_bn(line);
-		i = 0;
-		if ((line[0] == 'R' || line[0] == 'F' || line[0] == 'C') && line[1] == ' ')
-			store_rfc(&data, &i, line);
-		if ((line[0] == 'S' && line[1] == ' ') || (((line[0] == 'N' && line[1] == 'O') || (line[0] == 'S' && line[1] == 'O') || (line[0] == 'W' && line[1] == 'E') || (line[0] == 'E' && line[1] == 'A')) && line[2] == ' '))
-			store_path(&data, line);
-		free(line);
-		if (all_good(&data) == 1)
-		   break ;
-	}
-
-
-/*	if (line[0] != 0)
-	{
-		ft_putstr_bn(line);
-		free(line);
-	}*/
-	i = 0;
-	while (i < 8) // ajuster le nombre de parametres a verifier
-	{
-		if (data.security[i] == 0)
-		{
-			ft_putstr_bn("Error\nData Missing in .cub");
-			return (free_struct(&data, 0));
-		}
-		if (data.security[i] > 1)
-		{
-			ft_putstr_bn("Error\nData Provided Multiple Times in .cub");
-			return (free_struct(&data, 0));
-		}
-		i++;
-	}
-
-
-	if (data.x_screen_size > 10000 || data.y_screen_size > 10000)
-	{
-		ft_putstr_bn("Error\nYour Map resolution is too big");
+	store_info(fd, &data, line);
+	if (security_data(&data) == 1)
 		return (free_struct(&data, 0));
-	}
-
 	store_map(fd, &data);
 	check_map(&data);
-
-//	printf("======%d=====", data.security[10]);
-
-	if (data.security[8] != 1)
-	{
-		ft_putstr_bn("Error\nThere is not the correct amount of starting directions");
+	if (security_check(&data) == 1)
 		return (free_struct(&data, 1));
-	}
-	if (data.security[9] != 0)
-	{
-		ft_putstr_bn("Error\nThere is at least one missing wall on the map");
-		return (free_struct(&data, 1));
-	}
-
-	if (data.security[10] != 0)
-	{
-		ft_putstr_bn("Error\nThere is an invalid character on the map");
-		return (free_struct(&data, 1));
-	}
-
-
 	print_info(&data);
-//	joke();
-
-
-
-	return (0);
+	run_mlx(&data);
+	return (free_struct(&data, 1));
 }
+*/
