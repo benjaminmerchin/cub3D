@@ -70,12 +70,25 @@ void store_map(int fd, t_data *data)
 */
 
 typedef struct  s_mlx {
-    void        *img;
-    char        *addr;
-    int         bits_per_pixel;
-    int         line_length;
-    int         endian;
+    void	*img;
+    char	*addr;
+    int		bits_per_pixel;
+    int		line_length;
+    int		endian;
 }               t_mlx;
+
+typedef struct  s_vars {
+	void	*mlx;
+	void	*win;
+}               t_vars;
+
+int             key_hook(int keycode, t_vars *vars)
+{
+    printf("Hello from key_hook nubber %d !\n", keycode);
+	(void)vars;
+	(void)keycode;
+	return (0);
+}
 
 void            my_mlx_pixel_put(t_mlx *img, int x, int y, int color)
 {
@@ -85,27 +98,43 @@ void            my_mlx_pixel_put(t_mlx *img, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
+int             my_close(int keycode, t_vars *vars)
+{
+    if (keycode == 5)
+		mlx_destroy_window(vars->mlx, vars->win);
+	printf("Hello from key_hook nubber %d !\n", keycode);
+	return (0);
+}
+
+// img->line_length = (img->bits_per_pixel / 8) * data->x_length
 int             main(void)
 {
-    void    *mlx;
-    void    *window;
-    t_mlx	img;
+//    void    *mlx;
+ //   void    *window;
+//    t_mlx	img;
+	t_vars	vars;
 //	int color = 0x00FF0000;
-	int i = -1;
+//	int i = -1;
 
 //	printf("\n\n%d\n\n", color);
 
-    mlx = mlx_init();
-    window = mlx_new_window(mlx, 256, 256, "First Window");
-    img.img = mlx_new_image(mlx, 256, 256);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	while (++i < 256*256)
-		my_mlx_pixel_put(&img, i%256, i/256, 256*256*i + i*255 - 1);
-	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
-//  mlx_loop(mlx);
-	free(mlx);
-	free(window);
-	free(img.img);
+//    mlx = mlx_init();
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 300, 200, "Hello world!");
+//	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_hook(vars.win, 3, 1L<<1, my_close, &vars);
+//	window = mlx_new_window(mlx, 256, 256, "First Window");
+//	img.img = mlx_new_image(mlx, 256, 256);
+//	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+//	while (++i < 256*256)
+//		my_mlx_pixel_put(&img, i%256, i/256, 256*256*i + i*255 - 1);
+//	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
+//	mlx_loop(mlx);
+	mlx_loop(vars.mlx);
+//	free(mlx);
+//	free(window);
+//	free(img.img);
+//	free(img.addr);
 }
 
 
