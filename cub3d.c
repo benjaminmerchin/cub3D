@@ -107,7 +107,7 @@ int             my_close(int keycode, t_vars *vars)
 }
 
 // img->line_length = (img->bits_per_pixel / 8) * data->x_length
-int             main(void)
+int				main(void)
 {
 //    void    *mlx;
  //   void    *window;
@@ -118,7 +118,7 @@ int             main(void)
 
 //	printf("\n\n%d\n\n", color);
 
-//    mlx = mlx_init();
+//	mlx = mlx_init();
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 300, 200, "Hello world!");
 //	mlx_key_hook(vars.win, key_hook, &vars);
@@ -138,7 +138,7 @@ int             main(void)
 }
 
 
-/*void            my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
+/*void			my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
     char    *dst;
 
@@ -146,7 +146,7 @@ int             main(void)
     *(unsigned int*)dst = color;
 }
 
-int     main(void)
+int			main(void)
 {
     void    *mlx;
     t_mlx  img;
