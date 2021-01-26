@@ -69,6 +69,20 @@ void store_map(int fd, t_data *data)
 ** security 16 : 
 */
 
+void	print_map(t_data *data)
+{
+	int i;
+
+	i = 0;
+	printf("---------------------------------\n");
+	while(i < data->y_map)
+	{
+		printf("%s\n", data->map[i]);
+		i++;
+	}
+	printf("---------------------------------\n");
+}
+
 typedef struct  s_mlx {
     void	*img;
     char	*addr;
@@ -105,7 +119,7 @@ int             my_close(int keycode, t_vars *vars)
 	printf("Hello from key_hook nubber %d !\n", keycode);
 	return (0);
 }
-
+/*
 // img->line_length = (img->bits_per_pixel / 8) * data->x_length
 int				main(void)
 {
@@ -136,28 +150,9 @@ int				main(void)
 //	free(img.img);
 //	free(img.addr);
 }
+*/
 
-
-/*void			my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
-{
-    char    *dst;
-
-    dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
-}
-
-int			main(void)
-{
-    void    *mlx;
-    t_mlx  img;
-
-    mlx = mlx_init();
-    img.img = mlx_new_image(mlx, 400, 400);
-
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-}*/
-
-/*void run_mlx(t_data *data)
+void run_mlx(t_data *data)
 {
 	void *mlx;
 	void *window;
@@ -168,8 +163,8 @@ int			main(void)
 	(void)data;
 	window = mlx_new_window(mlx, 400, 400, "Title");
 	mlx_loop(mlx);
-}*/
-/*
+}
+
 int main(int ac, char **av)
 {
 	int fd;
@@ -188,7 +183,7 @@ int main(int ac, char **av)
 	if (security_check(&data) == 1)
 		return (free_struct(&data, 1));
 	print_info(&data);
+//	print_map(&data);
 	run_mlx(&data);
 	return (free_struct(&data, 1));
 }
-*/

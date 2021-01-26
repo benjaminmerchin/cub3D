@@ -19,11 +19,16 @@ void print_info(t_data *data)
 	printf("Screen Size y : %hu\n", data->y_screen_size);
 	printf("Floor Color : %d\n", data->floor);
 	printf("Ceiling Color : %d\n", data->ceiling);
+	printf("------------------------------\n");
 	printf("Sprite Texture Path : %s\n", data->sprite);
 	printf("NO Texture Path : %s\n", data->no);
 	printf("SO Texture Path : %s\n", data->so);
 	printf("WE Texture Path : %s\n", data->we);
 	printf("EA Texture Path : %s\n", data->ea);
+	printf("------------------------------\n");
+	printf("X Starting Position : %d\n", data->x_player_start);
+	printf("Y Starting Position : %d\n", data->y_player_start);
+	printf("Starting Direction : %c\n", data->starting_direction);
 }
 
 int free_struct(t_data *data, int m)
