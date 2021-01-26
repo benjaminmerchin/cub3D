@@ -104,18 +104,18 @@ int             key_hook(int keycode, t_vars *vars)
 	return (0);
 }
 
-void            my_mlx_pixel_put(t_mlx *img, int x, int y, int color)
+void            my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 {
     char    *dst;
 
-    dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
     *(unsigned int*)dst = color;
 }
 
-int             my_close(int keycode, t_vars *vars)
+int             my_close(int keycode, t_vars *data)
 {
     if (keycode == 5)
-		mlx_destroy_window(vars->mlx, vars->win);
+		mlx_destroy_window(data->mlx, data->win);
 	printf("Hello from key_hook nubber %d !\n", keycode);
 	return (0);
 }
@@ -154,47 +154,10 @@ int				main(void)
 
 void run_mlx(t_data *data)
 {
-	void *mlx;
-	void *window;
-    void *img;
-	
-	mlx = mlx_init();
-    img = mlx_new_image(mlx, 1920, 1080);
-	(void)data;
-	window = mlx_new_window(mlx, 400, 400, "Title");
-	mlx_loop(mlx);
-}
-
-void	set_vector_dir(t_data *data)
-{
-	if (data->start_dir == 'N')
-	{
-		data->x_dir = -1;
-		data->y_dir = 0;
-		data->x_plane = 0;
-		data->y_plane = 0.66;
-	}
-	if (data->start_dir == 'S')
-	{
-		data->x_dir = 1;
-		data->y_dir = 0;
-		data->x_plane = 0;
-		data->y_plane = -0.66;
-	}
-	if (data->start_dir == 'E')
-	{
-		data->x_dir = 0;
-		data->y_dir = 1;
-		data->x_plane = 0.66;
-		data->y_plane = 0;
-	}
-	if (data->start_dir == 'W')
-	{
-		data->x_dir = 0;
-		data->y_dir = -1;
-		data->x_plane = -0.66;
-		data->y_plane = 0;
-	}
+	data->mlx = mlx_init();
+    data->img = mlx_new_image(data->mlx, data->x_screen_size, data->y_screen_size);
+	data->win = mlx_new_window(data->mlx, data->x_screen_size, data->y_screen_size, "The cub3D Labyrinth - A 42_Paris Project - by bmerchin");
+	mlx_loop(data->mlx);
 }
 
 int main(int ac, char **av)

@@ -53,6 +53,16 @@ typedef struct	s_data
 	double			x_plane;
 	double			y_plane;
 	int				security[20];
+	double			time_frame_now;
+	double			time_frame_old;
+
+	void			*mlx;
+	void			*img;
+    char			*addr;
+	void			*win;
+    int				bits_per_pixel;
+    int				line_length;
+    int				endian;
 }				t_data;
 
 int				get_next_line(int fd, char **line);
@@ -84,5 +94,7 @@ int				security_cub(int ac, char **av, t_data *data, int fd);
 int				security_data(t_data *data);
 
 void			check_map(t_data *data);
+
+void			set_vector_dir(t_data *data);
 
 #endif
