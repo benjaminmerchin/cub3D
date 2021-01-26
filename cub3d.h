@@ -45,9 +45,13 @@ typedef struct	s_data
 	int				y_map;
 	int				x_map;
 	char			*map[1024];
-	char			starting_direction;
-	short			x_player_start;
-	short			y_player_start;
+	char			start_dir;
+	double			x_pos;
+	double			y_pos;
+	double			x_dir;
+	double			y_dir;
+	double			x_plane;
+	double			y_plane;
 	int				security[20];
 }				t_data;
 

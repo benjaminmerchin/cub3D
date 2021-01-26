@@ -14,7 +14,8 @@
 
 void print_info(t_data *data)
 {
-	printf("\n\nYour Map is Correct\n");
+	printf("\nYour Map is Correct\n");
+	printf("------------------------------\n");
 	printf("Screen Size x : %hu\n", data->x_screen_size);
 	printf("Screen Size y : %hu\n", data->y_screen_size);
 	printf("Floor Color : %d\n", data->floor);
@@ -26,9 +27,9 @@ void print_info(t_data *data)
 	printf("WE Texture Path : %s\n", data->we);
 	printf("EA Texture Path : %s\n", data->ea);
 	printf("------------------------------\n");
-	printf("X Starting Position : %d\n", data->x_player_start);
-	printf("Y Starting Position : %d\n", data->y_player_start);
-	printf("Starting Direction : %c\n", data->starting_direction);
+	printf("X Starting Position : %f\n", data->x_pos);
+	printf("Y Starting Position : %f\n", data->y_pos);
+	printf("Starting Direction : %c\n", data->start_dir);
 }
 
 int free_struct(t_data *data, int m)

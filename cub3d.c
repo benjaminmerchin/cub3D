@@ -124,7 +124,7 @@ int             my_close(int keycode, t_vars *vars)
 int				main(void)
 {
 //    void    *mlx;
- //   void    *window;
+//   void    *window;
 //    t_mlx	img;
 	t_vars	vars;
 //	int color = 0x00FF0000;
@@ -165,6 +165,38 @@ void run_mlx(t_data *data)
 	mlx_loop(mlx);
 }
 
+void	set_vector_dir(t_data *data)
+{
+	if (data->start_dir == 'N')
+	{
+		data->x_dir = -1;
+		data->y_dir = 0;
+		data->x_plane = 0;
+		data->y_plane = 0.66;
+	}
+	if (data->start_dir == 'S')
+	{
+		data->x_dir = 1;
+		data->y_dir = 0;
+		data->x_plane = 0;
+		data->y_plane = -0.66;
+	}
+	if (data->start_dir == 'E')
+	{
+		data->x_dir = 0;
+		data->y_dir = 1;
+		data->x_plane = 0.66;
+		data->y_plane = 0;
+	}
+	if (data->start_dir == 'W')
+	{
+		data->x_dir = 0;
+		data->y_dir = -1;
+		data->x_plane = -0.66;
+		data->y_plane = 0;
+	}
+}
+
 int main(int ac, char **av)
 {
 	int fd;
@@ -183,6 +215,7 @@ int main(int ac, char **av)
 	if (security_check(&data) == 1)
 		return (free_struct(&data, 1));
 	print_info(&data);
+	set_vector_dir(&data);
 //	print_map(&data);
 	run_mlx(&data);
 	return (free_struct(&data, 1));

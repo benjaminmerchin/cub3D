@@ -78,6 +78,7 @@ void	store_nswe(t_data *data, char *line)
 	{
 		data->ea = ft_strdup(&line[i]);
 		data->security[7] += 1;
+//		printf("KK %d\n", data->security[7]);
 	}
 }
 

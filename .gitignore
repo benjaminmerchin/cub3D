@@ -1,0 +1,10 @@
+cub3D
+*.o
+mlx/*.o
+mlx/libmlx.dylib
+mlx/mlx_image.swiftdoc
+mlx/mlx_image.swiftmodule
+mlx/mlx_init.swiftdoc
+mlx/mlx_init.swiftmodule
+mlx/mlx_window.swiftdoc
+mlx/mlx_window.swiftmodule

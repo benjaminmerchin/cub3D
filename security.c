@@ -16,6 +16,7 @@ int security_check(t_data *data)
 {
 	if (data->security[8] != 1)
 	{
+//		printf("%c", data->security[8]);//
 		ft_putstr_bn("Error\nThere is not the correct amount of starting directions");
 		return (1);
 	}
@@ -70,11 +71,13 @@ int security_data(t_data *data)
 		if (data->security[i] == 0)
 		{
 			ft_putstr_bn("Error\nData Missing in .cub");
+			printf("The security issue %d was trigerred\n", i);
 			return (1);
 		}
 		if (data->security[i] > 1)
 		{
 			ft_putstr_bn("Error\nData Provided Multiple Times in .cub");
+			printf("The security issue %d was trigerred\n", i);
 			return (1);
 		}
 		i++;

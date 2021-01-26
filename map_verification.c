@@ -86,7 +86,9 @@ void check_map(t_data *data)
 			else if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
 				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
 			{
-				data->starting_direction = data->map[y][x];
+				data->start_dir = data->map[y][x];
+				data->x_pos = x;
+				data->y_pos = y;
 				find_wall(data, x, y);
 				data->security[8] = data->security[8] + 1;
 			}
