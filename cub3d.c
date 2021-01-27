@@ -160,6 +160,34 @@ void run_mlx(t_data *data)
 	mlx_loop(data->mlx);
 }
 
+/*
+else if ((fd = open(str, O_RDONLY)) < 0)
+		return (OPEN_FILE_FAILED);
+	else if (fd && read(fd, NULL, 0) == -1)
+		return (OPEN_FILE_FAILED);
+*/
+
+
+
+
+void	texture_check(t_data *data)
+{
+	int fd;
+
+	fd = open(data->no, O_RDONLY); //attention aux ouvertures multiples ?
+	if (fd == -1)
+	{
+		ft_putstr_bn("Error\nWrong texture path");
+		data->security[11] = 1;
+		return ;
+	}
+	if (read(fd, NULL, 0) == -1)
+	{
+		ft_putstr_bn("Error\nWrong texture path");
+		data->security[11] = 1;
+		return;
+	}
+}
 
 int main(int ac, char **av)
 {
@@ -179,6 +207,7 @@ int main(int ac, char **av)
 	if (security_check(&data) == 1)
 		return (free_struct(&data, 1));
 	fill_map_one(&data);
+	texture_check(&data);
 	if (data.security[11] == 1)
 		return (free_struct(&data, 1));
 	print_info(&data);

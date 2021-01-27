@@ -46,7 +46,7 @@ typedef struct	s_data
 	char			*map[1024];
 	int				security[20];
 
-	int				x_map; // Taille de la map (plus longue ligne et plus longue colonne)
+	short				x_map; // Taille de la map (plus longue ligne et plus longue colonne)
 	int				y_map; 
 	double			x_pos; // Position precise de la personnes sur la map
 	double			y_pos;
@@ -61,11 +61,11 @@ typedef struct	s_data
 
 	void			*mlx;
 	void			*img;
-    char			*addr;
+	char			*addr;
 	void			*win;
-    int				bits_per_pixel;
-    int				line_length;
-    int				endian;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
 }				t_data;
 
 int				get_next_line(int fd, char **line);

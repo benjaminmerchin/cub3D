@@ -61,6 +61,7 @@ char	*str_fill(char *str, int len, t_data *data)
 	if (!new)
 	{
 		data->security[11] = 1;
+		ft_putstr_bn("Error\nA malloc failed");
 		return (str);
 	}
 	while (str[i])
