@@ -167,14 +167,11 @@ else if ((fd = open(str, O_RDONLY)) < 0)
 		return (OPEN_FILE_FAILED);
 */
 
-
-
-
-void	texture_check(t_data *data)
+void	open_then_read(char *str, t_data *data)
 {
 	int fd;
 
-	fd = open(data->no, O_RDONLY); //attention aux ouvertures multiples ?
+	fd = open(str, O_RDONLY); //attention aux ouvertures multiples ?
 	if (fd == -1)
 	{
 		ft_putstr_bn("Error\nWrong texture path");
@@ -187,6 +184,15 @@ void	texture_check(t_data *data)
 		data->security[11] = 1;
 		return;
 	}
+}
+
+void	texture_check(t_data *data)
+{
+	open_then_read(data->no, data);
+	open_then_read(data->so, data);
+	open_then_read(data->we, data);
+	open_then_read(data->ea, data);
+	open_then_read(data->sprite, data);
 }
 
 int main(int ac, char **av)
