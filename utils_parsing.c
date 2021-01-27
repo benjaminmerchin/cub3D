@@ -27,9 +27,11 @@ void print_info(t_data *data)
 	printf("WE Texture Path : %s\n", data->we);
 	printf("EA Texture Path : %s\n", data->ea);
 	printf("------------------------------\n");
-	printf("X Starting Position : %f\n", data->x_pos);
-	printf("Y Starting Position : %f\n", data->y_pos);
+	printf("X Position : %f\n", data->x_pos);
+	printf("Y Position : %f\n", data->y_pos);
 	printf("Starting Direction : %c\n", data->start_dir);
+	printf("X Map Size : %d\n", data->x_map);
+	printf("Y Map Size : %d\n", data->y_map);
 }
 
 int free_struct(t_data *data, int m)

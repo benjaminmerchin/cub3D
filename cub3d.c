@@ -160,6 +160,7 @@ void run_mlx(t_data *data)
 	mlx_loop(data->mlx);
 }
 
+
 int main(int ac, char **av)
 {
 	int fd;
@@ -177,9 +178,12 @@ int main(int ac, char **av)
 	check_map(&data);
 	if (security_check(&data) == 1)
 		return (free_struct(&data, 1));
+	fill_map_one(&data);
+	if (data.security[11] == 1)
+		return (free_struct(&data, 1));
 	print_info(&data);
 	set_vector_dir(&data);
-//	print_map(&data);
+	print_map(&data);
 	run_mlx(&data);
 	return (free_struct(&data, 1));
 }

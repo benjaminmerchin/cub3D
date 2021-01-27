@@ -42,19 +42,22 @@ typedef struct	s_data
 	unsigned short	y_screen_size;
 	int				floor;
 	int				ceiling;
-	int				y_map;
-	int				x_map;
-	char			*map[1024];
 	char			start_dir;
-	double			x_pos;
-	double			y_pos;
-	double			x_dir;
-	double			y_dir;
-	double			x_plane;
-	double			y_plane;
+	char			*map[1024];
 	int				security[20];
-	double			time_frame_now;
-	double			time_frame_old;
+
+	int				x_map; // Taille de la map (plus longue ligne et plus longue colonne)
+	int				y_map; 
+	double			x_pos; // Position precise de la personnes sur la map
+	double			y_pos;
+	double			x_dir; // Direction de la personne
+	double			y_dir;
+	double			x_plane; // Direction du plan de la camera
+	double			y_plane;
+	double			pos_plane; // Position sur le plan de la camera (delta de -1 a 1 avec 0 au milieu)
+//	double			time_frame_now; // Pas besoin si on set manuellement le temps entra chaque frame
+//	double			time_frame_old;
+	double			ray;
 
 	void			*mlx;
 	void			*img;
@@ -96,5 +99,6 @@ int				security_data(t_data *data);
 void			check_map(t_data *data);
 
 void			set_vector_dir(t_data *data);
+void			fill_map_one(t_data *data);
 
 #endif

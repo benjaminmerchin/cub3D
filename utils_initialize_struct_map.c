@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_initialize_struct.c                          :+:      :+:    :+:   */
+/*   utils_initialize_struct_map.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmerchin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -47,4 +47,53 @@ void	set_vector_dir(t_data *data)
 		data->y_plane = 0;
 	}
 	set_vector_dir_extension(data);
+}
+
+char	*str_fill(char *str, int len, t_data *data)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = 0;
+	j = -1;
+	new = malloc(sizeof(char) * (ft_strlen(str) + len + 1));
+	if (!new)
+	{
+		data->security[11] = 1;
+		return (str);
+	}
+	while (str[i])
+	{
+		if (str[i] == ' ')
+			new[i] = '1';
+		else
+			new[i] = str[i];
+		i++;
+	}
+	while (++j < len)
+		new[i + j] = '1';
+	new[i + j] = '\0';
+	free(str);
+	return (new);
+}
+
+void	fill_map_one(t_data *data)
+{
+	int i;
+	
+	i = 0;
+	data->x_map = 0;
+	while (i < data->y_map)
+	{
+		if (ft_strlen(data->map[i]) > data->x_map)
+			data->x_map = ft_strlen(data->map[i]);
+		i++;
+	}
+	i = 0;
+	while (i < data->y_map)
+	{
+		data->map[i] = str_fill(data->map[i], data->x_map - ft_strlen(data->map[i]), data);
+		i++;
+	}
 }
