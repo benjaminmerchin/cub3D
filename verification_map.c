@@ -87,8 +87,8 @@ void check_map(t_data *data)
 				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
 			{
 				data->start_dir = data->map[y][x];
-				data->x_pos = x;
-				data->y_pos = y;
+				data->x_pos = x + 0.5;
+				data->y_pos = y + 0.5;
 				find_wall(data, x, y);
 				data->security[8] = data->security[8] + 1;
 			}

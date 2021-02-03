@@ -31,6 +31,14 @@ typedef struct	s_struct
 	int		curs;
 }				t_struct;
 
+# define MOVING_SPEED 0.01
+# define KEY_FORWARD 13
+# define KEY_BACKWARD 1
+# define KEY_RIGHT 2
+# define KEY_LEFT 0
+# define KEY_TURN_LEFT 123
+# define KEY_TURN_RIGHT 124
+
 typedef struct	s_data
 {
 	char			*no;
@@ -45,18 +53,18 @@ typedef struct	s_data
 	char			start_dir;
 	char			*map[1024];
 	int				security[20];
-
-	short				x_map; // Taille de la map (plus longue ligne et plus longue colonne)
+	int				x_map; // Taille de la map (plus longue ligne et plus longue colonne) 
 	int				y_map; 
-	double			x_pos; // Position precise de la personnes sur la map
+
+	int				x_rounded; // Position sans chiffres apres la virgule // mapX
+	int				y_rounded;
+	double			x_pos; // Position precise de la personnes sur la map // posX
 	double			y_pos;
-	double			x_dir; // Direction de la personne
+	double			x_dir; // Direction de la personne // dirX
 	double			y_dir;
-	double			x_plane; // Direction du plan de la camera
+	double			x_plane; // Direction du plan de la camera // planeX
 	double			y_plane;
-	double			pos_plane; // Position sur le plan de la camera (delta de -1 a 1 avec 0 au milieu)
-//	double			time_frame_now; // Pas besoin si on set manuellement le temps entra chaque frame
-//	double			time_frame_old;
+	double			pos_plane; // Position sur le plan de la camera (delta de -1 a 1 avec 0 au milieu) // cameraX
 	double			ray;
 
 	void			*mlx;

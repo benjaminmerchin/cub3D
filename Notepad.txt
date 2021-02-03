@@ -26,11 +26,16 @@ Categorie 4 mlx_pixel_put : (afficher des pixel a l'ecran)
     int mlx_string_put ( void *mlx_ptr, void *win_ptr, int x, int y, int color, char *string );
 
 Idees :
->Remplir toutes les lignes pour avoir la meme longueur (celle de la ligne max) avec des murs avec strjoin pour eviter d'avoir
-l'erreur du raycasting qui lis trop loin si il n'y a de mur dans les angles.
+>
+
+Todo :
+> Rajouter dans le parsing la bonne ouverture des images en essayant directement de les ouvrir et bien verifier 
+que ce n'est pas un doossier
+> Verifier le nombre d'argument soit seulement la map soit la map et --save
 
 Divers :
 >Les segfaults : utiliser -fsanitize=address avec les flags du Makefile
 >Je realise le projet sur mac avec comme idee de le transiter vers linux a la fin. La version linux comporte une fonctin en plus
 qui permet de ne plus avoir de leaks still reachable, fonction qui n'existe pas sur la version mac. L'idee etant que le prog
 detecte de lui-meme l'OS sur lequel il se trouve et se compile de maniere adecouate.
+>Gerer tous les evenements avec des keypress et keyrealise qui mettent des variables de 0 a 1

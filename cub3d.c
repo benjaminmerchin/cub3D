@@ -152,11 +152,71 @@ int				main(void)
 }
 */
 
-void run_mlx(t_data *data)
+
+//	Pour imprimer des lignes arc en ciel a l'ecran.
+//	i++;
+//	ft_mlx_pixel_put(data, i % 800, (5*i/800) % 500, i*1000);
+
+void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char    *dst;
+
+    dst = data->addr + (y * data->line_length + x * 4);
+    *(unsigned int*)dst = color;
+}
+
+void	add_map_top_left(t_data *data)
+{
+	int i;
+	int j;
+	int k;
+
+	i = 0;
+	while (i < data->y_map && i * 5 < data->y_screen_size)
+	{
+		j = 0;
+		while (j < data->x_map && j * 5 < data->x_screen_size)
+		{
+			if (data->map[i][j] != '0')
+			{
+				k = 0;
+				while (k < 25)
+				{
+					ft_mlx_pixel_put(data, j * 5 + k / 5, i * 5 + k % 5, data->map[i][j] * 5000);
+					k++;
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+int		render_next_frame(t_data *data)
+{
+	
+	add_map_top_left(data);
+	ft_mlx_pixel_put(data, data->x_pos * 5, data->y_pos * 5, 16711680);
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	return (0);
+}
+
+int             ft_key_hook(int keycode, t_data *data)
+{
+    printf("Hello from key_hook nubber %d !\n", keycode);
+	(void)data;
+	return (0);
+}
+
+void	run_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
-    data->img = mlx_new_image(data->mlx, data->x_screen_size, data->y_screen_size);
 	data->win = mlx_new_window(data->mlx, data->x_screen_size, data->y_screen_size, "The cub3D Labyrinth - A 42_Paris Project - by bmerchin");
+	mlx_loop_hook(data->mlx, render_next_frame, data);
+//	mlx_key_hook(data->win, ft_key_hook, data); // detecte juste quand une touche est pressee -> insuffisant pas rapport aux besoins du projet
+//	mlx_hook(data->win, 2, 1L<<0, close, data);
+	data->img = mlx_new_image(data->mlx, data->x_screen_size, data->y_screen_size);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
 	mlx_loop(data->mlx);
 }
 
