@@ -197,8 +197,6 @@ void	add_map_top_left(t_data *data)
 
 void	move_according_to_key_press(t_data *data)
 {
-	data->x_rounded = (int)data->x_pos;
-	data->y_rounded = (int)data->y_pos;
 	if (data->forward == 1 && data->y_pos >= 0 + MOVING_SPEED)
 		data->y_pos -= MOVING_SPEED;
 	if (data->backward == 1 && data->y_pos < data->y_map - MOVING_SPEED)
@@ -220,28 +218,48 @@ void	raycasting_calculation(t_data *data)
 		data->pos_plane = 2 * i / data->x_screen_size - 1;
 		data->x_ray_dir = data->x_dir + data->x_plane * data->pos_plane;
 		data->y_ray_dir = data->y_dir + data->y_plane * data->pos_plane;
+		data->x_raymap = (int)data->x_pos;
+		data->y_raymap = (int)data->y_pos;
 		data->x_delta_dist = (data->x_ray_dir == 0) ? 0 : ((data->x_ray_dir == 0) ? 1 : fabs(1 / data->x_ray_dir));
 		data->y_delta_dist = (data->y_ray_dir == 0) ? 0 : ((data->y_ray_dir == 0) ? 1 : fabs(1 / data->y_ray_dir));
 		if (data->x_ray_dir < 0)
 		{
 			data->x_step = -1;
-			data->x_delta_dist = (data->x_pos - data->x_map) * data->x_delta_dist;
+			data->x_delta_dist = (data->x_pos - data->x_raymap) * data->x_delta_dist;
 		}
 		else
 		{
 			data->x_step = 1;
-			data->x_delta_dist = (data->x_map + 1.0 - data->x_pos) * data->x_delta_dist;
+			data->x_delta_dist = (data->x_raymap + 1.0 - data->x_pos) * data->x_delta_dist;
 		}
 		if (data->y_ray_dir < 0)
 		{
 			data->y_step = -1;
-			data->y_delta_dist = (data->y_pos - data->y_map) * data->y_delta_dist;
+			data->y_delta_dist = (data->y_pos - data->y_raymap) * data->y_delta_dist;
 		}
 		else
 		{
 			data->y_step = 1;
-			data->y_delta_dist = (data->y_map + 1.0 - data->y_pos) * data->y_delta_dist;
-		}		
+			data->y_delta_dist = (data->y_raymap + 1.0 - data->y_pos) * data->y_delta_dist;
+		}
+		while (data->hit == 0)
+		{
+			if (data->x_side_dist < data->y_side_dist)
+			{
+				data->x_side_dist += data->x_delta_dist;
+				data->x_raymap += data->x_step;
+				data->side = 0;
+			}
+			else
+			{
+				data->y_side_dist += data->y_delta_dist;
+				data->y_raymap += data->y_step;
+				data->side = 1;
+			}
+			if (data->map[data->x_raymap][data->y_raymap] > 0)
+				data->hit = 1;
+		}
+		if (data->side == 0)i++;
 	}
 }
 

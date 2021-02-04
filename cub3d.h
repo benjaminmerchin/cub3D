@@ -59,8 +59,8 @@ typedef struct	s_data
 	int				x_map; // Taille de la map (plus longue ligne et plus longue colonne) 
 	int				y_map; 
 
-	int				x_rounded; // Position sans chiffres apres la virgule // mapX
-	int				y_rounded;
+	int				x_raymap; // Position sans chiffres apres la virgule // mapX
+	int				y_raymap;
 	double			x_pos; // Position precise de la personnes sur la map // posX
 	double			y_pos;
 	double			x_dir; // Direction de la personne (set au debut) // dirX
