@@ -21,6 +21,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <math.h>
 
 # define BUFFER_SIZE 4095
 
@@ -31,7 +32,9 @@ typedef struct	s_struct
 	int		curs;
 }				t_struct;
 
-# define MOVING_SPEED 0.01
+# define MINIMAP_SIZE 20
+# define MOVING_SPEED 0.03
+
 # define KEY_FORWARD 13
 # define KEY_BACKWARD 1
 # define KEY_RIGHT 2
@@ -60,12 +63,25 @@ typedef struct	s_data
 	int				y_rounded;
 	double			x_pos; // Position precise de la personnes sur la map // posX
 	double			y_pos;
-	double			x_dir; // Direction de la personne // dirX
+	double			x_dir; // Direction de la personne (set au debut) // dirX
 	double			y_dir;
-	double			x_plane; // Direction du plan de la camera // planeX
+	double			x_plane; // Direction du plan de la camera (set au debut) // planeX
 	double			y_plane;
+	double			x_ray_dir; // Calcul de la rirectin du rayon
+	double			y_ray_dir;
+	double			x_side_dist; // Distance parcourue jusqu'au peochain cote x;
+	double			y_side_dist;
+	double			dist_wall;
+	double			x_delta_dist; // Distance parcourue entre chaque point d'intersection vertical
+	double			y_delta_dist;
 	double			pos_plane; // Position sur le plan de la camera (delta de -1 a 1 avec 0 au milieu) // cameraX
-	double			ray;
+	int				x_step; // -1 si doit sauter un carre dans direction x negative, 1 dans la direction x positive
+	int				y_step; // -1 si doit sauter un carre dans la direction y negative, 1 dans la direction y positive
+	int				hit; // 1 si un mur a ete touche, 0 sinon
+	int				side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
+	int				line_start;
+	int				line_end;
+	int				line_lenght;
 
 	void			*mlx;
 	void			*img;
@@ -74,6 +90,13 @@ typedef struct	s_data
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
+
+	int				forward;
+	int				backward;
+	int				right;
+	int				left;
+	int				turn_right;
+	int				turn_left;
 }				t_data;
 
 int				get_next_line(int fd, char **line);

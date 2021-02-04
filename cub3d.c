@@ -170,41 +170,126 @@ void	add_map_top_left(t_data *data)
 	int i;
 	int j;
 	int k;
+	int pixel;
 
 	i = 0;
-	while (i < data->y_map && i * 5 < data->y_screen_size)
+	pixel = MINIMAP_SIZE * MINIMAP_SIZE;
+	while (i < data->y_map && i * MINIMAP_SIZE < data->y_screen_size)
 	{
 		j = 0;
-		while (j < data->x_map && j * 5 < data->x_screen_size)
+		while (j < data->x_map && j * MINIMAP_SIZE < data->x_screen_size)
 		{
-			if (data->map[i][j] != '0')
-			{
-				k = 0;
-				while (k < 25)
-				{
-					ft_mlx_pixel_put(data, j * 5 + k / 5, i * 5 + k % 5, data->map[i][j] * 5000);
-					k++;
-				}
-			}
+			k = -1;
+			while (++k < pixel)
+				ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE, i * MINIMAP_SIZE + k % MINIMAP_SIZE, (data->map[i][j] - '0') * 100000);
 			j++;
 		}
 		i++;
+	}
+	ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE, data->y_pos * MINIMAP_SIZE, 16711680);
+	if (MINIMAP_SIZE > 3)
+	{
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE + 1, data->y_pos * MINIMAP_SIZE, 16711680);
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE, data->y_pos * MINIMAP_SIZE + 1, 16711680);
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE + 1, data->y_pos * MINIMAP_SIZE + 1, 16711680);
+	}
+}
+
+void	move_according_to_key_press(t_data *data)
+{
+	data->x_rounded = (int)data->x_pos;
+	data->y_rounded = (int)data->y_pos;
+	if (data->forward == 1 && data->y_pos >= 0 + MOVING_SPEED)
+		data->y_pos -= MOVING_SPEED;
+	if (data->backward == 1 && data->y_pos < data->y_map - MOVING_SPEED)
+		data->y_pos += MOVING_SPEED;
+	if (data->right == 1 && data->x_pos < data->x_map - MOVING_SPEED)
+		data->x_pos += MOVING_SPEED;
+	if (data->left == 1 && data->x_pos >= 0 + MOVING_SPEED)
+		data->x_pos -= MOVING_SPEED;
+//	printf("X%f_Y%f\n", data->x_pos, data->y_pos);
+}
+
+void	raycasting_calculation(t_data *data)
+{
+	int i;
+
+	i = -1;
+	while (++i < data->x_screen_size)
+	{
+		data->pos_plane = 2 * i / data->x_screen_size - 1;
+		data->x_ray_dir = data->x_dir + data->x_plane * data->pos_plane;
+		data->y_ray_dir = data->y_dir + data->y_plane * data->pos_plane;
+		data->x_delta_dist = (data->x_ray_dir == 0) ? 0 : ((data->x_ray_dir == 0) ? 1 : fabs(1 / data->x_ray_dir));
+		data->y_delta_dist = (data->y_ray_dir == 0) ? 0 : ((data->y_ray_dir == 0) ? 1 : fabs(1 / data->y_ray_dir));
+		if (data->x_ray_dir < 0)
+		{
+			data->x_step = -1;
+			data->x_delta_dist = (data->x_pos - data->x_map) * data->x_delta_dist;
+		}
+		else
+		{
+			data->x_step = 1;
+			data->x_delta_dist = (data->x_map + 1.0 - data->x_pos) * data->x_delta_dist;
+		}
+		if (data->y_ray_dir < 0)
+		{
+			data->y_step = -1;
+			data->y_delta_dist = (data->y_pos - data->y_map) * data->y_delta_dist;
+		}
+		else
+		{
+			data->y_step = 1;
+			data->y_delta_dist = (data->y_map + 1.0 - data->y_pos) * data->y_delta_dist;
+		}		
 	}
 }
 
 int		render_next_frame(t_data *data)
 {
-	
-	add_map_top_left(data);
-	ft_mlx_pixel_put(data, data->x_pos * 5, data->y_pos * 5, 16711680);
+	move_according_to_key_press(data);
+	raycasting_calculation(data);
+	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size && MINIMAP_SIZE * data->y_map <= data->y_screen_size)
+		add_map_top_left(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
 }
 
-int             ft_key_hook(int keycode, t_data *data)
+int		ft_key_hook(int keycode, t_data *data)
 {
-    printf("Hello from key_hook nubber %d !\n", keycode);
-	(void)data;
+	if (keycode == KEY_FORWARD)
+		data->forward = 1;
+	if (keycode == KEY_BACKWARD)
+		data->backward = 1;
+	if (keycode == KEY_RIGHT)
+		data->right = 1;
+	if (keycode == KEY_LEFT)
+		data->left = 1;
+	if (keycode == KEY_TURN_LEFT)
+		data->turn_left = 1;
+	if (keycode == KEY_TURN_RIGHT)
+		data->turn_right = 1;
+	printf("Hello from key_hook nubber %d !\n", keycode);
+	printf("F%d_B%d_R%d_L%d_TL%d_TR%d\n", data->forward, data->backward, data->right, data->left, data->turn_left, data->turn_right);
+	return (0);
+}
+
+int		ft_key_unhook(int keycode, t_data *data)
+{
+	if (keycode == KEY_FORWARD)
+		data->forward = 0;
+	if (keycode == KEY_BACKWARD)
+		data->backward = 0;
+	if (keycode == KEY_RIGHT)
+		data->right = 0;
+	if (keycode == KEY_LEFT)
+		data->left = 0;
+	if (keycode == KEY_TURN_LEFT)
+		data->turn_left = 0;
+	if (keycode == KEY_TURN_RIGHT)
+		data->turn_right = 0;
+	printf("Goodby from key_hook nubber %d !\n", keycode);
+	printf("F%d_B%d_R%d_L%d_TL%d_TR%d\n", data->forward, data->backward, data->right, data->left, data->turn_left, data->turn_right);
 	return (0);
 }
 
@@ -213,8 +298,9 @@ void	run_mlx(t_data *data)
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->x_screen_size, data->y_screen_size, "The cub3D Labyrinth - A 42_Paris Project - by bmerchin");
 	mlx_loop_hook(data->mlx, render_next_frame, data);
-//	mlx_key_hook(data->win, ft_key_hook, data); // detecte juste quand une touche est pressee -> insuffisant pas rapport aux besoins du projet
-//	mlx_hook(data->win, 2, 1L<<0, close, data);
+//	mlx_key_hook(data->win, ft_key_hook, data);
+	mlx_hook(data->win, 2, 1L<<0, ft_key_hook, data);
+	mlx_hook(data->win, 3, 1L<<1, ft_key_unhook, data);
 	data->img = mlx_new_image(data->mlx, data->x_screen_size, data->y_screen_size);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
 	mlx_loop(data->mlx);

@@ -12,6 +12,17 @@
 
 #include "cub3d.h"
 
+void	intialize_struct(t_data *data)
+{
+	data->forward = 0;
+	data->backward = 0;
+	data->right = 0;
+	data->left = 0;
+	data->turn_right = 0;
+	data->turn_left = 0;
+	data->hit = 0;
+}
+
 void    set_vector_dir_extension(t_data *data)
 {
     if (data->start_dir == 'W')
@@ -47,6 +58,7 @@ void	set_vector_dir(t_data *data)
 		data->y_plane = 0;
 	}
 	set_vector_dir_extension(data);
+	intialize_struct(data);
 }
 
 char	*str_fill(char *str, int len, t_data *data)
