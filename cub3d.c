@@ -83,76 +83,6 @@ void	print_map(t_data *data)
 	printf("---------------------------------\n");
 }
 
-typedef struct  s_mlx {
-    void	*img;
-    char	*addr;
-    int		bits_per_pixel;
-    int		line_length;
-    int		endian;
-}               t_mlx;
-
-typedef struct  s_vars {
-	void	*mlx;
-	void	*win;
-}               t_vars;
-
-int             key_hook(int keycode, t_vars *vars)
-{
-    printf("Hello from key_hook nubber %d !\n", keycode);
-	(void)vars;
-	(void)keycode;
-	return (0);
-}
-
-void            my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
-{
-    char    *dst;
-
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
-}
-
-int             my_close(int keycode, t_vars *data)
-{
-    if (keycode == 5)
-		mlx_destroy_window(data->mlx, data->win);
-	printf("Hello from key_hook nubber %d !\n", keycode);
-	return (0);
-}
-/*
-// img->line_length = (img->bits_per_pixel / 8) * data->x_length
-int				main(void)
-{
-//    void    *mlx;
-//   void    *window;
-//    t_mlx	img;
-	t_vars	vars;
-//	int color = 0x00FF0000;
-//	int i = -1;
-
-//	printf("\n\n%d\n\n", color);
-
-//	mlx = mlx_init();
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 300, 200, "Hello world!");
-//	mlx_key_hook(vars.win, key_hook, &vars);
-	mlx_hook(vars.win, 3, 1L<<1, my_close, &vars);
-//	window = mlx_new_window(mlx, 256, 256, "First Window");
-//	img.img = mlx_new_image(mlx, 256, 256);
-//	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-//	while (++i < 256*256)
-//		my_mlx_pixel_put(&img, i%256, i/256, 256*256*i + i*255 - 1);
-//	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
-//	mlx_loop(mlx);
-	mlx_loop(vars.mlx);
-//	free(mlx);
-//	free(window);
-//	free(img.img);
-//	free(img.addr);
-}
-*/
-
-
 //	Pour imprimer des lignes arc en ciel a l'ecran.
 //	i++;
 //	ft_mlx_pixel_put(data, i % 800, (5*i/800) % 500, i*1000);
@@ -198,50 +128,86 @@ void	add_map_top_left(t_data *data)
 void	move_according_to_key_press(t_data *data)
 {
 	if (data->forward == 1 && data->y_pos >= 0 + MOVING_SPEED)
-		data->y_pos -= MOVING_SPEED;
+		data->y_pos -= data->y_dir * MOVING_SPEED;
 	if (data->backward == 1 && data->y_pos < data->y_map - MOVING_SPEED)
-		data->y_pos += MOVING_SPEED;
+		data->y_pos += data->y_dir * MOVING_SPEED;
 	if (data->right == 1 && data->x_pos < data->x_map - MOVING_SPEED)
-		data->x_pos += MOVING_SPEED;
+		data->x_pos += data->y_dir * MOVING_SPEED;
 	if (data->left == 1 && data->x_pos >= 0 + MOVING_SPEED)
-		data->x_pos -= MOVING_SPEED;
+		data->x_pos -= data->y_dir * MOVING_SPEED;
+	if (data->turn_right == 1)
+		;
+	if (data->turn_left == 1)
+		;
 //	printf("X%f_Y%f\n", data->x_pos, data->y_pos);
+}
+
+void put_column_image(t_data *data, int column)
+{
+	int i;
+
+	i = 0;
+	while (i < data->line_start)
+	{
+		ft_mlx_pixel_put(data, column, i, 3394815);
+		i++;
+	}
+	while (i < data->line_end)
+	{
+		ft_mlx_pixel_put(data, column, i, (data->hit + data->side) * 100);
+		i++;
+	}
+	while (i < data->y_screen_size - 1)
+	{
+		ft_mlx_pixel_put(data, column, i, 6697728);
+		i++;
+	}
 }
 
 void	raycasting_calculation(t_data *data)
 {
 	int i;
 
-	i = -1;
-	while (++i < data->x_screen_size)
+	i = 0;
+	while (i < data->x_screen_size)
 	{
-		data->pos_plane = 2 * i / data->x_screen_size - 1;
+		//printf(">>>>>x_pos:%f<<<<<, >>>>>y_pos:%f<<<<<\n", data->x_pos, data->y_pos);
+		data->pos_plane = 2 * i / (double)data->x_screen_size - 1;
+		//printf(">>>>>pos_plane:%f<<<<<, >>>>>i:%d<<<<<, >>>>>x_screen_size:%d<<<<<\n", data->pos_plane, i, data->x_screen_size);
 		data->x_ray_dir = data->x_dir + data->x_plane * data->pos_plane;
 		data->y_ray_dir = data->y_dir + data->y_plane * data->pos_plane;
+		//printf(">>>>>x_dir:%f<<<<<, >>>>>y_dir:%f<<<<<\n", data->x_dir, data->y_dir);
+		//printf(">>>>>x_ray_dir:%f<<<<<, >>>>>y_ray_dir:%f<<<<<\n", data->x_ray_dir, data->y_ray_dir);
 		data->x_raymap = (int)data->x_pos;
 		data->y_raymap = (int)data->y_pos;
-		data->x_delta_dist = (data->x_ray_dir == 0) ? 0 : ((data->x_ray_dir == 0) ? 1 : fabs(1 / data->x_ray_dir));
-		data->y_delta_dist = (data->y_ray_dir == 0) ? 0 : ((data->y_ray_dir == 0) ? 1 : fabs(1 / data->y_ray_dir));
+		//printf(">>>>>x_raymap:%d<<<<<, >>>>>y_raymap:%d<<<<<\n", data->x_raymap, data->y_raymap);
+		data->x_delta_dist = (data->x_ray_dir == 0) ? 1000000 : ((data->x_ray_dir == 0) ? 1 : fabs(1 / data->x_ray_dir));
+		data->y_delta_dist = (data->y_ray_dir == 0) ? 1000000 : ((data->y_ray_dir == 0) ? 1 : fabs(1 / data->y_ray_dir));
+		//printf(">>>>>x_delta_dist:%f<<<<<, >>>>>y_delta_dist:%f<<<<<\n", data->x_delta_dist, data->y_delta_dist);
+		// Split ici
 		if (data->x_ray_dir < 0)
 		{
 			data->x_step = -1;
-			data->x_delta_dist = (data->x_pos - data->x_raymap) * data->x_delta_dist;
+			data->x_side_dist = (data->x_pos - data->x_raymap) * data->x_delta_dist;
 		}
 		else
 		{
 			data->x_step = 1;
-			data->x_delta_dist = (data->x_raymap + 1.0 - data->x_pos) * data->x_delta_dist;
+			data->x_side_dist = (data->x_raymap + 1.0 - data->x_pos) * data->x_delta_dist;
 		}
 		if (data->y_ray_dir < 0)
 		{
 			data->y_step = -1;
-			data->y_delta_dist = (data->y_pos - data->y_raymap) * data->y_delta_dist;
+			data->y_side_dist = (data->y_pos - data->y_raymap) * data->y_delta_dist;
 		}
 		else
 		{
 			data->y_step = 1;
-			data->y_delta_dist = (data->y_raymap + 1.0 - data->y_pos) * data->y_delta_dist;
+			data->y_side_dist = (data->y_raymap + 1.0 - data->y_pos) * data->y_delta_dist;
 		}
+		// Split ici
+		//printf(">>>>>x_step:%d<<<<<, >>>>>y_step:%d<<<<<\n", data->x_step, data->y_step);
+		//printf(">>>>>x_delta_dist:%f<<<<<, >>>>>y_delta_dist:%f<<<<<\n", data->x_delta_dist, data->y_delta_dist);
 		while (data->hit == 0)
 		{
 			if (data->x_side_dist < data->y_side_dist)
@@ -256,20 +222,46 @@ void	raycasting_calculation(t_data *data)
 				data->y_raymap += data->y_step;
 				data->side = 1;
 			}
-			if (data->map[data->x_raymap][data->y_raymap] > 0)
+			//printf(">>>>>x_raymap:%d<<<<<, >>>>>y_raymap:%d<<<<<\n", data->x_raymap, data->y_raymap);
+			if (data->map[data->y_raymap][data->x_raymap] == '1')
 				data->hit = 1;
 		}
-		if (data->side == 0)i++;
+
+		//write(1, "66666\n", 6);
+		// Split ici
+		if (data->side == 0)
+			data->dist_wall = (data->x_raymap - data->x_pos + (1 - data->x_step) / 2) / data->x_ray_dir;
+		else
+			data->dist_wall = (data->y_raymap - data->y_pos + (1 - data->y_step) / 2) / data->y_ray_dir;
+		// Possible split ici.
+		//printf(">>>>>dist_wall:%f<<<<<\n", data->dist_wall);
+		data->line_lenght = (int)(data->y_screen_size / data->dist_wall);
+		//printf(">>>>>Lenght:%d<<<<<, >>>>>End:%f<<<<<\n", data->line_lenght, data->dist_wall);
+		data->line_start = - data->line_lenght / 2 + data->y_screen_size / 2;
+		if (data->line_start < 0)
+			data->line_start = 0;
+		data->line_end = data->line_lenght / 2 + data->y_screen_size / 2;
+		if (data->line_end >= data->y_screen_size)
+			data->line_end = data->y_screen_size - 1;
+		
+		put_column_image(data, i);
+		
+		
+		//printf(">>>>>Start:%d<<<<<, >>>>>End:%d<<<<<\n", data->line_start, data->line_end);
+		data->hit = 0;
+/*		if (i == 404)
+			break ;*/
+		i++;
 	}
 }
 
 int		render_next_frame(t_data *data)
 {
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	move_according_to_key_press(data);
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size && MINIMAP_SIZE * data->y_map <= data->y_screen_size)
 		add_map_top_left(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
 }
 

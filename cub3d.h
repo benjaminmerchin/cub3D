@@ -32,7 +32,7 @@ typedef struct	s_struct
 	int		curs;
 }				t_struct;
 
-# define MINIMAP_SIZE 20
+# define MINIMAP_SIZE 8
 # define MOVING_SPEED 0.03
 
 # define KEY_FORWARD 13
@@ -67,11 +67,11 @@ typedef struct	s_data
 	double			y_dir;
 	double			x_plane; // Direction du plan de la camera (set au debut) // planeX
 	double			y_plane;
-	double			x_ray_dir; // Calcul de la rirectin du rayon
+	double			x_ray_dir; // Calcul de la directin du rayon
 	double			y_ray_dir;
 	double			x_side_dist; // Distance parcourue jusqu'au peochain cote x;
 	double			y_side_dist;
-	double			dist_wall;
+	double			dist_wall;	// Distance avec le mur // perpWallDist
 	double			x_delta_dist; // Distance parcourue entre chaque point d'intersection vertical
 	double			y_delta_dist;
 	double			pos_plane; // Position sur le plan de la camera (delta de -1 a 1 avec 0 au milieu) // cameraX
