@@ -125,22 +125,72 @@ void	add_map_top_left(t_data *data)
 	}
 }
 
+//remplacer la starting position par un 0
+
 void	move_according_to_key_press(t_data *data)
 {
-	if (data->forward == 1 && data->y_pos >= 0 + MOVING_SPEED)
-		data->y_pos -= data->y_dir * MOVING_SPEED;
-	if (data->backward == 1 && data->y_pos < data->y_map - MOVING_SPEED)
-		data->y_pos += data->y_dir * MOVING_SPEED;
-	if (data->right == 1 && data->x_pos < data->x_map - MOVING_SPEED)
-		data->x_pos += data->y_dir * MOVING_SPEED;
-	if (data->left == 1 && data->x_pos >= 0 + MOVING_SPEED)
-		data->x_pos -= data->y_dir * MOVING_SPEED;
+	if (data->forward == 1)
+	{
+		if (data->map[(int)data->y_pos][(int)(data->x_pos + data->x_dir * MOVING_SPEED* 2)] != '1')
+			data->x_pos += data->x_dir * MOVING_SPEED;
+		if (data->map[(int)(data->y_pos + data->y_dir * MOVING_SPEED * 2)][(int)(data->x_pos)] != '1')
+			data->y_pos += data->y_dir * MOVING_SPEED;
+	}
+	if (data->backward == 1)
+	{
+		if (data->map[(int)data->y_pos][(int)(data->x_pos - data->x_dir * MOVING_SPEED * 2)] != '1')
+			data->x_pos -= data->x_dir * MOVING_SPEED;
+		if (data->map[(int)(data->y_pos - data->y_dir * MOVING_SPEED * 2)][(int)(data->x_pos)] != '1')
+			data->y_pos -= data->y_dir * MOVING_SPEED;
+	}
+	if (data->right == 1)
+	{
+		if (data->map[(int)(data->y_pos)][(int)(data->x_pos - data->y_dir * MOVING_SPEED * 2)] != '1')
+			data->x_pos -= data->y_dir * MOVING_SPEED;
+		if (data->map[(int)(data->y_pos + data->x_dir * MOVING_SPEED * 2)][(int)(data->x_pos)] != '1')
+			data->y_pos += data->x_dir * MOVING_SPEED;
+	}
+	if (data->left == 1)
+	{
+		if (data->map[(int)(data->y_pos)][(int)(data->x_pos + data->y_dir * MOVING_SPEED * 2)] != '1')
+			data->x_pos += data->y_dir * MOVING_SPEED;
+		if (data->map[(int)(data->y_pos - data->x_dir * MOVING_SPEED * 2)][(int)(data->x_pos)] != '1')
+			data->y_pos -= data->x_dir * MOVING_SPEED;
+	}
 	if (data->turn_right == 1)
-		;
+	{
+		data->temp = data->x_dir;
+		data->x_dir = data->x_dir * cos(-ROTATION_SPEED) - data->y_dir * sin(-ROTATION_SPEED);
+		data->y_dir = data->temp * sin(-ROTATION_SPEED) + data->y_dir * cos(-ROTATION_SPEED);
+		data->temp = data->x_plane;
+		data->x_plane = data->x_plane * cos(-ROTATION_SPEED) - data->y_plane * sin(-ROTATION_SPEED);
+		data->y_plane = data->temp * sin(-ROTATION_SPEED) + data->y_plane * cos(-ROTATION_SPEED);
+	}
 	if (data->turn_left == 1)
-		;
+	{
+		data->temp = data->x_dir;
+		data->x_dir = data->x_dir * cos(ROTATION_SPEED) - data->y_dir * sin(ROTATION_SPEED);
+		data->y_dir = data->temp * sin(ROTATION_SPEED) + data->y_dir * cos(ROTATION_SPEED);
+		data->temp = data->x_plane;
+		data->x_plane = data->x_plane * cos(ROTATION_SPEED) - data->y_plane * sin(ROTATION_SPEED);
+		data->y_plane = data->temp * sin(ROTATION_SPEED) + data->y_plane * cos(ROTATION_SPEED);
+	}
+//	printf(">>>>>x_dir:%f<<<<<, >>>>>y_dir:%f<<<<<\n", data->x_dir, data->y_dir);
 //	printf("X%f_Y%f\n", data->x_pos, data->y_pos);
 }
+
+/*void	move_according_to_key_press(t_data *data)
+{
+	if (data->forward == 1 && data->y_pos >= 0 + MOVING_SPEED)
+		data->y_pos -= MOVING_SPEED;
+	if (data->backward == 1 && data->y_pos < data->y_map - MOVING_SPEED)
+		data->y_pos += MOVING_SPEED;
+	if (data->right == 1 && data->x_pos < data->x_map - MOVING_SPEED)
+		data->x_pos += MOVING_SPEED;
+	if (data->left == 1 && data->x_pos >= 0 + MOVING_SPEED)
+		data->x_pos -= MOVING_SPEED;
+//	printf("X%f_Y%f\n", data->x_pos, data->y_pos);
+}*/
 
 void put_column_image(t_data *data, int column)
 {
@@ -344,11 +394,11 @@ void	open_then_read(char *str, t_data *data)
 
 void	texture_check(t_data *data)
 {
-	open_then_read(data->no, data);
-	open_then_read(data->so, data);
-	open_then_read(data->we, data);
-	open_then_read(data->ea, data);
-	open_then_read(data->sprite, data);
+	open_then_read(data->no.path, data);
+	open_then_read(data->so.path, data);
+	open_then_read(data->we.path, data);
+	open_then_read(data->ea.path, data);
+	open_then_read(data->sprite.path, data);
 }
 
 int main(int ac, char **av)

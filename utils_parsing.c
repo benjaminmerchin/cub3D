@@ -21,11 +21,11 @@ void print_info(t_data *data)
 	printf("Floor Color : %d\n", data->floor);
 	printf("Ceiling Color : %d\n", data->ceiling);
 	printf("------------------------------\n");
-	printf("Sprite Texture Path : %s\n", data->sprite);
-	printf("NO Texture Path : %s\n", data->no);
-	printf("SO Texture Path : %s\n", data->so);
-	printf("WE Texture Path : %s\n", data->we);
-	printf("EA Texture Path : %s\n", data->ea);
+	printf("Sprite Texture Path : %s\n", data->sprite.path);
+	printf("NO Texture Path : %s\n", data->no.path);
+	printf("SO Texture Path : %s\n", data->so.path);
+	printf("WE Texture Path : %s\n", data->we.path);
+	printf("EA Texture Path : %s\n", data->ea.path);
 	printf("------------------------------\n");
 	printf("X Position : %f\n", data->x_pos);
 	printf("Y Position : %f\n", data->y_pos);
@@ -39,11 +39,11 @@ int free_struct(t_data *data, int m)
 	int i;
 
 	i = 0;
-	free(data->sprite);
-	free(data->no);
-	free(data->so);
-	free(data->we);
-	free(data->ea);
+	free(data->sprite.path);
+	free(data->no.path);
+	free(data->so.path);
+	free(data->we.path);
+	free(data->ea.path);
 	if (m == 1)
 	{
 		while (i < data->y_map)

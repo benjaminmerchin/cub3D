@@ -33,22 +33,28 @@ typedef struct	s_struct
 }				t_struct;
 
 # define MINIMAP_SIZE 8
-# define MOVING_SPEED 0.03
+# define MOVING_SPEED 0.2
+# define ROTATION_SPEED 0.05
 
 # define KEY_FORWARD 13
 # define KEY_BACKWARD 1
 # define KEY_RIGHT 2
 # define KEY_LEFT 0
-# define KEY_TURN_LEFT 123
-# define KEY_TURN_RIGHT 124
+# define KEY_TURN_LEFT 124
+# define KEY_TURN_RIGHT 123
+
+typedef struct	s_text {
+	char	*path;
+	
+}				t_text;
 
 typedef struct	s_data
 {
-	char			*no;
-	char			*so;
-	char			*we;
-	char			*ea;
-	char			*sprite;
+	t_text			no;
+	t_text			so;
+	t_text			we;
+	t_text			ea;
+	t_text			sprite;
 	unsigned short	x_screen_size;
 	unsigned short	y_screen_size;
 	int				floor;
@@ -75,6 +81,7 @@ typedef struct	s_data
 	double			x_delta_dist; // Distance parcourue entre chaque point d'intersection vertical
 	double			y_delta_dist;
 	double			pos_plane; // Position sur le plan de la camera (delta de -1 a 1 avec 0 au milieu) // cameraX
+	double			temp; // Pour stocker une valeur qui est immediatement reutilisee dans le calcul
 	int				x_step; // -1 si doit sauter un carre dans direction x negative, 1 dans la direction x positive
 	int				y_step; // -1 si doit sauter un carre dans la direction y negative, 1 dans la direction y positive
 	int				hit; // 1 si un mur a ete touche, 0 sinon
