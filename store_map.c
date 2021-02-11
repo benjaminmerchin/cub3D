@@ -61,22 +61,22 @@ void	store_nswe(t_data *data, char *line)
 		i++;
 	if (line[0] == 'N')
 	{
-		data->no.path = ft_strdup(&line[i]);
+		data->text[0].path = ft_strdup(&line[i]);
 		data->security[4] += 1;
 	}
 	else if (line[0] == 'S')
 	{
-		data->so.path = ft_strdup(&line[i]);
+		data->text[1].path = ft_strdup(&line[i]);
 		data->security[5] += 1;
 	}
 	else if (line[0] == 'W')
 	{
-		data->we.path = ft_strdup(&line[i]);
+		data->text[3].path = ft_strdup(&line[i]);
 		data->security[6] += 1;
 	}
 	else if (line[0] == 'E')
 	{
-		data->ea.path = ft_strdup(&line[i]);
+		data->text[2].path = ft_strdup(&line[i]);
 		data->security[7] += 1;
 //		printf("KK %d\n", data->security[7]);
 	}
@@ -91,7 +91,7 @@ void	store_path(t_data *data, char *line)
 		i = 2;
 		while (line[i] == ' ')
 			i++;
-		data->sprite.path = ft_strdup(&line[i]);
+		data->text[4].path = ft_strdup(&line[i]);
 		data->security[3] += 1;
 	}
 	else

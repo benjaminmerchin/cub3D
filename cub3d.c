@@ -69,6 +69,11 @@ void store_map(int fd, t_data *data)
 ** security 16 : 
 */
 
+/*
+** List of textures
+** no_0 so_1 ea_2 we_3 sprite_4
+*/
+
 void	print_map(t_data *data)
 {
 	int i;
@@ -179,19 +184,6 @@ void	move_according_to_key_press(t_data *data)
 //	printf("X%f_Y%f\n", data->x_pos, data->y_pos);
 }
 
-/*void	move_according_to_key_press(t_data *data)
-{
-	if (data->forward == 1 && data->y_pos >= 0 + MOVING_SPEED)
-		data->y_pos -= MOVING_SPEED;
-	if (data->backward == 1 && data->y_pos < data->y_map - MOVING_SPEED)
-		data->y_pos += MOVING_SPEED;
-	if (data->right == 1 && data->x_pos < data->x_map - MOVING_SPEED)
-		data->x_pos += MOVING_SPEED;
-	if (data->left == 1 && data->x_pos >= 0 + MOVING_SPEED)
-		data->x_pos -= MOVING_SPEED;
-//	printf("X%f_Y%f\n", data->x_pos, data->y_pos);
-}*/
-
 void put_column_image(t_data *data, int column)
 {
 	int i;
@@ -202,11 +194,19 @@ void put_column_image(t_data *data, int column)
 		ft_mlx_pixel_put(data, column, i, 3394815);
 		i++;
 	}
+	int id = 0;
+	if (data->side == 0)
+		data->wall_hit = data->y_pos + data->dist_wall + data->y_ray_dir;
+	else
+		data->wall_hit = data->y_pos + data->dist_wall + data->x_ray_dir;
+	
+	/*
 	while (i < data->line_end)
 	{
 		ft_mlx_pixel_put(data, column, i, (data->hit + data->side) * 100);
 		i++;
-	}
+	}*/
+	
 	while (i < data->y_screen_size - 1)
 	{
 		ft_mlx_pixel_put(data, column, i, 6697728);
@@ -276,8 +276,6 @@ void	raycasting_calculation(t_data *data)
 			if (data->map[data->y_raymap][data->x_raymap] == '1')
 				data->hit = 1;
 		}
-
-		//write(1, "66666\n", 6);
 		// Split ici
 		if (data->side == 0)
 			data->dist_wall = (data->x_raymap - data->x_pos + (1 - data->x_step) / 2) / data->x_ray_dir;
@@ -295,7 +293,6 @@ void	raycasting_calculation(t_data *data)
 			data->line_end = data->y_screen_size - 1;
 		
 		put_column_image(data, i);
-		
 		
 		//printf(">>>>>Start:%d<<<<<, >>>>>End:%d<<<<<\n", data->line_start, data->line_end);
 		data->hit = 0;
@@ -358,11 +355,15 @@ void	run_mlx(t_data *data)
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->x_screen_size, data->y_screen_size, "The cub3D Labyrinth - A 42_Paris Project - by bmerchin");
 	mlx_loop_hook(data->mlx, render_next_frame, data);
-//	mlx_key_hook(data->win, ft_key_hook, data);
 	mlx_hook(data->win, 2, 1L<<0, ft_key_hook, data);
 	mlx_hook(data->win, 3, 1L<<1, ft_key_unhook, data);
 	data->img = mlx_new_image(data->mlx, data->x_screen_size, data->y_screen_size);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+	data->text[0].img = mlx_xpm_file_to_image(data->mlx, data->text[0].path, &data->text[0].width, &data->text[0].height);
+	data->text[1].img = mlx_xpm_file_to_image(data->mlx, data->text[1].path, &data->text[1].width, &data->text[1].height);
+	data->text[2].img = mlx_xpm_file_to_image(data->mlx, data->text[2].path, &data->text[2].width, &data->text[2].height);
+	data->text[3].img = mlx_xpm_file_to_image(data->mlx, data->text[3].path, &data->text[3].width, &data->text[3].height);
+	data->text[4].img = mlx_xpm_file_to_image(data->mlx, data->text[4].path, &data->text[4].width, &data->text[4].height);
 	mlx_loop(data->mlx);
 }
 
@@ -394,11 +395,11 @@ void	open_then_read(char *str, t_data *data)
 
 void	texture_check(t_data *data)
 {
-	open_then_read(data->no.path, data);
-	open_then_read(data->so.path, data);
-	open_then_read(data->we.path, data);
-	open_then_read(data->ea.path, data);
-	open_then_read(data->sprite.path, data);
+	open_then_read(data->text[0].path, data);
+	open_then_read(data->text[1].path, data);
+	open_then_read(data->text[3].path, data);
+	open_then_read(data->text[2].path, data);
+	open_then_read(data->text[4].path, data);
 }
 
 int main(int ac, char **av)

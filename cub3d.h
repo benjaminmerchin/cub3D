@@ -45,16 +45,19 @@ typedef struct	s_struct
 
 typedef struct	s_text {
 	char	*path;
-	
+	void	*img;
+	int		*add;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endiant;
+
+	int		width;
+	int		height;
 }				t_text;
 
 typedef struct	s_data
 {
-	t_text			no;
-	t_text			so;
-	t_text			we;
-	t_text			ea;
-	t_text			sprite;
+	t_text			text[5];
 	unsigned short	x_screen_size;
 	unsigned short	y_screen_size;
 	int				floor;
@@ -89,6 +92,8 @@ typedef struct	s_data
 	int				line_start;
 	int				line_end;
 	int				line_lenght;
+
+	double			wall_hit;
 
 	void			*mlx;
 	void			*img;
