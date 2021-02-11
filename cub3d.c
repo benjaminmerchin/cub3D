@@ -187,6 +187,10 @@ void	move_according_to_key_press(t_data *data)
 void put_column_image(t_data *data, int column)
 {
 	int i;
+	int x_texture;
+	int y_texture;
+	double step;
+	double tex_pos;
 
 	i = 0;
 	while (i < data->line_start)
@@ -194,12 +198,26 @@ void put_column_image(t_data *data, int column)
 		ft_mlx_pixel_put(data, column, i, 3394815);
 		i++;
 	}
-	int id = 0;
+//	int id = 0;
 	if (data->side == 0)
 		data->wall_hit = data->y_pos + data->dist_wall + data->y_ray_dir;
 	else
 		data->wall_hit = data->y_pos + data->dist_wall + data->x_ray_dir;
+	data->wall_hit -= floor((data->wall_hit));
+	x_texture = (int)(data->wall_hit * (double)(data->text[0].width));
+	if (data->side == 0 && data->x_ray_dir > 0)
+		x_texture = data->text[0].width - x_texture - 1;
+	if (data->side == 1 && data->x_ray_dir < 0)
+		x_texture = data->text[0].width - x_texture - 1;
 	
+	step = 1.0 * data->text[0].height / data->line_lenght;
+	tex_pos = (data->line_start - data->y_screen_size / 2 + data->line_lenght / 2) * step;
+	while (i < data->line_end)
+	{
+		y_texture = (int)tex_pos;
+		ft_mlx_pixel_put(data, column, i, (data->hit + data->side) * 100);
+		i++;
+	}
 	/*
 	while (i < data->line_end)
 	{
