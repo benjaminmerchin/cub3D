@@ -38,4 +38,4 @@ Divers :
 >Je realise le projet sur mac avec comme idee de le transiter vers linux a la fin. La version linux comporte une fonctin en plus
 qui permet de ne plus avoir de leaks still reachable, fonction qui n'existe pas sur la version mac. L'idee etant que le prog
 detecte de lui-meme l'OS sur lequel il se trouve et se compile de maniere adecouate.
->Gerer tous les evenements avec des keypress et keyrealise qui mettent des variables de 0 a 1
+>C'est quoi le & ?

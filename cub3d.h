@@ -33,7 +33,7 @@ typedef struct	s_struct
 }				t_struct;
 
 # define MINIMAP_SIZE 8
-# define MOVING_SPEED 0.2
+# define MOVING_SPEED 0.1
 # define ROTATION_SPEED 0.05
 
 # define KEY_FORWARD 13
@@ -46,10 +46,10 @@ typedef struct	s_struct
 typedef struct	s_text {
 	char	*path;
 	void	*img;
-	int		*add;
+	char	*add;
 	int		bits_per_pixel;
 	int		line_length;
-	int		endiant;
+	int		endian;
 
 	int		width;
 	int		height;
@@ -89,9 +89,9 @@ typedef struct	s_data
 	int				y_step; // -1 si doit sauter un carre dans la direction y negative, 1 dans la direction y positive
 	int				hit; // 1 si un mur a ete touche, 0 sinon
 	int				side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
-	int				line_start;
-	int				line_end;
-	int				line_lenght;
+	int				line_start; // drawStart
+	int				line_end; // drawEnd
+	int				line_size; // lineHeight
 
 	double			wall_hit;
 
