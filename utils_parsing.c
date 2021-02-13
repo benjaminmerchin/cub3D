@@ -30,6 +30,7 @@ void print_info(t_data *data)
 	printf("X Position : %f\n", data->x_pos);
 	printf("Y Position : %f\n", data->y_pos);
 	printf("Starting Direction : %c\n", data->start_dir);
+	printf("Number of Sprite : %d\n", data->sprite_num);
 	printf("X Map Size : %d\n", data->x_map);
 	printf("Y Map Size : %d\n", data->y_map);
 }

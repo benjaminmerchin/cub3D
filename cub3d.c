@@ -184,6 +184,24 @@ void	move_according_to_key_press(t_data *data)
 //	printf("X%f_Y%f\n", data->x_pos, data->y_pos);
 }
 
+void determine_id(t_data *data, int *id)
+{
+	if (data->side == 0)
+	{
+		if (data->x_ray_dir > 0)
+			*id = 3;
+		else
+			*id = 2;
+	}
+	else
+	{
+		if (data->y_ray_dir < 0)
+			*id = 0;
+		else
+			*id = 1;
+	}
+}
+
 void put_column_image(t_data *data, int column)
 {
 	int i;
@@ -191,6 +209,9 @@ void put_column_image(t_data *data, int column)
 	int y_texture;
 	double step;
 	double tex_pos;
+	int	id;
+	//char    *temp;
+	//void 		*temp;
 
 	i = 0;
 	while (i < data->line_start)
@@ -198,35 +219,49 @@ void put_column_image(t_data *data, int column)
 		ft_mlx_pixel_put(data, column, i, 3394815);
 		i++;
 	}
-
+	determine_id(data, &id);
 	if (data->side == 0)
-		data->wall_hit = data->y_pos + data->dist_wall + data->y_ray_dir;
+		data->wall_hit = data->y_pos + data->dist_wall * data->y_ray_dir;
 	else
-		data->wall_hit = data->x_pos + data->dist_wall + data->x_ray_dir;
+		data->wall_hit = data->x_pos + data->dist_wall * data->x_ray_dir;
 	data->wall_hit -= floor((data->wall_hit)); //retirer les doubles parentheses ?
-	x_texture = (int)(data->wall_hit * (double)(data->text[0].width));
+	x_texture = (int)(data->wall_hit * (double)(data->text[id].width));
 	if (data->side == 0 && data->x_ray_dir > 0)
-		x_texture = data->text[0].width - x_texture - 1;
+		x_texture = data->text[id].width - x_texture - 1;
 	if (data->side == 1 && data->y_ray_dir < 0)
-		x_texture = data->text[0].width - x_texture - 1;
+		x_texture = data->text[id].width - x_texture - 1;
 	
-	step = 1.0 * data->text[0].height / data->line_size;
+	step = 1.0 * data->text[id].height / data->line_size;
 	tex_pos = (data->line_start - data->y_screen_size / 2 + data->line_size / 2) * step;
 	while (i < data->line_end)
 	{
-		y_texture = (int)tex_pos & (data->text[0].height - 1);
+		y_texture = (int)tex_pos & (data->text[id].height - 1);
 		tex_pos += step;
 		//printf(">>>>>x_dir:%d<<<<<, >>>>>y_dir:%d<<<<<\n", x_texture, y_texture);
-		data->addr[i * data->line_length + column * 4] = *(unsigned int *)(data->text[0].add + y_texture * data->text[0].line_length + x_texture * 4);
-		//data->addr[i * data->line_length + column * 4 + 1] = data->text[0].add[y_texture * data->text[0].line_length + x_texture * 4];
-		//data->addr[i * data->line_length + column * 4 + 2] = data->text[0].add[y_texture * data->text[0].line_length + x_texture * 4];
+		/*temp = data->addr + i * data->line_length + column * 4;
+		*(char *)temp = *(data->text[0].add + y_texture * data->text[0].line_length + x_texture * 4);*/
+		/*temp = (void*)(data->text[0].add + y_texture * data->text[0].line_length + x_texture * 4);
+		data->addr[i * data->line_length + column * 4] = *(char *)temp;*/
+		data->addr[i * data->line_length + column * 4] = *(unsigned int *)(data->text[id].add + y_texture * data->text[id].line_length + x_texture * 4);
+		data->addr[i * data->line_length + column * 4 + 1] = data->text[id].add[y_texture * data->text[id].line_length + x_texture * 4 + 1];
+		data->addr[i * data->line_length + column * 4 + 2] = data->text[id].add[y_texture * data->text[id].line_length + x_texture * 4 + 2];
 		//data->addr[i * data->line_length + column * 4 + 3] = data->text[0].add[y_texture * data->text[0].line_length + x_texture * 4];
 		//data->addr[i * data->line_length + column * 4] = data->text[0].add[y_texture * data->text[0].line_length + x_texture * 4];
 		//ft_mlx_pixel_put(data, column, i, data->text[0].add[y_texture * data->text[0].line_length + x_texture * 4]);
 		i++;
 	}
 // data->addr + (y * data->line_length + x * 4);
-	
+	/*
+void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char    *dst;
+
+    dst = data->addr + (y * data->line_length + x * 4);
+    *(unsigned int*)dst = color;
+}
+*/
+
+
 /*	while (i < data->line_end)
 	{
 		ft_mlx_pixel_put(data, column, i, (data->hit + data->side) * 100);
@@ -333,8 +368,8 @@ int		render_next_frame(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	move_according_to_key_press(data);
 	raycasting_calculation(data);
-/*	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size && MINIMAP_SIZE * data->y_map <= data->y_screen_size)
-		add_map_top_left(data);*/
+	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size && MINIMAP_SIZE * data->y_map <= data->y_screen_size)
+		add_map_top_left(data);
 	return (0);
 }
 
@@ -432,12 +467,6 @@ void	texture_check(t_data *data)
 	open_then_read(data->text[2].path, data);
 	open_then_read(data->text[4].path, data);
 }
-/*
-void	store_texture_addr(t_data *data)
-{
-	data->text[0].add = (int *)mlx_get_data_addr(data->text[0].img, &data->text[0].bits_per_pixel, &data->text[0].line_length, &data->text[0].endian);
-}*/
-
 
 int main(int ac, char **av)
 {
@@ -463,7 +492,6 @@ int main(int ac, char **av)
 	print_info(&data);
 	set_vector_dir(&data);
 	print_map(&data);
-//	store_texture_addr(&data);
 	run_mlx(&data);
 	return (free_struct(&data, 1));
 }

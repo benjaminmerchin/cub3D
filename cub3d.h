@@ -109,6 +109,8 @@ typedef struct	s_data
 	int				left;
 	int				turn_right;
 	int				turn_left;
+
+	int				sprite_num;
 }				t_data;
 
 int				get_next_line(int fd, char **line);

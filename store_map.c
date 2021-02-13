@@ -102,6 +102,7 @@ void	store_info(int fd, t_data *data, char *line)
 {
 	int retour;
 
+	data->sprite_num = 0;
 	while ((retour = get_next_line(fd, &line)) == 1)
 	{
 		ft_putstr_bn(line);

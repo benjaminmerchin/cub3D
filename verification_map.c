@@ -82,7 +82,11 @@ void check_map(t_data *data)
 		while (x < len)
 		{
 			if (data->map[y][x] == '0' || data->map[y][x] == '2' || data->map[y][x] == '3')
+			{
 				find_wall(data, x, y);
+				if (data->map[y][x] == '2')
+					data->sprite_num++;
+			}
 			else if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
 				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
 			{
