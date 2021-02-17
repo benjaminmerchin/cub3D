@@ -371,7 +371,7 @@ void	raycasting_calculation(t_data *data)
 	while (++i < data->sprite_num)
 		data->sprite[i][3] = ((data->x_pos - data->sprite[i][0]) * (data->x_pos - data->sprite[i][0]) + (data->y_pos - data->sprite[i][1]) * (data->y_pos - data->sprite[i][1]));
 	sort_sprite(data);
-	i = 0;
+	i = 0; // on draw juste le sprite le plus proche afin de debug
 	int j; // stripe
 	int k;
 	int d;
@@ -379,7 +379,7 @@ void	raycasting_calculation(t_data *data)
 	{
 		data->x_sprite = data->sprite[i][0] - data->x_pos;
 		data->y_sprite = data->sprite[i][1] - data->y_pos;
-		data->matrice = 1.0 / (data->x_plane * data->y_dir - data->x_dir * data->y_plane);
+		data->matrice = 1 / (data->x_plane * data->y_dir - data->x_dir * data->y_plane);
 		data->x_trans = data->matrice * (data->y_dir * data->x_sprite - data->x_dir * data->y_sprite);
 		data->y_trans = data->matrice * (-data->y_plane * data->x_sprite + data->x_plane * data->y_sprite);
 		data->x_sprscr = (int)((data->x_screen_size / 2) * (1 + data->x_trans / data->y_trans));
@@ -401,7 +401,7 @@ void	raycasting_calculation(t_data *data)
 		while(j < data->x_drawend)
 		{
 			data->x_tex = (int)(256 * (j - (-data->w_sprite / 2 + data->x_sprscr)) * data->text[4].width / data->w_sprite) / 256;
-			if (data->y_trans > 0 && j > 0 && j < data->x_screen_size && data->y_trans < data->sprite[j][3])
+			if (data->y_trans > 0 && j > 0 && j <= data->x_screen_size /*&& data->y_trans < data->sprite[j][3]*/)
 			{
 				k = data->y_drawstart;
 				while (k < data->y_drawend)
@@ -409,12 +409,31 @@ void	raycasting_calculation(t_data *data)
 					d = k * 256 - data->y_screen_size * 128 + data->h_sprite * 128;
 					data->y_tex = ((d * data->text[4].height) / data->h_sprite) / 256;
 					//*(unsigned int *)(data->addr + (i * data->line_length + column * 4)) = *(unsigned int *)(data->text[id].add + y_texture * data->text[id].line_length + x_texture * 4);
-					*(unsigned int *)(data->addr + (j * data->line_length + k * 4)) = *(unsigned int *)(data->text[4].add + data->text[4].width * data->y_tex + data->x_tex * 4);
+					*(unsigned int *)(data->addr + (k * data->line_length + j * 4)) = *(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4);
 					//ft_mlx_pixel_put(data, j, k, 500);
-					write(1, "a", 1);
+					//write(1, "a", 1);
 					k++;
 				}
+				//printf(">>>>>y_drawstart:%d<<<<<, >>>>>y_drawend:%d<<<<<\n", data->y_drawstart, data->y_drawend);
+				//printf(">>>>>x_drawstart:%d<<<<<, >>>>>x_drawend:%d<<<<<\n", data->x_drawstart, data->x_drawend);
+
 			}
+			/*if (data->y_trans > 0)
+				write(1, "1", 1);
+			else 
+				write(1, "0", 1);
+			if (j > 0)
+				write(1, "1", 1);
+			else 
+				write(1, "0", 1);
+			if (j < data->x_screen_size)
+				write(1, "1", 1);
+			else 
+				write(1, "0", 1);
+			if (data->y_trans < data->sprite[j][3])
+				write(1, "1\n", 2);
+			else 
+				write(1, "0\n", 2);*/
 			j++;
 		}
 		i++;
