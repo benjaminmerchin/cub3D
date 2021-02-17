@@ -32,6 +32,7 @@ Todo :
 > Rajouter dans le parsing la bonne ouverture des images en essayant directement de les ouvrir et bien verifier 
 que ce n'est pas un doossier
 > Verifier le nombre d'argument soit seulement la map soit la map et --save
+> Bien verifier que je limite la taille de l'ecran a 20000 px en largeur (avec --save) pour que ca fonctionne avec les sprites
 
 Divers :
 >Les segfaults : utiliser -fsanitize=address avec les flags du Makefile

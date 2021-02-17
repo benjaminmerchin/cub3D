@@ -58,8 +58,8 @@ typedef struct	s_text {
 typedef struct	s_data
 {
 	t_text			text[5];
-	unsigned short	x_screen_size;
-	unsigned short	y_screen_size;
+	unsigned short	x_screen_size; //w
+	unsigned short	y_screen_size; //h
 	int				floor;
 	int				ceiling;
 	char			start_dir;
@@ -111,6 +111,23 @@ typedef struct	s_data
 	int				turn_left;
 
 	int				sprite_num;
+	double			sprite[501][4];
+	double			buff[20000];		// ZBuffer
+	double			x_sprite;
+	double			y_sprite;
+	double			matrice; // Utilise pour inverser la matrice // invDet
+	double			x_trans; //transformX
+	double			y_trans; //transformY
+	int				x_sprscr; //spritescreenX
+	int				y_sprscr; //spritescreenY
+	int				h_sprite; //spriteheight
+	int				w_sprite; //spritewidth
+	int				x_drawstart; // drawStartX
+	int				y_drawstart; // drawStartY
+	int				x_drawend; // drawEndX
+	int				y_drawend; // drawEndY
+	int				x_tex;
+	int				y_tex;
 }				t_data;
 
 int				get_next_line(int fd, char **line);

@@ -68,6 +68,16 @@ void find_wall(t_data *data, int x, int y)
 	}
 }
 
+void	store_sprite(t_data *data, int x, int y)
+{
+	data->sprite_num++;
+	if (data->sprite_num > 499)
+		return ;
+	data->sprite[data->sprite_num - 1][0] = x + 0.5;
+	data->sprite[data->sprite_num - 1][1] = y + 0.5;
+	data->sprite[data->sprite_num - 1][2] = (double)data->map[y][x] + 0.5;
+}
+
 void check_map(t_data *data)
 {
 	int x;
@@ -85,7 +95,7 @@ void check_map(t_data *data)
 			{
 				find_wall(data, x, y);
 				if (data->map[y][x] == '2')
-					data->sprite_num++;
+					store_sprite(data, x, y);
 			}
 			else if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
 				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')

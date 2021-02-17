@@ -210,8 +210,6 @@ void put_column_image(t_data *data, int column)
 	double step;
 	double tex_pos;
 	int	id;
-	//char    *temp;
-	//void 		*temp;
 
 	i = 0;
 	while (i < data->line_start)
@@ -224,7 +222,7 @@ void put_column_image(t_data *data, int column)
 		data->wall_hit = data->y_pos + data->dist_wall * data->y_ray_dir;
 	else
 		data->wall_hit = data->x_pos + data->dist_wall * data->x_ray_dir;
-	data->wall_hit -= floor((data->wall_hit)); //retirer les doubles parentheses ?
+	data->wall_hit -= floor(data->wall_hit); //retirer les doubles parentheses ?
 	x_texture = (int)(data->wall_hit * (double)(data->text[id].width));
 	if (data->side == 0 && data->x_ray_dir > 0)
 		x_texture = data->text[id].width - x_texture - 1;
@@ -238,41 +236,50 @@ void put_column_image(t_data *data, int column)
 		y_texture = (int)tex_pos & (data->text[id].height - 1);
 		tex_pos += step;
 		//printf(">>>>>x_dir:%d<<<<<, >>>>>y_dir:%d<<<<<\n", x_texture, y_texture);
-		/*temp = data->addr + i * data->line_length + column * 4;
-		*(char *)temp = *(data->text[0].add + y_texture * data->text[0].line_length + x_texture * 4);*/
-		/*temp = (void*)(data->text[0].add + y_texture * data->text[0].line_length + x_texture * 4);
-		data->addr[i * data->line_length + column * 4] = *(char *)temp;*/
-		data->addr[i * data->line_length + column * 4] = *(unsigned int *)(data->text[id].add + y_texture * data->text[id].line_length + x_texture * 4);
-		data->addr[i * data->line_length + column * 4 + 1] = data->text[id].add[y_texture * data->text[id].line_length + x_texture * 4 + 1];
-		data->addr[i * data->line_length + column * 4 + 2] = data->text[id].add[y_texture * data->text[id].line_length + x_texture * 4 + 2];
-		//data->addr[i * data->line_length + column * 4 + 3] = data->text[0].add[y_texture * data->text[0].line_length + x_texture * 4];
-		//data->addr[i * data->line_length + column * 4] = data->text[0].add[y_texture * data->text[0].line_length + x_texture * 4];
-		//ft_mlx_pixel_put(data, column, i, data->text[0].add[y_texture * data->text[0].line_length + x_texture * 4]);
+		*(unsigned int *)(data->addr + (i * data->line_length + column * 4)) = *(unsigned int *)(data->text[id].add + y_texture * data->text[id].line_length + x_texture * 4);
 		i++;
 	}
-// data->addr + (y * data->line_length + x * 4);
-	/*
-void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char    *dst;
-
-    dst = data->addr + (y * data->line_length + x * 4);
-    *(unsigned int*)dst = color;
-}
-*/
-
-
-/*	while (i < data->line_end)
-	{
-		ft_mlx_pixel_put(data, column, i, (data->hit + data->side) * 100);
-		i++;
-	}*/
-	
 	while (i < data->y_screen_size - 1)
 	{
 		ft_mlx_pixel_put(data, column, i, 6697728);
 		i++;
 	}
+}
+
+void	sort_sprite(t_data *data)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < data->sprite_num)
+	{
+		j = i + 1;
+		while (j < data->sprite_num)
+		{
+			if (data->sprite[i][3] < data->sprite[j][3])
+			{
+				/**data->sprite[500] = *data->sprite[i]; // Cool de l'opti
+				*data->sprite[i] = *data->sprite[j];
+				*data->sprite[j] = *data->sprite[500];*/
+				data->sprite[500][0] = data->sprite[i][0];
+				data->sprite[500][1] = data->sprite[i][1];
+				data->sprite[500][2] = data->sprite[i][2];
+				data->sprite[500][3] = data->sprite[i][3];
+				data->sprite[i][0] = data->sprite[j][0];
+				data->sprite[i][1] = data->sprite[j][1];
+				data->sprite[i][2] = data->sprite[j][2];
+				data->sprite[i][3] = data->sprite[j][3];
+				data->sprite[j][0] = data->sprite[500][0];
+				data->sprite[j][1] = data->sprite[500][1];
+				data->sprite[j][2] = data->sprite[500][2];
+				data->sprite[j][3] = data->sprite[500][3];
+			}
+			j++;
+		}
+		i++;
+	}
+	//printf("%f, %f, %f, %f, %f, %f\n", data->sprite[0][3], data->sprite[1][3], data->sprite[2][3], data->sprite[3][3], data->sprite[4][3], data->sprite[5][3]);
 }
 
 void	raycasting_calculation(t_data *data)
@@ -352,13 +359,64 @@ void	raycasting_calculation(t_data *data)
 		data->line_end = data->line_size / 2 + data->y_screen_size / 2;
 		if (data->line_end >= data->y_screen_size)
 			data->line_end = data->y_screen_size - 1;
-		
 		put_column_image(data, i);
-		
+//		data->buff[i] == data->dist_wall;
 		//printf(">>>>>Start:%d<<<<<, >>>>>End:%d<<<<<\n", data->line_start, data->line_end);
 		data->hit = 0;
 /*		if (i == 404)
 			break ;*/
+		i++;
+	}
+	i = -1;
+	while (++i < data->sprite_num)
+		data->sprite[i][3] = ((data->x_pos - data->sprite[i][0]) * (data->x_pos - data->sprite[i][0]) + (data->y_pos - data->sprite[i][1]) * (data->y_pos - data->sprite[i][1]));
+	sort_sprite(data);
+	i = 0;
+	int j; // stripe
+	int k;
+	int d;
+	while (i < data->sprite_num)
+	{
+		data->x_sprite = data->sprite[i][0] - data->x_pos;
+		data->y_sprite = data->sprite[i][1] - data->y_pos;
+		data->matrice = 1.0 / (data->x_plane * data->y_dir - data->x_dir * data->y_plane);
+		data->x_trans = data->matrice * (data->y_dir * data->x_sprite - data->x_dir * data->y_sprite);
+		data->y_trans = data->matrice * (-data->y_plane * data->x_sprite + data->x_plane * data->y_sprite);
+		data->x_sprscr = (int)((data->x_screen_size / 2) * (1 + data->x_trans / data->y_trans));
+		data->h_sprite = abs((int)(data->y_screen_size / data->y_trans));
+		data->y_drawstart = -data->h_sprite / 2 + data->y_screen_size / 2;
+		if (data->y_drawstart < 0)
+			data->y_drawstart = 0;
+		data->y_drawend = data->h_sprite / 2 + data->y_screen_size / 2;
+		if (data->y_drawend >= data->y_screen_size)
+			data->y_drawend = data->y_screen_size - 1;
+		data->w_sprite = abs((int)(data->y_screen_size / data->y_trans));
+		data->x_drawstart = -data->w_sprite / 2 + data->x_sprscr;
+		if (data->x_drawstart < 0)
+			data->x_drawstart = 0;
+		data->x_drawend = data->w_sprite / 2 + data->x_sprscr;
+		if (data->x_drawend >= data->x_screen_size)
+			data->x_drawend = data->x_screen_size - 1;
+		j = data->x_drawstart;
+		while(j < data->x_drawend)
+		{
+			data->x_tex = (int)(256 * (j - (-data->w_sprite / 2 + data->x_sprscr)) * data->text[4].width / data->w_sprite) / 256;
+			if (data->y_trans > 0 && j > 0 && j < data->x_screen_size && data->y_trans < data->sprite[j][3])
+			{
+				k = data->y_drawstart;
+				while (k < data->y_drawend)
+				{
+					d = k * 256 - data->y_screen_size * 128 + data->h_sprite * 128;
+					data->y_tex = ((d * data->text[4].height) / data->h_sprite) / 256;
+					//*(unsigned int *)(data->addr + (i * data->line_length + column * 4)) = *(unsigned int *)(data->text[id].add + y_texture * data->text[id].line_length + x_texture * 4);
+					*(unsigned int *)(data->addr + (j * data->line_length + k * 4)) = *(unsigned int *)(data->text[4].add + data->text[4].width * data->y_tex + data->x_tex * 4);
+					//ft_mlx_pixel_put(data, j, k, 500);
+					write(1, "a", 1);
+					k++;
+				}
+			}
+			j++;
+		}
 		i++;
 	}
 }
@@ -387,8 +445,8 @@ int		ft_key_hook(int keycode, t_data *data)
 		data->turn_left = 1;
 	if (keycode == KEY_TURN_RIGHT)
 		data->turn_right = 1;
-	printf("Hello from key_hook nubber %d !\n", keycode);
-	printf("F%d_B%d_R%d_L%d_TL%d_TR%d\n", data->forward, data->backward, data->right, data->left, data->turn_left, data->turn_right);
+	//printf("Hello from key_hook nubber %d !\n", keycode);
+	//printf("F%d_B%d_R%d_L%d_TL%d_TR%d\n", data->forward, data->backward, data->right, data->left, data->turn_left, data->turn_right);
 	return (0);
 }
 
@@ -406,8 +464,8 @@ int		ft_key_unhook(int keycode, t_data *data)
 		data->turn_left = 0;
 	if (keycode == KEY_TURN_RIGHT)
 		data->turn_right = 0;
-	printf("Goodby from key_hook nubber %d !\n", keycode);
-	printf("F%d_B%d_R%d_L%d_TL%d_TR%d\n", data->forward, data->backward, data->right, data->left, data->turn_left, data->turn_right);
+	//printf("Goodby from key_hook nubber %d !\n", keycode);
+	//printf("F%d_B%d_R%d_L%d_TL%d_TR%d\n", data->forward, data->backward, data->right, data->left, data->turn_left, data->turn_right);
 	return (0);
 }
 
@@ -466,6 +524,12 @@ void	texture_check(t_data *data)
 	open_then_read(data->text[3].path, data);
 	open_then_read(data->text[2].path, data);
 	open_then_read(data->text[4].path, data);
+	if (data->sprite_num > 499)
+	{
+		ft_putstr_bn("Error\nToo many sprites (more than 500)");
+		data->security[11] = 1;
+		return ;
+	}
 }
 
 int main(int ac, char **av)

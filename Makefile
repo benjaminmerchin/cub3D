@@ -32,5 +32,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: clean fclean all re mlx bonus
-
-#I don't compile the mlx .o where the .c changed again when I do make. Should I fix that ?
