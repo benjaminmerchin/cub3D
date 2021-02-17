@@ -100,6 +100,30 @@ void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
+void	add_player(t_data *data)
+{
+	int a;
+
+	a = 0;
+	ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE, data->y_pos * MINIMAP_SIZE, 16711680);
+	if (MINIMAP_SIZE > 5)
+	{
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE - 1, data->y_pos * MINIMAP_SIZE - 1, 16711680);
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE, data->y_pos * MINIMAP_SIZE - 1, 16711680);
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE + 1, data->y_pos * MINIMAP_SIZE - 1, 16711680);
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE - 1, data->y_pos * MINIMAP_SIZE, 16711680);
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE + 1, data->y_pos * MINIMAP_SIZE, 16711680);
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE - 1, data->y_pos * MINIMAP_SIZE + 1, 16711680);
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE, data->y_pos * MINIMAP_SIZE + 1, 16711680);
+		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE + 1, data->y_pos * MINIMAP_SIZE + 1, 16711680);
+		while (a < MINIMAP_SIZE)
+		{
+			ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE + data->x_dir * a, data->y_pos * MINIMAP_SIZE + data->y_dir * a, 16777215);
+			a++;
+		}
+	}
+}
+
 void	add_map_top_left(t_data *data)
 {
 	int i;
@@ -121,13 +145,7 @@ void	add_map_top_left(t_data *data)
 		}
 		i++;
 	}
-	ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE, data->y_pos * MINIMAP_SIZE, 16711680);
-	if (MINIMAP_SIZE > 3)
-	{
-		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE + 1, data->y_pos * MINIMAP_SIZE, 16711680);
-		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE, data->y_pos * MINIMAP_SIZE + 1, 16711680);
-		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE + 1, data->y_pos * MINIMAP_SIZE + 1, 16711680);
-	}
+	add_player(data);
 }
 
 //remplacer la starting position par un 0
@@ -409,9 +427,12 @@ void	raycasting_calculation(t_data *data)
 					d = k * 256 - data->y_screen_size * 128 + data->h_sprite * 128;
 					data->y_tex = ((d * data->text[4].height) / data->h_sprite) / 256;
 					//*(unsigned int *)(data->addr + (i * data->line_length + column * 4)) = *(unsigned int *)(data->text[id].add + y_texture * data->text[id].line_length + x_texture * 4);
-					*(unsigned int *)(data->addr + (k * data->line_length + j * 4)) = *(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4);
+					if (*(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4) != 0)
+						*(unsigned int *)(data->addr + (k * data->line_length + j * 4)) = *(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4);
 					//ft_mlx_pixel_put(data, j, k, 500);
 					//write(1, "a", 1);
+					//printf(">>>>%u<<<<", *(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4));
+					//return;
 					k++;
 				}
 				//printf(">>>>>y_drawstart:%d<<<<<, >>>>>y_drawend:%d<<<<<\n", data->y_drawstart, data->y_drawend);
