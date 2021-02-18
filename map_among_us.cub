@@ -1,8 +1,8 @@
 R 800 500
-NO ./texture/greystone.xpm
-SO ./texture/eagle.xpm
-WE ./texture/purplestone.xpm
-EA ./texture/redbrick.xpm
+NO ./texture/wall_1.xpm
+SO ./texture/wall_1.xpm
+WE ./texture/wall_2.xpm
+EA ./texture/wall_3.xpm
 
 S ./texture/barrel.xpm
 F 220,100,0

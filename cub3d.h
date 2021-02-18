@@ -32,9 +32,9 @@ typedef struct	s_struct
 	int		curs;
 }				t_struct;
 
-# define MINIMAP_SIZE 8
+# define MINIMAP_SIZE 4
 # define MOVING_SPEED 0.1
-# define ROTATION_SPEED 0.05
+# define ROTATION_SPEED 0.025
 
 # define KEY_FORWARD 13
 # define KEY_BACKWARD 1

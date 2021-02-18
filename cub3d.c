@@ -232,7 +232,7 @@ void put_column_image(t_data *data, int column)
 	i = 0;
 	while (i < data->line_start)
 	{
-		ft_mlx_pixel_put(data, column, i, 3394815);
+		ft_mlx_pixel_put(data, column, i, 6183820);
 		i++;
 	}
 	determine_id(data, &id);
@@ -257,9 +257,9 @@ void put_column_image(t_data *data, int column)
 		*(unsigned int *)(data->addr + (i * data->line_length + column * 4)) = *(unsigned int *)(data->text[id].add + y_texture * data->text[id].line_length + x_texture * 4);
 		i++;
 	}
-	while (i < data->y_screen_size - 1)
+	while (i < data->y_screen_size)
 	{
-		ft_mlx_pixel_put(data, column, i, 6697728);
+		ft_mlx_pixel_put(data, column, i, 6052956);
 		i++;
 	}
 }
@@ -378,7 +378,7 @@ void	raycasting_calculation(t_data *data)
 		if (data->line_end >= data->y_screen_size)
 			data->line_end = data->y_screen_size - 1;
 		put_column_image(data, i);
-//		data->buff[i] == data->dist_wall;
+		data->buff[i] = data->dist_wall;
 		//printf(">>>>>Start:%d<<<<<, >>>>>End:%d<<<<<\n", data->line_start, data->line_end);
 		data->hit = 0;
 /*		if (i == 404)
@@ -389,6 +389,12 @@ void	raycasting_calculation(t_data *data)
 	while (++i < data->sprite_num)
 		data->sprite[i][3] = ((data->x_pos - data->sprite[i][0]) * (data->x_pos - data->sprite[i][0]) + (data->y_pos - data->sprite[i][1]) * (data->y_pos - data->sprite[i][1]));
 	sort_sprite(data);
+	/*i = 0;
+	while (i < data->sprite_num)
+	{
+		printf(">>>%f<<<\n", data->sprite[i][3]);
+		i++;
+	}*/
 	i = 0; // on draw juste le sprite le plus proche afin de debug
 	int j; // stripe
 	int k;
@@ -407,43 +413,40 @@ void	raycasting_calculation(t_data *data)
 			data->y_drawstart = 0;
 		data->y_drawend = data->h_sprite / 2 + data->y_screen_size / 2;
 		if (data->y_drawend >= data->y_screen_size)
-			data->y_drawend = data->y_screen_size - 1;
+			data->y_drawend = data->y_screen_size/* - 1*/;
 		data->w_sprite = abs((int)(data->y_screen_size / data->y_trans));
 		data->x_drawstart = -data->w_sprite / 2 + data->x_sprscr;
 		if (data->x_drawstart < 0)
 			data->x_drawstart = 0;
 		data->x_drawend = data->w_sprite / 2 + data->x_sprscr;
 		if (data->x_drawend >= data->x_screen_size)
-			data->x_drawend = data->x_screen_size - 1;
+			data->x_drawend = data->x_screen_size/* - 1*/;
 		j = data->x_drawstart;
 		while(j < data->x_drawend)
 		{
 			data->x_tex = (int)(256 * (j - (-data->w_sprite / 2 + data->x_sprscr)) * data->text[4].width / data->w_sprite) / 256;
-			if (data->y_trans > 0 && j > 0 && j <= data->x_screen_size /*&& data->y_trans < data->sprite[j][3]*/)
+			if (data->y_trans > 0 && j >= 0 && j < data->x_screen_size && data->y_trans < data->buff[j])
 			{
 				k = data->y_drawstart;
 				while (k < data->y_drawend)
 				{
 					d = k * 256 - data->y_screen_size * 128 + data->h_sprite * 128;
 					data->y_tex = ((d * data->text[4].height) / data->h_sprite) / 256;
-					//*(unsigned int *)(data->addr + (i * data->line_length + column * 4)) = *(unsigned int *)(data->text[id].add + y_texture * data->text[id].line_length + x_texture * 4);
 					if (*(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4) != 0)
 						*(unsigned int *)(data->addr + (k * data->line_length + j * 4)) = *(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4);
-					//ft_mlx_pixel_put(data, j, k, 500);
 					//write(1, "a", 1);
 					//printf(">>>>%u<<<<", *(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4));
 					//return;
 					k++;
 				}
 				//printf(">>>>>y_drawstart:%d<<<<<, >>>>>y_drawend:%d<<<<<\n", data->y_drawstart, data->y_drawend);
-				//printf(">>>>>x_drawstart:%d<<<<<, >>>>>x_drawend:%d<<<<<\n", data->x_drawstart, data->x_drawend);
-
+				//printf(">>>>>x_drawstart:%d<<<<<, >>>>>x_drawend:%d<<<<<, >>>>>y_trans:%f<<<<<, >>>>>sprite[i][3]:%f<<<<<\n", data->x_drawstart, data->x_drawend, data->y_trans, data->sprite[i][3]);
 			}
 			/*if (data->y_trans > 0)
 				write(1, "1", 1);
 			else 
 				write(1, "0", 1);
-			if (j > 0)
+			if (j >= 0)
 				write(1, "1", 1);
 			else 
 				write(1, "0", 1);
@@ -451,7 +454,7 @@ void	raycasting_calculation(t_data *data)
 				write(1, "1", 1);
 			else 
 				write(1, "0", 1);
-			if (data->y_trans < data->sprite[j][3])
+			if (data->y_trans < data->sprite[i][3])
 				write(1, "1\n", 2);
 			else 
 				write(1, "0\n", 2);*/
@@ -459,6 +462,7 @@ void	raycasting_calculation(t_data *data)
 		}
 		i++;
 	}
+	//printf(">>>>>x_drawstart:%d<<<<<, >>>>>x_drawend:%d<<<<<, >>>>>y_trans:%f<<<<<, >>>>>sprite[i][3]:%f<<<<<\n", data->x_drawstart, data->x_drawend, data->y_trans, data->sprite[i - 1][3]);
 }
 
 int		render_next_frame(t_data *data)
@@ -468,6 +472,9 @@ int		render_next_frame(t_data *data)
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size && MINIMAP_SIZE * data->y_map <= data->y_screen_size)
 		add_map_top_left(data);
+	int i = 0;
+	while (i < 1)
+		i++;
 	return (0);
 }
 
