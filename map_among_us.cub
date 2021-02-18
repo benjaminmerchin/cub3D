@@ -4,7 +4,7 @@ SO ./texture/wall_1.xpm
 WE ./texture/wall_2.xpm
 EA ./texture/wall_3.xpm
 
-S ./texture/barrel.xpm
+S ./texture/player.xpm
 F 220,100,0
 C 225,30,0
 

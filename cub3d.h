@@ -32,7 +32,7 @@ typedef struct	s_struct
 	int		curs;
 }				t_struct;
 
-# define MINIMAP_SIZE 4
+# define MINIMAP_SIZE 8
 # define MOVING_SPEED 0.1
 # define ROTATION_SPEED 0.025
 
@@ -66,7 +66,8 @@ typedef struct	s_data
 	char			*map[1024];
 	int				security[20];
 	int				x_map; // Taille de la map (plus longue ligne et plus longue colonne) 
-	int				y_map; 
+	int				y_map;
+	int				frame;
 
 	int				x_raymap; // Position sans chiffres apres la virgule // mapX
 	int				y_raymap;

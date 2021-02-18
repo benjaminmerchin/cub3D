@@ -300,6 +300,30 @@ void	sort_sprite(t_data *data)
 	//printf("%f, %f, %f, %f, %f, %f\n", data->sprite[0][3], data->sprite[1][3], data->sprite[2][3], data->sprite[3][3], data->sprite[4][3], data->sprite[5][3]);
 }
 
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putnbr(int n)
+{
+	long nbr;
+
+	nbr = n;
+	if (nbr < 0)
+	{
+		ft_putchar('-');
+		nbr = -nbr;
+	}
+	if (nbr >= 10)
+	{
+		ft_putnbr(nbr / 10);
+		ft_putchar(nbr % 10 + '0');
+	}
+	else
+		ft_putchar(nbr + '0');
+}
+
 void	raycasting_calculation(t_data *data)
 {
 	int i;
@@ -395,10 +419,13 @@ void	raycasting_calculation(t_data *data)
 		printf(">>>%f<<<\n", data->sprite[i][3]);
 		i++;
 	}*/
-	i = 0; // on draw juste le sprite le plus proche afin de debug
+	i = 0;
 	int j; // stripe
 	int k;
 	int d;
+	//ft_putnbr(data->frame);
+	//if ((data->frame % 10) < 5)
+	//	return ;
 	while (i < data->sprite_num)
 	{
 		data->x_sprite = data->sprite[i][0] - data->x_pos;
@@ -424,6 +451,7 @@ void	raycasting_calculation(t_data *data)
 		j = data->x_drawstart;
 		while(j < data->x_drawend)
 		{
+			//printf("%u", *(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4));
 			data->x_tex = (int)(256 * (j - (-data->w_sprite / 2 + data->x_sprscr)) * data->text[4].width / data->w_sprite) / 256;
 			if (data->y_trans > 0 && j >= 0 && j < data->x_screen_size && data->y_trans < data->buff[j])
 			{
@@ -437,6 +465,8 @@ void	raycasting_calculation(t_data *data)
 					//write(1, "a", 1);
 					//printf(">>>>%u<<<<", *(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4));
 					//return;
+					//printf("%d", *(unsigned int *)(data->text[4].add + data->text[4].line_length * data->y_tex + data->x_tex * 4));
+					//return ;
 					k++;
 				}
 				//printf(">>>>>y_drawstart:%d<<<<<, >>>>>y_drawend:%d<<<<<\n", data->y_drawstart, data->y_drawend);
@@ -472,9 +502,7 @@ int		render_next_frame(t_data *data)
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size && MINIMAP_SIZE * data->y_map <= data->y_screen_size)
 		add_map_top_left(data);
-	int i = 0;
-	while (i < 1)
-		i++;
+	data->frame++;
 	return (0);
 }
 

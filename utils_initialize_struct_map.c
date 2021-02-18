@@ -21,6 +21,7 @@ void	intialize_struct(t_data *data)
 	data->turn_right = 0;
 	data->turn_left = 0;
 	data->hit = 0;
+	data->frame = 0;
 }
 
 void    set_vector_dir_extension(t_data *data)
