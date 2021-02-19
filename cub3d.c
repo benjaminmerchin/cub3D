@@ -19,7 +19,8 @@ void	screenshot_then_exit(t_data *data)
 	int tmp;
 	
 	(void)data;
-	fd = open("screenshot/testfile.bmp", O_WRONLY | O_CREAT, 0644);
+	(void)tmp;
+	fd = open("screenshot/testfile.bmp", O_WRONLY | O_CREAT);
     if(fd < 0)
 	{
 		ft_putstr_bn("Error\nFailed to open the file to create a screenshot"); //rajouter ensuite la sortie facile
@@ -53,7 +54,7 @@ void	screenshot_then_exit(t_data *data)
 
 	write(fd, "BM", 2); //La signature (sur 2 octets), indiquant qu'il s'agit d'un fichier BMP à l'aide des deux caractères. 
 			// BM, 424D en hexadécimal, indique qu'il s'agit d'un Bitmap Windows.
-	tmp = 14 + 40 + 4 * data->x_screen_size * data->y_screen_size; //La taille totale du fichier en octets (codée sur 4 octets)
+	tmp = 14 + 40 + 4 * (data->x_screen_size) * (data->y_screen_size); //La taille totale du fichier en octets (codée sur 4 octets)
 	write(fd, &tmp, 4);
 	tmp = 0;
 	write(fd, &tmp, 2); 
@@ -79,7 +80,7 @@ void	screenshot_then_exit(t_data *data)
 // split ici
 	int i;
 	int j;
-	i = data->y_screen_size;
+	i = data->y_screen_size - 1;
 	while (i >= 0)
 	{
 		j = 0;
@@ -90,13 +91,15 @@ void	screenshot_then_exit(t_data *data)
 		}
 		i--;
 	}
-  	/*while (y >= 0)
+
+
+
+	/*while (y >= 0)
 	{
 		x = 0;
 		while (x < recup->rx)
 		{
-			write(fd, &recup->data.addr[y * recup->data.line_length / 4 + x],
-				4);
+			write(fd, &recup->data.addr[y * recup->data.line_length / 4 + x], 4);
 			x++;
 		}
 		y--;
@@ -109,7 +112,7 @@ void	screenshot_then_exit(t_data *data)
 	  while (j < 300000000)
 	  	j++;
 	  i++;
-  }*/
+	}*/
 }
 
 
@@ -595,8 +598,11 @@ void	raycasting_calculation(t_data *data)
 	}
 	//printf(">>>>>x_drawstart:%d<<<<<, >>>>>x_drawend:%d<<<<<, >>>>>y_trans:%f<<<<<, >>>>>sprite[i][3]:%f<<<<<\n", data->x_drawstart, data->x_drawend, data->y_trans, data->sprite[i - 1][3]);
 	//if (data->frame == 3 && data->save == 1)
-	screenshot_then_exit(data); // check si 1 est bien le minimum et non 0
-	exit(0);
+	//screenshot_then_exit(data); // check si 1 est bien le minimum et non 0
+	//exit(0);
+	//bmp();
+	//system("chmod 777 screenshot/testfile.bmp");
+	//exit(0);
 }
 
 int		render_next_frame(t_data *data)
@@ -607,6 +613,7 @@ int		render_next_frame(t_data *data)
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size && MINIMAP_SIZE * data->y_map <= data->y_screen_size)
 		add_map_top_left(data);
 	data->frame++;
+	//screenshot_then_exit(data); // check si 1 est bien le minimum et non 0
 	return (0);
 }
 

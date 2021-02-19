@@ -165,4 +165,6 @@ void			check_map(t_data *data);
 void			set_vector_dir(t_data *data);
 void			fill_map_one(t_data *data);
 
+int bmp();
+
 #endif
