@@ -16,7 +16,6 @@ int security_check(t_data *data)
 {
 	if (data->security[8] != 1)
 	{
-//		printf("%c", data->security[8]);//
 		ft_putstr_bn("Error\nThere is not the correct amount of starting directions");
 		return (1);
 	}
@@ -33,6 +32,18 @@ int security_check(t_data *data)
 	return (0);
 }
 
+int	ft_strncmp(char *s1, char *s2, int n)
+{
+	int i;
+
+	if (n == 0)
+		return (0);
+	i = 0;
+	while (s1[i] && s1[i] == s2[i] && i + 1 < n)
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
 int security_cub(int ac, char **av, t_data *data, int fd)
 {
 	int i;
@@ -40,12 +51,18 @@ int security_cub(int ac, char **av, t_data *data, int fd)
 
 	i = 0;
 	len = ft_strlen(av[1]);
+	data->save = 0;
 	while (i < 20)
 		data->security[i++] = 0;
 	if (ac != 2)
 	{
-		ft_putstr_bn("Error\nWrong number of arguments");
-		return (1);
+		if (ft_strncmp(av[2], "--save", 10) == 0)
+			data->save = 1;
+		else
+		{
+			ft_putstr_bn("Error\nWrong number of arguments");
+			return (1);
+		}
 	}
 	if (av[1][len - 1] != 'b' || av[1][len - 2] != 'u'||
 			av[1][len - 3] != 'c' || av[1][len - 4] != '.')

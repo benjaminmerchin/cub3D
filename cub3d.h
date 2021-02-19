@@ -34,7 +34,7 @@ typedef struct	s_struct
 
 # define MINIMAP_SIZE 8
 # define MOVING_SPEED 0.1
-# define ROTATION_SPEED 0.025
+# define ROTATION_SPEED 0.035
 
 # define KEY_FORWARD 13
 # define KEY_BACKWARD 1
@@ -65,6 +65,7 @@ typedef struct	s_data
 	char			start_dir;
 	char			*map[1024];
 	int				security[20];
+	int				save;
 	int				x_map; // Taille de la map (plus longue ligne et plus longue colonne) 
 	int				y_map;
 	int				frame;

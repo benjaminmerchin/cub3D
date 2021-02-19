@@ -12,6 +12,107 @@
 
 #include "cub3d.h"
 
+
+void	screenshot_then_exit(t_data *data)
+{
+	int fd;
+	int tmp;
+	
+	(void)data;
+	fd = open("screenshot/testfile.bmp", O_WRONLY | O_CREAT, 0644);
+    if(fd < 0)
+	{
+		ft_putstr_bn("Error\nFailed to open the file to create a screenshot"); //rajouter ensuite la sortie facile
+        return ;
+	}
+	
+	/*write(fd, "BM", 2);
+	tmp = 14 + 40 + 4 * data->x_screen_size * data->y_screen_size;
+	write(fd, &tmp, 4);
+	tmp = 0;
+	write(fd, &tmp, 2);
+	write(fd, &tmp, 2);
+	tmp = 54;
+	write(fd, &tmp, 4);
+	tmp = 40;
+	write(fd, &tmp, 4);
+	write(fd, &data->x_screen_size, 4);
+	write(fd, &data->y_screen_size, 4);
+	tmp = 1;
+	write(fd, &tmp, 2);
+	write(fd, &data->bits_per_pixel, 2);
+
+	tmp = 0;
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	close(fd);*/
+
+	write(fd, "BM", 2); //La signature (sur 2 octets), indiquant qu'il s'agit d'un fichier BMP à l'aide des deux caractères. 
+			// BM, 424D en hexadécimal, indique qu'il s'agit d'un Bitmap Windows.
+	tmp = 14 + 40 + 4 * data->x_screen_size * data->y_screen_size; //La taille totale du fichier en octets (codée sur 4 octets)
+	write(fd, &tmp, 4);
+	tmp = 0;
+	write(fd, &tmp, 2); 
+	write(fd, &tmp, 2); 
+	tmp = 54;
+	write(fd, &tmp, 4);
+	tmp = 40;
+	write(fd, &tmp, 4);
+	write(fd, &data->x_screen_size, 4); //La largeur de l'image (sur 4 octets), c'est-à-dire le nombre de pixels horizontalement (en anglais width)
+	write(fd, &data->y_screen_size, 4); //La hauteur de l'image (sur 4 octets), c'est-à-dire le nombre de pixels verticalement (en anglais height)
+	tmp = 1;
+	write(fd, &tmp, 2); //Le nombre de plans (sur 2 octets). Cette valeur vaut toujours 1
+	write(fd, &data->bits_per_pixel, 2); //La profondeur de codage de la couleur(sur 2 octets), c'est-à-dire le nombre de bits utilisés 
+								//pour coder la couleur. Cette valeur peut-être égale à 1, 4, 8, 16, 24 ou 32
+	tmp = 0;
+	write(fd, &tmp, 4); //La méthode de compression (sur 4 octets). Cette valeur vaut 0 lorsque l'image n'est pas compressée
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+
+// split ici
+	int i;
+	int j;
+	i = data->y_screen_size;
+	while (i >= 0)
+	{
+		j = 0;
+		while (j < data->x_screen_size)
+		{
+			write(fd, &data->addr[i * data->line_length / 4 + j], 4);
+			j++;
+		}
+		i--;
+	}
+  	/*while (y >= 0)
+	{
+		x = 0;
+		while (x < recup->rx)
+		{
+			write(fd, &recup->data.addr[y * recup->data.line_length / 4 + x],
+				4);
+			x++;
+		}
+		y--;
+	}*/
+  /*int i = 0;
+  int j;
+  while (i < 30000000)
+  {
+	  j = 0;
+	  while (j < 300000000)
+	  	j++;
+	  i++;
+  }*/
+}
+
+
 void store_map(int fd, t_data *data)
 {
 	(void)fd;
@@ -493,6 +594,9 @@ void	raycasting_calculation(t_data *data)
 		i++;
 	}
 	//printf(">>>>>x_drawstart:%d<<<<<, >>>>>x_drawend:%d<<<<<, >>>>>y_trans:%f<<<<<, >>>>>sprite[i][3]:%f<<<<<\n", data->x_drawstart, data->x_drawend, data->y_trans, data->sprite[i - 1][3]);
+	//if (data->frame == 3 && data->save == 1)
+	screenshot_then_exit(data); // check si 1 est bien le minimum et non 0
+	exit(0);
 }
 
 int		render_next_frame(t_data *data)
