@@ -76,6 +76,7 @@ void	screenshot_then_exit(t_data *data)
 	write(fd, &tmp, 4);
 	write(fd, &tmp, 4);
 	write(fd, &tmp, 4);
+	//write(fd, "\n", 1);
 
 // split ici
 	int i;
@@ -598,16 +599,16 @@ void	raycasting_calculation(t_data *data)
 	}
 	//printf(">>>>>x_drawstart:%d<<<<<, >>>>>x_drawend:%d<<<<<, >>>>>y_trans:%f<<<<<, >>>>>sprite[i][3]:%f<<<<<\n", data->x_drawstart, data->x_drawend, data->y_trans, data->sprite[i - 1][3]);
 	//if (data->frame == 3 && data->save == 1)
-	//screenshot_then_exit(data); // check si 1 est bien le minimum et non 0
+	screenshot_then_exit(data); // check si 1 est bien le minimum et non 0
 	//exit(0);
 	//bmp();
-	//system("chmod 777 screenshot/testfile.bmp");
-	//exit(0);
+	system("chmod 777 screenshot/testfile.bmp");
+	exit(0);
 }
 
 int		render_next_frame(t_data *data)
 {
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	//mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	move_according_to_key_press(data);
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size && MINIMAP_SIZE * data->y_map <= data->y_screen_size)
@@ -659,7 +660,7 @@ void	run_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->x_screen_size, data->y_screen_size, "The cub3D Labyrinth - A 42_Paris Project - by bmerchin");
-	mlx_loop_hook(data->mlx, render_next_frame, data);
+	//mlx_loop_hook(data->mlx, render_next_frame, data);
 	mlx_hook(data->win, 2, 1L<<0, ft_key_hook, data);
 	mlx_hook(data->win, 3, 1L<<1, ft_key_unhook, data);
 	data->img = mlx_new_image(data->mlx, data->x_screen_size, data->y_screen_size);
@@ -674,6 +675,9 @@ void	run_mlx(t_data *data)
 	data->text[2].add = mlx_get_data_addr(data->text[2].img, &data->text[2].bits_per_pixel, &data->text[2].line_length, &data->text[2].endian);
 	data->text[3].add = mlx_get_data_addr(data->text[3].img, &data->text[3].bits_per_pixel, &data->text[3].line_length, &data->text[3].endian);
 	data->text[4].add = mlx_get_data_addr(data->text[4].img, &data->text[4].bits_per_pixel, &data->text[4].line_length, &data->text[4].endian);
+
+render_next_frame(data);
+
 	mlx_loop(data->mlx);
 }
 
