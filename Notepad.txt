@@ -40,3 +40,27 @@ Divers :
 qui permet de ne plus avoir de leaks still reachable, fonction qui n'existe pas sur la version mac. L'idee etant que le prog
 detecte de lui-meme l'OS sur lequel il se trouve et se compile de maniere adecouate.
 >C'est quoi le & ?
+
+
+
+Bonus list Goal : 14 Bonus -> 115%
+>vCollision contre les murs
+• Une skybox.
+• Texture sur le sol ou le plafond.
+> Un HUD.
+• Possibilité de regarder en haut et en bas.
+> Sauter ou s’accroupir.
+> Un effet d’ombre basé sur la distance.
+> Une barre de vie.
+> Plus d’objets dans le labyrinthe.
+> Collision avec les objets.
+> Gain ou perte de points/de vie en prenant des objets/pièges.
+> Porte qui peuvent être ouvertes/fermées.
+> Portes secrètes.
+> Animations (tir d’arme ou des sprites animés).
+> Plusieurs niveaux.
+> Son et musique.
+> Des armes et des méchants à combattre !
+
+
+Minimap n'est pas dans les bonus ?
