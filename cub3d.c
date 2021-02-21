@@ -12,111 +12,6 @@
 
 #include "cub3d.h"
 
-
-void	screenshot_then_exit(t_data *data)
-{
-	int fd;
-	int tmp;
-	
-	(void)data;
-	(void)tmp;
-	fd = open("screenshot/testfile.bmp", O_WRONLY | O_CREAT);
-    if(fd < 0)
-	{
-		ft_putstr_bn("Error\nFailed to open the file to create a screenshot"); //rajouter ensuite la sortie facile
-        return ;
-	}
-	
-	/*write(fd, "BM", 2);
-	tmp = 14 + 40 + 4 * data->x_screen_size * data->y_screen_size;
-	write(fd, &tmp, 4);
-	tmp = 0;
-	write(fd, &tmp, 2);
-	write(fd, &tmp, 2);
-	tmp = 54;
-	write(fd, &tmp, 4);
-	tmp = 40;
-	write(fd, &tmp, 4);
-	write(fd, &data->x_screen_size, 4);
-	write(fd, &data->y_screen_size, 4);
-	tmp = 1;
-	write(fd, &tmp, 2);
-	write(fd, &data->bits_per_pixel, 2);
-
-	tmp = 0;
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	close(fd);*/
-
-	write(fd, "BM", 2); //La signature (sur 2 octets), indiquant qu'il s'agit d'un fichier BMP à l'aide des deux caractères. 
-			// BM, 424D en hexadécimal, indique qu'il s'agit d'un Bitmap Windows.
-	tmp = 14 + 40 + 4 * (data->x_screen_size) * (data->y_screen_size); //La taille totale du fichier en octets (codée sur 4 octets)
-	write(fd, &tmp, 4);
-	tmp = 0;
-	write(fd, &tmp, 2); 
-	write(fd, &tmp, 2); 
-	tmp = 54;
-	write(fd, &tmp, 4);
-	tmp = 40;
-	write(fd, &tmp, 4);
-	write(fd, &data->x_screen_size, 4); //La largeur de l'image (sur 4 octets), c'est-à-dire le nombre de pixels horizontalement (en anglais width)
-	write(fd, &data->y_screen_size, 4); //La hauteur de l'image (sur 4 octets), c'est-à-dire le nombre de pixels verticalement (en anglais height)
-	tmp = 1;
-	write(fd, &tmp, 2); //Le nombre de plans (sur 2 octets). Cette valeur vaut toujours 1
-	write(fd, &data->bits_per_pixel, 2); //La profondeur de codage de la couleur(sur 2 octets), c'est-à-dire le nombre de bits utilisés 
-								//pour coder la couleur. Cette valeur peut-être égale à 1, 4, 8, 16, 24 ou 32
-	tmp = 0;
-	write(fd, &tmp, 4); //La méthode de compression (sur 4 octets). Cette valeur vaut 0 lorsque l'image n'est pas compressée
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	//write(fd, "\n", 1);
-
-// split ici
-	int i;
-	int j;
-	i = data->y_screen_size - 1;
-	while (i >= 0)
-	{
-		j = 0;
-		while (j < data->x_screen_size)
-		{
-			write(fd, &data->addr[i * data->line_length / 4 + j], 4);
-			j++;
-		}
-		i--;
-	}
-
-
-
-	/*while (y >= 0)
-	{
-		x = 0;
-		while (x < recup->rx)
-		{
-			write(fd, &recup->data.addr[y * recup->data.line_length / 4 + x], 4);
-			x++;
-		}
-		y--;
-	}*/
-  /*int i = 0;
-  int j;
-  while (i < 30000000)
-  {
-	  j = 0;
-	  while (j < 300000000)
-	  	j++;
-	  i++;
-	}*/
-}
-
-
 void store_map(int fd, t_data *data)
 {
 	(void)fd;
@@ -429,6 +324,58 @@ void	ft_putnbr(int n)
 		ft_putchar(nbr + '0');
 }
 
+void	screenshot_then_exit(t_data *data)
+{
+	(void)data;
+	int tmp;
+	int fd;
+	int	x;
+	int	y;
+
+	y = data->y_screen_size;
+	fd = open("./image.bmp", O_CREAT | O_RDWR);
+	
+	write(fd, "BM", 2); //BM indique qu'il s'agit d'un Bitmap.
+	tmp = 14 + 40 + 4 * data->x_screen_size * data->y_screen_size; //taille totale du fichier
+	write(fd, &tmp, 4);
+	tmp = 0;
+	write(fd, &tmp, 2); //champ réservé
+	write(fd, &tmp, 2);
+	tmp = 54; //offset de l'image
+	write(fd, &tmp, 4);
+	tmp = 40; //taille image en octets
+	write(fd, &tmp, 4);
+	write(fd, &data->x_screen_size, 4); //taille image horizontalement
+	write(fd, &data->y_screen_size, 4); //taille image verticalement
+	tmp = 1; //nombre de plans (toujours 1)
+	write(fd, &tmp, 2);
+	write(fd, &data->bits_per_pixel, 2); //nombre de bits utilisés pour coder la couleur
+	tmp = 0; //methode de compression 0 si image non compressee
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+
+	while (y >= 0)
+	{
+		x = 0;
+		while (x < data->x_screen_size)
+		{
+			write(fd, &data->addr[y * data->line_length + x * 4], 1);
+			write(fd, &data->addr[y * data->line_length + x * 4 + 1], 1);
+			write(fd, &data->addr[y * data->line_length + x * 4 + 2], 1);
+			write(fd, &data->addr[y * data->line_length + x * 4 + 3], 1);
+			x++;
+		}
+		y--;
+	}
+	system("chmod 777 image.bmp"); //pour pouvoir voir l'image
+	//exit (0);
+}
+
+
 void	raycasting_calculation(t_data *data)
 {
 	int i;
@@ -597,18 +544,13 @@ void	raycasting_calculation(t_data *data)
 		}
 		i++;
 	}
-	//printf(">>>>>x_drawstart:%d<<<<<, >>>>>x_drawend:%d<<<<<, >>>>>y_trans:%f<<<<<, >>>>>sprite[i][3]:%f<<<<<\n", data->x_drawstart, data->x_drawend, data->y_trans, data->sprite[i - 1][3]);
-	//if (data->frame == 3 && data->save == 1)
-	screenshot_then_exit(data); // check si 1 est bien le minimum et non 0
-	//exit(0);
-	//bmp();
-	system("chmod 777 screenshot/testfile.bmp");
-	exit(0);
+	if (data->frame == 2)
+		screenshot_then_exit(data); // check si 1 est bien le minimum et non 0
 }
 
 int		render_next_frame(t_data *data)
 {
-	//mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	move_according_to_key_press(data);
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size && MINIMAP_SIZE * data->y_map <= data->y_screen_size)
@@ -660,7 +602,8 @@ void	run_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->x_screen_size, data->y_screen_size, "The cub3D Labyrinth - A 42_Paris Project - by bmerchin");
-	//mlx_loop_hook(data->mlx, render_next_frame, data);
+	//render_next_frame(data);
+	mlx_loop_hook(data->mlx, render_next_frame, data);
 	mlx_hook(data->win, 2, 1L<<0, ft_key_hook, data);
 	mlx_hook(data->win, 3, 1L<<1, ft_key_unhook, data);
 	data->img = mlx_new_image(data->mlx, data->x_screen_size, data->y_screen_size);
@@ -676,7 +619,7 @@ void	run_mlx(t_data *data)
 	data->text[3].add = mlx_get_data_addr(data->text[3].img, &data->text[3].bits_per_pixel, &data->text[3].line_length, &data->text[3].endian);
 	data->text[4].add = mlx_get_data_addr(data->text[4].img, &data->text[4].bits_per_pixel, &data->text[4].line_length, &data->text[4].endian);
 
-render_next_frame(data);
+//render_next_frame(data);
 
 	mlx_loop(data->mlx);
 }
