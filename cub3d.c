@@ -88,10 +88,6 @@ void	print_map(t_data *data)
 	printf("---------------------------------\n");
 }
 
-//	Pour imprimer des lignes arc en ciel a l'ecran.
-//	i++;
-//	ft_mlx_pixel_put(data, i % 800, (5*i/800) % 500, i*1000);
-
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char    *dst;
@@ -147,8 +143,6 @@ void	add_map_top_left(t_data *data)
 	}
 	add_player(data);
 }
-
-//remplacer la starting position par un 0
 
 void	move_according_to_key_press(t_data *data)
 {
@@ -240,7 +234,7 @@ void put_column_image(t_data *data, int column)
 		data->wall_hit = data->y_pos + data->dist_wall * data->y_ray_dir;
 	else
 		data->wall_hit = data->x_pos + data->dist_wall * data->x_ray_dir;
-	data->wall_hit -= floor(data->wall_hit); //retirer les doubles parentheses ?
+	data->wall_hit -= floor(data->wall_hit);
 	x_texture = (int)(data->wall_hit * (double)(data->text[id].width));
 	if (data->side == 0 && data->x_ray_dir > 0)
 		x_texture = data->text[id].width - x_texture - 1;
@@ -253,7 +247,6 @@ void put_column_image(t_data *data, int column)
 	{
 		y_texture = (int)tex_pos & (data->text[id].height - 1);
 		tex_pos += step;
-		//printf(">>>>>x_dir:%d<<<<<, >>>>>y_dir:%d<<<<<\n", x_texture, y_texture);
 		*(unsigned int *)(data->addr + (i * data->line_length + column * 4)) = *(unsigned int *)(data->text[id].add + y_texture * data->text[id].line_length + x_texture * 4);
 		i++;
 	}
@@ -269,17 +262,14 @@ void	sort_sprite(t_data *data)
 	int i;
 	int j;
 
-	i = 0;
-	while (i < data->sprite_num)
+	i = -1;
+	while (++i < data->sprite_num)
 	{
-		j = i + 1;
-		while (j < data->sprite_num)
+		j = i;
+		while (++j < data->sprite_num)
 		{
 			if (data->sprite[i][3] < data->sprite[j][3])
 			{
-				/**data->sprite[500] = *data->sprite[i]; // Cool de l'opti
-				*data->sprite[i] = *data->sprite[j];
-				*data->sprite[j] = *data->sprite[500];*/
 				data->sprite[500][0] = data->sprite[i][0];
 				data->sprite[500][1] = data->sprite[i][1];
 				data->sprite[500][2] = data->sprite[i][2];
@@ -293,86 +283,51 @@ void	sort_sprite(t_data *data)
 				data->sprite[j][2] = data->sprite[500][2];
 				data->sprite[j][3] = data->sprite[500][3];
 			}
-			j++;
 		}
-		i++;
 	}
-	//printf("%f, %f, %f, %f, %f, %f\n", data->sprite[0][3], data->sprite[1][3], data->sprite[2][3], data->sprite[3][3], data->sprite[4][3], data->sprite[5][3]);
-}
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putnbr(int n)
-{
-	long nbr;
-
-	nbr = n;
-	if (nbr < 0)
-	{
-		ft_putchar('-');
-		nbr = -nbr;
-	}
-	if (nbr >= 10)
-	{
-		ft_putnbr(nbr / 10);
-		ft_putchar(nbr % 10 + '0');
-	}
-	else
-		ft_putchar(nbr + '0');
 }
 
 void	screenshot_then_exit(t_data *data)
 {
-	(void)data;
 	int tmp;
 	int fd;
 	int	x;
 	int	y;
 
-	y = data->y_screen_size;
-	fd = open("./image.bmp", O_CREAT | O_RDWR);
-	
-	write(fd, "BM", 2); //BM indique qu'il s'agit d'un Bitmap.
-	tmp = 14 + 40 + 4 * data->x_screen_size * data->y_screen_size; //taille totale du fichier
+	fd = open("screenshot.bmp", O_CREAT | O_RDWR);
+	write(fd, "BM", 2);
+	tmp = 14 + 40 + 4 * data->x_screen_size * data->y_screen_size;
 	write(fd, &tmp, 4);
 	tmp = 0;
-	write(fd, &tmp, 2); //champ réservé
+	write(fd, &tmp, 4);
+	tmp = 54;
+	write(fd, &tmp, 4);
+	tmp = 40;
+	write(fd, &tmp, 4);
+	tmp = data->x_screen_size;
+	write(fd, &tmp, 4);
+	tmp = data->y_screen_size;
+	write(fd, &tmp, 4);
+	tmp = 1;
 	write(fd, &tmp, 2);
-	tmp = 54; //offset de l'image
-	write(fd, &tmp, 4);
-	tmp = 40; //taille image en octets
-	write(fd, &tmp, 4);
-	write(fd, &data->x_screen_size, 4); //taille image horizontalement
-	write(fd, &data->y_screen_size, 4); //taille image verticalement
-	tmp = 1; //nombre de plans (toujours 1)
+	tmp = data->bits_per_pixel;
 	write(fd, &tmp, 2);
-	write(fd, &data->bits_per_pixel, 2); //nombre de bits utilisés pour coder la couleur
-	tmp = 0; //methode de compression 0 si image non compressee
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
+	tmp = 0;
+	x = 0;
+	while (x++ < 6)
+		write(fd, &tmp, 4);
 
+	y = data->y_screen_size - 1;
 	while (y >= 0)
 	{
 		x = 0;
 		while (x < data->x_screen_size)
 		{
-			write(fd, &data->addr[y * data->line_length + x * 4], 1);
-			write(fd, &data->addr[y * data->line_length + x * 4 + 1], 1);
-			write(fd, &data->addr[y * data->line_length + x * 4 + 2], 1);
-			write(fd, &data->addr[y * data->line_length + x * 4 + 3], 1);
+			write(fd, &data->addr[y * data->line_length + x * 4], 4);
 			x++;
 		}
 		y--;
 	}
-	system("chmod 777 image.bmp"); //pour pouvoir voir l'image
-	//exit (0);
 }
 
 
@@ -457,8 +412,6 @@ void	raycasting_calculation(t_data *data)
 		data->buff[i] = data->dist_wall;
 		//printf(">>>>>Start:%d<<<<<, >>>>>End:%d<<<<<\n", data->line_start, data->line_end);
 		data->hit = 0;
-/*		if (i == 404)
-			break ;*/
 		i++;
 	}
 	i = -1;
@@ -545,7 +498,7 @@ void	raycasting_calculation(t_data *data)
 		i++;
 	}
 	if (data->frame == 2)
-		screenshot_then_exit(data); // check si 1 est bien le minimum et non 0
+		screenshot_then_exit(data);
 }
 
 int		render_next_frame(t_data *data)
