@@ -1,10 +1,12 @@
 NAME	=	cub3D
 CC		=	clang
 SRC		=	cub3d.c get_next_line.c get_next_line_utils.c utils_basic.c utils_color.c store_map.c \
-			utils_parsing.c security.c verification_map.c utils_initialize_struct_map.c
+			utils_parsing.c security.c verification_map.c utils_initialize_struct_map.c hook.c \
+			minimap.c moving.c verification_texture.c screenshot.c utils_mlx.c put_column_image.c \
+			utils_store_map.c utils_raycasting.c
 HEADER	=	cub3d.h
 OBJ 	=	$(SRC:.c=.o)
-CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror #-fsanitize=address
 MLX_DIR	=	mlx
 MLX		=	libmlx.dylib
 

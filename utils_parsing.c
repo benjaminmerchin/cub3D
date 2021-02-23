@@ -55,3 +55,17 @@ int free_struct(t_data *data, int m)
 	}
 	return (0);
 }
+
+void	print_map(t_data *data)
+{
+	int i;
+
+	i = 0;
+	printf("---------------------------------\n");
+	while(i < data->y_map)
+	{
+		printf("%s\n", data->map[i]);
+		i++;
+	}
+	printf("---------------------------------\n");
+}

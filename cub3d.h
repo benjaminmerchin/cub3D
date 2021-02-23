@@ -130,6 +130,8 @@ typedef struct	s_data
 	int				y_drawend; // drawEndY
 	int				x_tex;
 	int				y_tex;
+	int				x_texture;
+	int				y_texture;
 }				t_data;
 
 int				get_next_line(int fd, char **line);
@@ -155,6 +157,7 @@ void			store_info(int fd, t_data *data, char *line);
 
 void			print_info(t_data *data);
 int				free_struct(t_data *data, int m);
+void			print_map(t_data *data);
 
 int				security_check(t_data *data);
 int				security_cub(int ac, char **av, t_data *data, int fd);
@@ -165,6 +168,27 @@ void			check_map(t_data *data);
 void			set_vector_dir(t_data *data);
 void			fill_map_one(t_data *data);
 
-int bmp();
+int				ft_key_hook(int keycode, t_data *data);
+int				ft_key_unhook(int keycode, t_data *data);
+
+void			add_map_top_left(t_data *data);
+
+void			move_according_to_key_press(t_data *data);
+
+void			texture_check(t_data *data);
+
+void			save_image(t_data *data);
+
+void			ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+void			sort_sprite(t_data *data);
+
+void			put_column_image(t_data *data, int column);
+
+void			store_map(int fd, t_data *data);
+
+void    raycasting_initialize(t_data *data, int *i);
+void    raycasting_move_until_wall(t_data *data);
+void	raycasting_line_position(t_data *data);
+
 
 #endif
