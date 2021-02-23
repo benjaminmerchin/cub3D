@@ -57,7 +57,7 @@ void	put_column_image(t_data *data, int column)
 
 	i = -1;
 	while (++i < data->line_start)
-		ft_mlx_pixel_put(data, column, i, 6183820);
+		ft_mlx_pixel_put(data, column, i, data->ceiling);
 	determine_id(data, &id);
 	texture_calculation(data, &step, &tex_pos, &id);
 	while (i < data->line_end)
@@ -71,7 +71,7 @@ void	put_column_image(t_data *data, int column)
 	}
 	while (i < data->y_screen_size)
 	{
-		ft_mlx_pixel_put(data, column, i, 6052956);
+		ft_mlx_pixel_put(data, column, i, data->floor);
 		i++;
 	}
 }

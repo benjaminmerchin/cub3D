@@ -18,11 +18,11 @@ void	store_fc(t_data *data, int i, char *line)
 	unsigned short green;
 	unsigned short blue;
 
-	red = ft_atoi_parsing(&line[i], &i);
+	red = ft_atoi_parsing(line, &i);
 	i++;
-	green = ft_atoi_parsing(&line[i], &i);
+	green = ft_atoi_parsing(line, &i);
 	i++;
-	blue = ft_atoi_parsing(&line[i], &i);
+	blue = ft_atoi_parsing(line, &i);
 	if (line[0] == 'F')
 	{
 		data->floor = store_color(0, red, green, blue);

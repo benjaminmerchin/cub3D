@@ -111,6 +111,7 @@ typedef struct	s_data
 	int				left;
 	int				turn_right;
 	int				turn_left;
+	int				crouch;
 
 	int				sprite_num;
 	double			sprite[501][4];
@@ -195,6 +196,12 @@ void    raycasting_move_until_wall(t_data *data);
 void	raycasting_line_position(t_data *data);
 
 void    sprite(t_data *data);
+
+int clean_exit(int keycode, t_data *data);
+
+
+
+
 
 
 #endif

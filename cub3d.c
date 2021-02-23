@@ -75,6 +75,7 @@ void	run_mlx(t_data *data)
 	mlx_loop_hook(data->mlx, render_next_frame, data);
 	mlx_hook(data->win, 2, 1L << 0, ft_key_hook, data);
 	mlx_hook(data->win, 3, 1L << 1, ft_key_unhook, data);
+	mlx_hook(data->win, 33, 1L << 5, clean_exit, data);
 	data->img = mlx_new_image(data->mlx, data->x_screen_size,
 		data->y_screen_size);
 	data->addr = mlx_get_data_addr(data->img,
