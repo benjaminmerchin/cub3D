@@ -12,13 +12,13 @@
 
 #include "cub3d.h"
 
-void ft_putstr_bn(char *str)
+void	ft_putstr_bn(char *str)
 {
 	write(0, str, ft_strlen(str));
 	write(0, "\n", 1);
 }
 
-int	ft_atoi(char *str)
+int		ft_atoi(char *str)
 {
 	int		i;
 	int		sign;
@@ -46,7 +46,7 @@ int	ft_atoi(char *str)
 	return (nbr * sign);
 }
 
-int	ft_atoi_parsing(char *str, int *i)
+int		ft_atoi_parsing(char *str, int *i)
 {
 	int		sign;
 	long	nbr;

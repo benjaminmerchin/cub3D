@@ -16,7 +16,7 @@ void	open_then_read(char *str, t_data *data)
 {
 	int fd;
 
-	fd = open(str, O_RDONLY); //attention aux ouvertures multiples ?
+	fd = open(str, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_putstr_bn("Error\nWrong texture path");
@@ -27,7 +27,7 @@ void	open_then_read(char *str, t_data *data)
 	{
 		ft_putstr_bn("Error\nWrong texture path");
 		data->security[11] = 1;
-		return;
+		return ;
 	}
 }
 

@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void print_info(t_data *data)
+void	print_info(t_data *data)
 {
 	printf("\nYour Map is Correct\n");
 	printf("------------------------------\n");
@@ -35,7 +35,7 @@ void print_info(t_data *data)
 	printf("Y Map Size : %d\n", data->y_map);
 }
 
-int free_struct(t_data *data, int m)
+int		free_struct(t_data *data, int m)
 {
 	int i;
 
@@ -62,10 +62,20 @@ void	print_map(t_data *data)
 
 	i = 0;
 	printf("---------------------------------\n");
-	while(i < data->y_map)
+	while (i < data->y_map)
 	{
 		printf("%s\n", data->map[i]);
 		i++;
 	}
 	printf("---------------------------------\n");
+}
+
+void	store_sprite(t_data *data, int x, int y)
+{
+	data->sprite_num++;
+	if (data->sprite_num > 499)
+		return ;
+	data->sprite[data->sprite_num - 1][0] = x + 0.5;
+	data->sprite[data->sprite_num - 1][1] = y + 0.5;
+	data->sprite[data->sprite_num - 1][2] = (double)data->map[y][x] + 0.5;
 }

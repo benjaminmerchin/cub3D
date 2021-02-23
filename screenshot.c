@@ -12,12 +12,12 @@
 
 #include "cub3d.h"
 
-void    bmp_top_info(t_data *data, int fd)
+void	bmp_top_info(t_data *data, int fd)
 {
 	int buff;
-    int i;
-    
-    write(fd, "BM", 2);
+	int i;
+
+	write(fd, "BM", 2);
 	buff = 14 + 40 + 4 * data->x_screen_size * data->y_screen_size;
 	write(fd, &buff, 4);
 	buff = 0;
@@ -35,7 +35,7 @@ void    bmp_top_info(t_data *data, int fd)
 	buff = data->bits_per_pixel;
 	write(fd, &buff, 2);
 	buff = 0;
-    i = 0;
+	i = 0;
 	while (i++ < 6)
 		write(fd, &buff, 4);
 }
@@ -47,7 +47,7 @@ void	screenshot(t_data *data)
 	int	y;
 
 	fd = open("screenshot.bmp", O_CREAT | O_RDWR);
-    bmp_top_info(data, fd);
+	bmp_top_info(data, fd);
 	y = data->y_screen_size - 1;
 	while (y >= 0)
 	{
@@ -61,13 +61,14 @@ void	screenshot(t_data *data)
 	}
 }
 
-void    save_image(t_data *data)
+void	save_image(t_data *data)
 {
 	if (data->save == 1)
-	{	
-		if (MINIMAP_SIZE * data->x_map <= data->x_screen_size && MINIMAP_SIZE * data->y_map <= data->y_screen_size)
+	{
+		if (MINIMAP_SIZE * data->x_map <= data->x_screen_size &&
+		MINIMAP_SIZE * data->y_map <= data->y_screen_size)
 			add_map_top_left(data);
 		screenshot(data);
-		exit (0);
+		exit(0);
 	}
 }

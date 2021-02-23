@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int get_t(int i)
+int	get_t(int i)
 {
 	i /= 256;
 	i /= 256;
@@ -18,25 +18,25 @@ int get_t(int i)
 	return (i % 256);
 }
 
-int get_r(int i)
+int	get_r(int i)
 {
 	i /= 256;
 	i /= 256;
 	return (i % 256);
 }
 
-int get_g(int i)
+int	get_g(int i)
 {
 	i /= 256;
 	return (i % 256);
 }
 
-int get_b(int i)
+int	get_b(int i)
 {
 	return (i % 256);
 }
 
-int store_color(int i, int j, int k, int l)
+int	store_color(int i, int j, int k, int l)
 {
 	int color;
 

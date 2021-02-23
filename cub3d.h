@@ -158,6 +158,7 @@ void			store_info(int fd, t_data *data, char *line);
 void			print_info(t_data *data);
 int				free_struct(t_data *data, int m);
 void			print_map(t_data *data);
+void			store_sprite(t_data *data, int x, int y);
 
 int				security_check(t_data *data);
 int				security_cub(int ac, char **av, t_data *data, int fd);
@@ -181,6 +182,9 @@ void			save_image(t_data *data);
 
 void			ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void			sort_sprite(t_data *data);
+void		    sprite_dist_calc(t_data *data);
+void   			init_images_mlx(t_data *data);
+
 
 void			put_column_image(t_data *data, int column);
 
@@ -189,6 +193,8 @@ void			store_map(int fd, t_data *data);
 void    raycasting_initialize(t_data *data, int *i);
 void    raycasting_move_until_wall(t_data *data);
 void	raycasting_line_position(t_data *data);
+
+void    sprite(t_data *data);
 
 
 #endif

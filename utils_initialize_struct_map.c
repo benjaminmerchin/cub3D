@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_initialize_struct_map.c                          :+:      :+:    :+:   */
+/*   utils_initialize_struct_map.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmerchin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -24,9 +24,9 @@ void	intialize_struct(t_data *data)
 	data->frame = 0;
 }
 
-void    set_vector_dir_extension(t_data *data)
+void	set_vector_dir_extension(t_data *data)
 {
-    if (data->start_dir == 'W')
+	if (data->start_dir == 'W')
 	{
 		data->x_dir = -1;
 		data->y_dir = 0;
@@ -70,8 +70,7 @@ char	*str_fill(char *str, int len, t_data *data)
 
 	i = 0;
 	j = -1;
-	new = malloc(sizeof(char) * (ft_strlen(str) + len + 1));
-	if (!new)
+	if (!(new = malloc(sizeof(char) * (ft_strlen(str) + len + 1))))
 	{
 		data->security[11] = 1;
 		ft_putstr_bn("Error\nA malloc failed");
@@ -95,7 +94,7 @@ char	*str_fill(char *str, int len, t_data *data)
 void	fill_map_one(t_data *data)
 {
 	int i;
-	
+
 	i = 0;
 	data->x_map = 0;
 	while (i < data->y_map)
@@ -107,7 +106,8 @@ void	fill_map_one(t_data *data)
 	i = 0;
 	while (i < data->y_map)
 	{
-		data->map[i] = str_fill(data->map[i], data->x_map - ft_strlen(data->map[i]), data);
+		data->map[i] = str_fill(data->map[i],
+		data->x_map - ft_strlen(data->map[i]), data);
 		i++;
 	}
 }

@@ -12,13 +12,8 @@
 
 #include "cub3d.h"
 
-void find_wall(t_data *data, int x, int y)
+void	find_wall2(t_data *data, int x, int y, int start_x)
 {
-	int start_x;
-	int start_y;
-
-	start_x = x;
-	start_y = y;
 	while (x + 1 < ft_strlen(data->map[y]))
 	{
 		x++;
@@ -42,43 +37,61 @@ void find_wall(t_data *data, int x, int y)
 			break ;
 		}
 	}
+}
+
+void	find_wall3(t_data *data, int x, int y)
+{
+	while (y + 1 <= data->y_map)
+	{
+		y++;
+		if (data->map[y][x] == '1')
+			break ;
+		else if (data->map[y][x] == ' ' || y == data->y_map ||
+		ft_strlen(data->map[y + 1]) <= x)
+		{
+			data->security[9] = data->security[9] + 1;
+			break ;
+		}
+	}
+}
+
+void	find_wall(t_data *data, int x, int y)
+{
+	int start_x;
+	int start_y;
+
+	if (data->map[y][x] == '2')
+		store_sprite(data, x, y);
+	start_x = x;
+	start_y = y;
+	find_wall2(data, x, y, start_x);
 	x = start_x;
 	while (y - 1 >= 0)
 	{
 		y--;
 		if (data->map[y][x] == '1')
 			break ;
-		else if (data->map[y][x] == ' ' || y == 0 || ft_strlen(data->map[y - 1]) <= x)
+		else if (data->map[y][x] == ' ' || y == 0 ||
+		ft_strlen(data->map[y - 1]) <= x)
 		{
 			data->security[9] = data->security[9] + 1;
 			break ;
 		}
 	}
 	y = start_y;
-	while (y + 1 <= data->y_map)
-	{
-		y++;
-		if (data->map[y][x] == '1')
-			break ;
-		else if (data->map[y][x] == ' ' || y == data->y_map || ft_strlen(data->map[y + 1]) <= x)
-		{
-			data->security[9] = data->security[9] + 1;
-			break ;
-		}	
-	}
+	find_wall3(data, x, y);
 }
 
-void	store_sprite(t_data *data, int x, int y)
+void	check_map2(t_data *data, int x, int y)
 {
-	data->sprite_num++;
-	if (data->sprite_num > 499)
-		return ;
-	data->sprite[data->sprite_num - 1][0] = x + 0.5;
-	data->sprite[data->sprite_num - 1][1] = y + 0.5;
-	data->sprite[data->sprite_num - 1][2] = (double)data->map[y][x] + 0.5;
+	data->start_dir = data->map[y][x];
+	data->x_pos = x + 0.5;
+	data->y_pos = y + 0.5;
+	find_wall(data, x, y);
+	data->security[8] = data->security[8] + 1;
 }
 
-void check_map(t_data *data)
+void	check_map(t_data *data)
 {
 	int x;
 	int y;
@@ -91,22 +104,13 @@ void check_map(t_data *data)
 		len = ft_strlen(data->map[y]);
 		while (x < len)
 		{
-			if (data->map[y][x] == '0' || data->map[y][x] == '2' || data->map[y][x] == '3')
-			{
+			if (data->map[y][x] == '0' || data->map[y][x] == '2' ||
+			data->map[y][x] == '3')
 				find_wall(data, x, y);
-				if (data->map[y][x] == '2')
-					store_sprite(data, x, y);
-			}
 			else if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
 				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
-			{
-				data->start_dir = data->map[y][x];
-				data->x_pos = x + 0.5;
-				data->y_pos = y + 0.5;
-				find_wall(data, x, y);
-				data->security[8] = data->security[8] + 1;
-			}
-			else if (data->map[y][x] != ' ' && data->map[y][x] != '1' )
+				check_map2(data, x, y);
+			else if (data->map[y][x] != ' ' && data->map[y][x] != '1')
 				data->security[10] = data->security[10] + 1;
 			x++;
 		}
