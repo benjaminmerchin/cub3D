@@ -36,12 +36,21 @@ typedef struct	s_struct
 # define MOVING_SPEED 0.1
 # define ROTATION_SPEED 0.035
 
-# define KEY_FORWARD 13
-# define KEY_BACKWARD 1
-# define KEY_RIGHT 2
-# define KEY_LEFT 0
-# define KEY_TURN_LEFT 124
-# define KEY_TURN_RIGHT 123
+# ifdef __linux__
+#  define KEY_FORWARD 119
+#  define KEY_BACKWARD 115
+#  define KEY_RIGHT 100
+#  define KEY_LEFT 97
+#  define KEY_TURN_LEFT 65361
+#  define KEY_TURN_RIGHT 65363
+# else
+#  define KEY_FORWARD 13
+#  define KEY_BACKWARD 1
+#  define KEY_RIGHT 2
+#  define KEY_LEFT 0
+#  define KEY_TURN_LEFT 124
+#  define KEY_TURN_RIGHT 123
+# endif
 
 typedef struct	s_text {
 	char	*path;
@@ -183,21 +192,20 @@ void			save_image(t_data *data);
 
 void			ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void			sort_sprite(t_data *data);
-void		    sprite_dist_calc(t_data *data);
-void   			init_images_mlx(t_data *data);
-
+void			sprite_dist_calc(t_data *data);
+void			init_images_mlx(t_data *data);
 
 void			put_column_image(t_data *data, int column);
 
 void			store_map(int fd, t_data *data);
 
-void    raycasting_initialize(t_data *data, int *i);
-void    raycasting_move_until_wall(t_data *data);
-void	raycasting_line_position(t_data *data);
+void			raycasting_initialize(t_data *data, int *i);
+void			raycasting_move_until_wall(t_data *data);
+void			raycasting_line_position(t_data *data);
 
-void    sprite(t_data *data);
+void			sprite(t_data *data);
 
-int clean_exit(int keycode, t_data *data);
+int				clean_exit(int keycode, t_data *data);
 
 
 
