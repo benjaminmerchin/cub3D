@@ -93,6 +93,20 @@ void	store_path(t_data *data, char *line)
 		data->text[4].path = ft_strdup(&line[i]);
 		data->security[3] += 1;
 	}
+	else if (line[0] == 'T' && line[1] == ' ')
+	{
+		i = 2;
+		while (line[i] == ' ')
+			i++;
+		data->text[5].path = ft_strdup(&line[i]);
+	}
+	else if (line[0] == 'U' && line[1] == ' ')
+	{
+		i = 2;
+		while (line[i] == ' ')
+			i++;
+		data->text[6].path = ft_strdup(&line[i]);
+	}
 	else
 		store_nswe(data, line);
 }
@@ -108,11 +122,20 @@ void	store_info(int fd, t_data *data, char *line)
 		if ((line[0] == 'R' || line[0] == 'F' || line[0] == 'C')
 			&& line[1] == ' ')
 			store_rfc(data, line);
-		if ((line[0] == 'S' && line[1] == ' ') || (((line[0] == 'N' &&
+		else if ((line[0] == 'S' && line[1] == ' ') || (line[0] == 'T' &&
+			line[1] == ' ' && BONUS) || (line[0] == 'U' &&
+			line[1] == ' ' && BONUS) || (((line[0] == 'N' &&
 			line[1] == 'O') || (line[0] == 'S' && line[1] == 'O') ||
 			(line[0] == 'W' && line[1] == 'E') || (line[0] == 'E' &&
 			line[1] == 'A')) && line[2] == ' '))
 			store_path(data, line);
+		else
+		{
+			//printf(">>>>>>>>>>>>>>>>>%s\n", line);
+			//printf(">>>>>>>>>>>>>>>>>%c\n", line[0]);
+			if (line[0] != 0)
+				break ;
+		}
 		free(line);
 		if (data->security[0] == 1 && data->security[1] == 1 &&
 		data->security[2] == 1 && data->security[3] == 1 &&

@@ -61,6 +61,8 @@ void	print_map(t_data *data)
 	int i;
 
 	i = 0;
+	if (BONUS)
+		return ;
 	printf("---------------------------------\n");
 	while (i < data->y_map)
 	{

@@ -26,14 +26,17 @@ void	switch_data_sprite(t_data *data, int i, int j)
 	data->sprite[500][1] = data->sprite[i][1];
 	data->sprite[500][2] = data->sprite[i][2];
 	data->sprite[500][3] = data->sprite[i][3];
+	data->sprite[500][4] = data->sprite[i][4];
 	data->sprite[i][0] = data->sprite[j][0];
 	data->sprite[i][1] = data->sprite[j][1];
 	data->sprite[i][2] = data->sprite[j][2];
 	data->sprite[i][3] = data->sprite[j][3];
+	data->sprite[i][4] = data->sprite[j][4];
 	data->sprite[j][0] = data->sprite[500][0];
 	data->sprite[j][1] = data->sprite[500][1];
 	data->sprite[j][2] = data->sprite[500][2];
 	data->sprite[j][3] = data->sprite[500][3];
+	data->sprite[j][4] = data->sprite[500][4];
 }
 
 void	sort_sprite(t_data *data)
@@ -94,4 +97,5 @@ void	init_images_mlx(t_data *data)
 	data->text[4].add = mlx_get_data_addr(data->text[4].img,
 	&data->text[4].bits_per_pixel, &data->text[4].line_length,
 	&data->text[4].endian);
+	init_images_bonus(data);
 }

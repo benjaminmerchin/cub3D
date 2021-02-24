@@ -60,9 +60,15 @@ int		render_next_frame(t_data *data)
 	move_according_to_key_press(data);
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size
-	&& MINIMAP_SIZE * data->y_map <= data->y_screen_size)
+	&& MINIMAP_SIZE * data->y_map <= data->y_screen_size && BONUS)
 		add_map_top_left(data);
 	data->frame++;
+	if (data->frame % 40 > 19)
+		data->time = 1;
+	else
+		data->time = 0;
+	if (data->escape == 1)
+		exit_free(data);
 	return (0);
 }
 
@@ -75,7 +81,8 @@ void	run_mlx(t_data *data)
 	mlx_loop_hook(data->mlx, render_next_frame, data);
 	mlx_hook(data->win, 2, 1L << 0, ft_key_hook, data);
 	mlx_hook(data->win, 3, 1L << 1, ft_key_unhook, data);
-	//mlx_hook(data->win, 33, 1L << 17, clean_exit, data);
+	if (LINUX)
+		mlx_hook(data->win, 33, 1L << 17, clean_exit, data);
 	data->img = mlx_new_image(data->mlx, data->x_screen_size,
 		data->y_screen_size);
 	data->addr = mlx_get_data_addr(data->img,

@@ -43,6 +43,10 @@ typedef struct	s_struct
 #  define KEY_LEFT 97
 #  define KEY_TURN_LEFT 65361
 #  define KEY_TURN_RIGHT 65363
+#  define KEY_CROUCH 0
+#  define KEY_ESCAPE 0
+#  define MACOS 0
+#  define LINUX 1
 # else
 #  define KEY_FORWARD 13
 #  define KEY_BACKWARD 1
@@ -50,6 +54,14 @@ typedef struct	s_struct
 #  define KEY_LEFT 0
 #  define KEY_TURN_LEFT 124
 #  define KEY_TURN_RIGHT 123
+#  define KEY_CROUCH 8
+#  define KEY_ESCAPE 53
+#  define MACOS 1
+#  define LINUX 0
+# endif
+
+# ifndef BONUS
+#  define BONUS 0
 # endif
 
 typedef struct	s_text {
@@ -66,7 +78,7 @@ typedef struct	s_text {
 
 typedef struct	s_data
 {
-	t_text			text[5];
+	t_text			text[10];
 	unsigned short	x_screen_size; //w
 	unsigned short	y_screen_size; //h
 	int				floor;
@@ -78,6 +90,7 @@ typedef struct	s_data
 	int				x_map; // Taille de la map (plus longue ligne et plus longue colonne) 
 	int				y_map;
 	int				frame;
+	int				time;
 
 	int				x_raymap; // Position sans chiffres apres la virgule // mapX
 	int				y_raymap;
@@ -121,9 +134,11 @@ typedef struct	s_data
 	int				turn_right;
 	int				turn_left;
 	int				crouch;
+	int				escape;
+	int				exit;
 
 	int				sprite_num;
-	double			sprite[501][4];
+	double			sprite[501][5];
 	double			buff[20000];		// ZBuffer
 	double			x_sprite;
 	double			y_sprite;
@@ -206,7 +221,9 @@ void			raycasting_line_position(t_data *data);
 void			sprite(t_data *data);
 
 int				clean_exit(int keycode, t_data *data);
+void			exit_free(t_data *data);
 
+void			init_images_bonus(t_data *data);
 
 
 

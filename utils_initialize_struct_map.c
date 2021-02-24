@@ -14,6 +14,9 @@
 
 void	intialize_struct(t_data *data)
 {
+	int i;
+
+	i = -1;
 	data->forward = 0;
 	data->backward = 0;
 	data->right = 0;
@@ -22,6 +25,12 @@ void	intialize_struct(t_data *data)
 	data->turn_left = 0;
 	data->hit = 0;
 	data->frame = 0;
+	data->crouch = 0;
+	data->escape = 0;
+	data->exit = 0;
+	data->time = 0;
+	while (++i < 500)
+		data->sprite[i][4] = i % 3;
 }
 
 void	set_vector_dir_extension(t_data *data)

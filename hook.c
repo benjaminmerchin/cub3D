@@ -26,6 +26,11 @@ int		ft_key_hook(int keycode, t_data *data)
 		data->turn_left = 1;
 	if (keycode == KEY_TURN_RIGHT)
 		data->turn_right = 1;
+	if (keycode == KEY_CROUCH)
+		data->crouch = 1;
+	if (keycode == KEY_ESCAPE)
+		data->escape = 1;
+	//printf("\n%d\n", keycode);
 	return (0);
 }
 
@@ -43,5 +48,9 @@ int		ft_key_unhook(int keycode, t_data *data)
 		data->turn_left = 0;
 	if (keycode == KEY_TURN_RIGHT)
 		data->turn_right = 0;
+	if (keycode == KEY_CROUCH)
+		data->crouch = 0;
+	if (keycode == KEY_ESCAPE)
+		data->escape = 0;
 	return (0);
 }

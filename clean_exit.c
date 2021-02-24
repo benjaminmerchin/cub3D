@@ -12,9 +12,36 @@
 
 #include "cub3d.h"
 
-int	clean_exit(int keycode, t_data *data)
+int		clean_exit(int keycode, t_data *data)
 {
 	(void)data;
 	(void)keycode;
+	write(1, "o", 1);
+	if (keycode == KEY_ESCAPE)
+		data->exit = 1;
+	return (0);
+}
+
+#ifdef __LINUX__
+
+void	exit_free(t_data *data)
+{
+	free_struct(&data, 1);
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_window(data->mlx, data->win);
+	free(data->mlx);
 	exit(0);
 }
+
+#else
+
+void	exit_free(t_data *data)
+{
+	free_struct(data, 1);
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_window(data->mlx, data->win);
+	free(data->mlx);
+	exit(0);
+}
+
+#endif
