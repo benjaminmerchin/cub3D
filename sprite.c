@@ -70,9 +70,11 @@ void	sprite(t_data *data)
 	int	id;
 
 	i = 0;
-	id = data->time + 4;
 	while (i < data->sprite_num)
 	{
+		id = data->sprite[i][4] + 4;
+		if (id == 5 && BONUS)
+			id += data->time;
 		sprite2(data, i);
 		sprite3(data);
 		j = data->x_drawstart;

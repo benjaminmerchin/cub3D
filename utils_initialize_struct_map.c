@@ -29,8 +29,16 @@ void	intialize_struct(t_data *data)
 	data->escape = 0;
 	data->exit = 0;
 	data->time = 0;
-	while (++i < 500)
-		data->sprite[i][4] = i % 3;
+	if (BONUS)
+	{
+		while (++i < 500)
+			data->sprite[i][4] = i % 3;
+	}
+	else
+	{
+		while (++i < 500)
+			data->sprite[i][4] = 0;
+	}
 }
 
 void	set_vector_dir_extension(t_data *data)

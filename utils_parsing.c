@@ -14,6 +14,8 @@
 
 void	print_info(t_data *data)
 {
+	if (BONUS)
+		return ;
 	printf("\nYour Map is Correct\n");
 	printf("------------------------------\n");
 	printf("Screen Size x : %hu\n", data->x_screen_size);
@@ -43,8 +45,13 @@ int		free_struct(t_data *data, int m)
 	free(data->text[4].path);
 	free(data->text[0].path);
 	free(data->text[1].path);
-	free(data->text[3].path);
 	free(data->text[2].path);
+	free(data->text[3].path);
+	if (BONUS)
+	{
+		free(data->text[5].path);
+		free(data->text[6].path);
+	}
 	if (m == 1)
 	{
 		while (i < data->y_map)

@@ -37,7 +37,11 @@ void	texture_check(t_data *data)
 	open_then_read(data->text[1].path, data);
 	open_then_read(data->text[3].path, data);
 	open_then_read(data->text[2].path, data);
-	open_then_read(data->text[4].path, data);
+	if (BONUS)
+	{
+		open_then_read(data->text[5].path, data);
+		open_then_read(data->text[6].path, data);
+	}
 	if (data->sprite_num > 499)
 	{
 		ft_putstr_bn("Error\nToo many sprites (more than 500)");
