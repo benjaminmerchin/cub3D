@@ -41,6 +41,8 @@ void	texture_check(t_data *data)
 	{
 		open_then_read(data->text[5].path, data);
 		open_then_read(data->text[6].path, data);
+		open_then_read(data->text[7].path, data);
+		open_then_read(data->text[8].path, data);
 	}
 	if (data->sprite_num > 499)
 	{

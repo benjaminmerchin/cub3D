@@ -51,6 +51,8 @@ int		free_struct(t_data *data, int m)
 	{
 		free(data->text[5].path);
 		free(data->text[6].path);
+		free(data->text[7].path);
+		free(data->text[8].path);
 	}
 	if (m == 1)
 	{

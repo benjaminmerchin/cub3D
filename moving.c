@@ -12,24 +12,36 @@
 
 #include "cub3d.h"
 
+int		mv(t_data *data, int i)
+{
+	if (i == '1')
+		return (0);
+	if (BONUS && i == '2')
+	{
+		data->life--;
+		return (0);
+	}
+	return (1);
+}
+
 void	move_right_left(t_data *data)
 {
 	if (data->right == 1)
 	{
-		if (data->map[(int)(data->y_pos)][(int)(data->x_pos -
-		data->y_dir * MOVING_SPEED * 2)] != '1')
+		if (mv(data, data->map[(int)(data->y_pos)][(int)(data->x_pos -
+		data->y_dir * MOVING_SPEED * 2)]))
 			data->x_pos -= data->y_dir * MOVING_SPEED;
-		if (data->map[(int)(data->y_pos +
-		data->x_dir * MOVING_SPEED * 2)][(int)(data->x_pos)] != '1')
+		if (mv(data, data->map[(int)(data->y_pos +
+		data->x_dir * MOVING_SPEED * 2)][(int)(data->x_pos)]))
 			data->y_pos += data->x_dir * MOVING_SPEED;
 	}
 	if (data->left == 1)
 	{
-		if (data->map[(int)(data->y_pos)][(int)(data->x_pos +
-		data->y_dir * MOVING_SPEED * 2)] != '1')
+		if (mv(data, data->map[(int)(data->y_pos)][(int)(data->x_pos +
+		data->y_dir * MOVING_SPEED * 2)]))
 			data->x_pos += data->y_dir * MOVING_SPEED;
-		if (data->map[(int)(data->y_pos - data->x_dir *
-		MOVING_SPEED * 2)][(int)(data->x_pos)] != '1')
+		if (mv(data, data->map[(int)(data->y_pos - data->x_dir *
+		MOVING_SPEED * 2)][(int)(data->x_pos)]))
 			data->y_pos -= data->x_dir * MOVING_SPEED;
 	}
 }
@@ -72,20 +84,20 @@ void	move_according_to_key_press(t_data *data)
 {
 	if (data->forward == 1)
 	{
-		if (data->map[(int)data->y_pos][(int)(data->x_pos
-		+ data->x_dir * MOVING_SPEED * 2)] != '1')
+		if (mv(data, data->map[(int)data->y_pos][(int)(data->x_pos
+		+ data->x_dir * MOVING_SPEED * 2)]))
 			data->x_pos += data->x_dir * MOVING_SPEED;
-		if (data->map[(int)(data->y_pos
-		+ data->y_dir * MOVING_SPEED * 2)][(int)(data->x_pos)] != '1')
+		if (mv(data, data->map[(int)(data->y_pos
+		+ data->y_dir * MOVING_SPEED * 2)][(int)(data->x_pos)]))
 			data->y_pos += data->y_dir * MOVING_SPEED;
 	}
 	if (data->backward == 1)
 	{
-		if (data->map[(int)data->y_pos][(int)(data->x_pos
-		- data->x_dir * MOVING_SPEED * 2)] != '1')
+		if (mv(data, data->map[(int)data->y_pos][(int)(data->x_pos
+		- data->x_dir * MOVING_SPEED * 2)]))
 			data->x_pos -= data->x_dir * MOVING_SPEED;
-		if (data->map[(int)(data->y_pos
-		- data->y_dir * MOVING_SPEED * 2)][(int)(data->x_pos)] != '1')
+		if (mv(data, data->map[(int)(data->y_pos
+		- data->y_dir * MOVING_SPEED * 2)][(int)(data->x_pos)]))
 			data->y_pos -= data->y_dir * MOVING_SPEED;
 	}
 	move_right_left(data);

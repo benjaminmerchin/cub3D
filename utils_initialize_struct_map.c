@@ -29,15 +29,15 @@ void	intialize_struct(t_data *data)
 	data->escape = 0;
 	data->exit = 0;
 	data->time = 0;
+	data->life = 10;
+	while (++i < 500)
+		data->sprite[i][4] = 0;
+	i = -1;
 	if (BONUS)
 	{
 		while (++i < 500)
-			data->sprite[i][4] = i % 3;
-	}
-	else
-	{
-		while (++i < 500)
-			data->sprite[i][4] = 0;
+			data->sprite[i][4] = i % 4;
+		initialize_heart(data);
 	}
 }
 

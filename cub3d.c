@@ -61,13 +61,14 @@ int		render_next_frame(t_data *data)
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size
 	&& MINIMAP_SIZE * data->y_map <= data->y_screen_size && BONUS)
-		add_map_top_left(data);
+		add_minimap_and_company(data);
+	add_lifebar(data); // retirer
 	data->frame++;
 	if (data->frame % 40 > 19)
 		data->time = 1;
 	else
 		data->time = 0;
-	if (data->escape == 1)
+	if (data->escape == 1 || data->life == 0)
 		exit_free(data);
 	return (0);
 }
@@ -96,7 +97,7 @@ int		main(int ac, char **av)
 	int		fd;
 	char	*line;
 	t_data	data;
-
+	
 	line = NULL;
 	fd = open(av[1], O_RDONLY);
 	if (security_cub(ac, av, &data, fd) == 1)
@@ -115,6 +116,7 @@ int		main(int ac, char **av)
 	print_info(&data);
 	set_vector_dir(&data);
 	print_map(&data);
+	initialize_heart(&data); /// a retirerrrrrrrr
 	run_mlx(&data);
 	return (free_struct(&data, 1));
 }

@@ -67,7 +67,7 @@ void	save_image(t_data *data)
 	{
 		if (MINIMAP_SIZE * data->x_map <= data->x_screen_size &&
 		MINIMAP_SIZE * data->y_map <= data->y_screen_size)
-			add_map_top_left(data);
+			add_minimap_and_company(data);
 		screenshot(data);
 		exit(0);
 	}

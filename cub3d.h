@@ -32,7 +32,7 @@ typedef struct	s_struct
 	int		curs;
 }				t_struct;
 
-# define MINIMAP_SIZE 8
+# define MINIMAP_SIZE 5
 # define MOVING_SPEED 0.1
 # define ROTATION_SPEED 0.035
 
@@ -136,6 +136,8 @@ typedef struct	s_data
 	int				crouch;
 	int				escape;
 	int				exit;
+	int				life;
+	int				heart[11][11];
 
 	int				sprite_num;
 	double			sprite[501][5];
@@ -197,7 +199,7 @@ void			fill_map_one(t_data *data);
 int				ft_key_hook(int keycode, t_data *data);
 int				ft_key_unhook(int keycode, t_data *data);
 
-void			add_map_top_left(t_data *data);
+void			add_minimap_and_company(t_data *data);
 
 void			move_according_to_key_press(t_data *data);
 
@@ -224,8 +226,10 @@ int				clean_exit(int keycode, t_data *data);
 void			exit_free(t_data *data);
 
 void			init_images_bonus(t_data *data);
+void			initialize_heart(t_data *data);
 
 
+void	add_lifebar(t_data *data); // a retirer TEMPORAIRE
 
 
 

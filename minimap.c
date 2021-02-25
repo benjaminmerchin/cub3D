@@ -12,6 +12,38 @@
 
 #include "cub3d.h"
 
+void	add_lifebar(t_data *data)
+{
+	int i;
+	int j;
+	int k;
+	int a;
+	int b;
+
+	k = 0;
+	b = 10;
+	a = data->y_screen_size - 21;
+	if (data->x_screen_size < 200 || data->y_screen_size < 50)
+		return ;
+	while (k < data->life)
+	{
+		i = 0;
+		while (i < 11)
+		{
+			j = 0;
+			while (j < 11)
+			{
+				if (data->heart[i][j] != 0)
+					ft_mlx_pixel_put(data, j + b, a + i, data->heart[i][j]);
+				j++;
+			}
+			i++;
+		}
+		b += 15;
+		k++;
+	}
+}
+
 void	add_direction(t_data *data)
 {
 	int a;
@@ -29,7 +61,7 @@ void	add_player(t_data *data)
 {
 	ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE,
 	data->y_pos * MINIMAP_SIZE, 16711680);
-	if (MINIMAP_SIZE > 5)
+	if (MINIMAP_SIZE > 4)
 	{
 		ft_mlx_pixel_put(data, data->x_pos * MINIMAP_SIZE - 1,
 		data->y_pos * MINIMAP_SIZE - 1, 16711680);
@@ -51,7 +83,7 @@ void	add_player(t_data *data)
 	}
 }
 
-void	add_map_top_left(t_data *data)
+void	add_minimap_and_company(t_data *data)
 {
 	int i;
 	int j;
@@ -75,4 +107,6 @@ void	add_map_top_left(t_data *data)
 		i++;
 	}
 	add_player(data);
+	add_lifebar(data);
+	//add_hud(data);
 }
