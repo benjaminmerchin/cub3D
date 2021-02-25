@@ -30,6 +30,7 @@ void	intialize_struct(t_data *data)
 	data->exit = 0;
 	data->time = 0;
 	data->life = 10;
+	data->sprint = 0;
 	while (++i < 500)
 		data->sprite[i][4] = 0;
 	i = -1;

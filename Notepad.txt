@@ -29,10 +29,7 @@ Idees :
 >
 
 Todo :
-> Rajouter dans le parsing la bonne ouverture des images en essayant directement de les ouvrir et bien verifier 
-que ce n'est pas un doossier
-> Verifier le nombre d'argument soit seulement la map soit la map et --save
-> Bien verifier que je limite la taille de l'ecran a 20000 px en largeur (avec --save) pour que ca fonctionne avec les sprites
+> Bien verifier que je limite la taille de l'ecran a 20000 px en largeur (avec --save) pour que ca fonctionne avec les sprites et que la ca boque avec des tailles trop petites.
 
 Divers :
 >Les segfaults : utiliser -fsanitize=address avec les flags du Makefile
@@ -47,10 +44,10 @@ Bonus list Goal : 14 Bonus -> 115%
 >vCollision contre les murs
 • Une skybox.
 • Texture sur le sol ou le plafond.
-> Un HUD.
+>vUn HUD.
 • Possibilité de regarder en haut et en bas.
-> Sauter ou s’accroupir.
-> Un effet d’ombre basé sur la distance.
+>vSauter ou s’accroupir.
+• Un effet d’ombre basé sur la distance.
 >vUne barre de vie.
 >vPlus d’objets dans le labyrinthe.
 >vCollision avec les objets.
@@ -62,3 +59,5 @@ Bonus list Goal : 14 Bonus -> 115%
 • Son et musique.
 > Des armes et des méchants à combattre !
 >vMinimap
+>vSprint
+> Message de fin (the end et fond noir)

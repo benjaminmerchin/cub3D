@@ -28,11 +28,6 @@
 ** security 11 : Texture opening check
 */
 
-/*
-** List of textures
-** no_0 so_1 ea_2 we_3 sprite_4
-*/
-
 void	raycasting_calculation(t_data *data)
 {
 	int i;
@@ -58,11 +53,11 @@ int		render_next_frame(t_data *data)
 {
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	move_according_to_key_press(data);
+	heal_at_spawn(data);
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size
 	&& MINIMAP_SIZE * data->y_map <= data->y_screen_size && BONUS)
 		add_minimap_and_company(data);
-	add_lifebar(data); // retirer
 	data->frame++;
 	if (data->frame % 40 > 19)
 		data->time = 1;
@@ -116,7 +111,21 @@ int		main(int ac, char **av)
 	print_info(&data);
 	set_vector_dir(&data);
 	print_map(&data);
-	initialize_heart(&data); /// a retirerrrrrrrr
 	run_mlx(&data);
 	return (free_struct(&data, 1));
 }
+
+/*
+** List of Bonus
+** 1 : Minimap
+** 2 : Sprint
+** 3 : Different Sprites
+** 4 : Animated Sprites
+** 5 : Crouch
+** 6 : Colision with walls
+** 7 : Colision with sprites
+** 8 : Life Bar
+** 9 : HUD
+** 10 : Enemy can damage your life
+** 11 : 
+*/

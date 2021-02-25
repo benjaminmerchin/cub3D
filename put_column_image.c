@@ -45,7 +45,7 @@ void	texture_calculation(t_data *data, double *step,
 		data->x_texture = data->text[*id].width - data->x_texture - 1;
 	*step = 1.0 * data->text[*id].height / data->line_size;
 	*tex_pos = (data->line_start - data->y_screen_size / 2 +
-	data->line_size / 2) * (*step);
+	data->line_size / 2 - data->crouch) * (*step);
 }
 
 void	put_column_image(t_data *data, int column)

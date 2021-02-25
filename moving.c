@@ -85,16 +85,18 @@ void	move_according_to_key_press(t_data *data)
 	if (data->forward == 1)
 	{
 		if (mv(data, data->map[(int)data->y_pos][(int)(data->x_pos
-		+ data->x_dir * MOVING_SPEED * 2)]))
-			data->x_pos += data->x_dir * MOVING_SPEED;
+		+ data->x_dir * MOVING_SPEED * (2 + data->sprint))]))
+			data->x_pos += data->x_dir * MOVING_SPEED
+			+ data->sprint * data->x_dir * MOVING_SPEED;
 		if (mv(data, data->map[(int)(data->y_pos
-		+ data->y_dir * MOVING_SPEED * 2)][(int)(data->x_pos)]))
-			data->y_pos += data->y_dir * MOVING_SPEED;
+		+ data->y_dir * MOVING_SPEED * 3)][(int)(data->x_pos)]))
+			data->y_pos += data->y_dir * MOVING_SPEED
+			+ data->sprint * data->y_dir * MOVING_SPEED;
 	}
 	if (data->backward == 1)
 	{
 		if (mv(data, data->map[(int)data->y_pos][(int)(data->x_pos
-		- data->x_dir * MOVING_SPEED * 2)]))
+		- data->x_dir * MOVING_SPEED * (2 + data->sprint))]))
 			data->x_pos -= data->x_dir * MOVING_SPEED;
 		if (mv(data, data->map[(int)(data->y_pos
 		- data->y_dir * MOVING_SPEED * 2)][(int)(data->x_pos)]))

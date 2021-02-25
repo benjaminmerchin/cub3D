@@ -45,6 +45,7 @@ typedef struct	s_struct
 #  define KEY_TURN_RIGHT 65363
 #  define KEY_CROUCH 0
 #  define KEY_ESCAPE 0
+#  define KEY_SPRINT 0
 #  define MACOS 0
 #  define LINUX 1
 # else
@@ -56,6 +57,7 @@ typedef struct	s_struct
 #  define KEY_TURN_RIGHT 123
 #  define KEY_CROUCH 8
 #  define KEY_ESCAPE 53
+#  define KEY_SPRINT 126
 #  define MACOS 1
 #  define LINUX 0
 # endif
@@ -128,12 +130,13 @@ typedef struct	s_data
 	int				endian;
 
 	int				forward;
+	int				sprint;
 	int				backward;
 	int				right;
 	int				left;
 	int				turn_right;
 	int				turn_left;
-	int				crouch;
+	double			crouch;
 	int				escape;
 	int				exit;
 	int				life;
@@ -228,8 +231,7 @@ void			exit_free(t_data *data);
 void			init_images_bonus(t_data *data);
 void			initialize_heart(t_data *data);
 
-
-void	add_lifebar(t_data *data); // a retirer TEMPORAIRE
+void			heal_at_spawn(t_data *data);
 
 
 

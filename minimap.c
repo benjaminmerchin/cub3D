@@ -12,6 +12,31 @@
 
 #include "cub3d.h"
 
+void	add_hud(t_data *data)
+{
+	int i;
+	int j;
+	int center_w;
+	int center_h;
+	
+	i = -7;
+	j = -7;
+	center_w = data->x_screen_size / 2;
+	center_h = data->y_screen_size / 2;
+	if (data->x_screen_size < 400 || data->y_screen_size < 300)
+		return ;
+	while (++i < 8)
+	{
+		ft_mlx_pixel_put(data, center_w + i,  center_h, 131072);
+		ft_mlx_pixel_put(data, center_w + i,  center_h + 1, 131072);
+	}
+	while (++j < 8)
+	{
+		ft_mlx_pixel_put(data, center_w, center_h + j, 131072);
+		ft_mlx_pixel_put(data, center_w + 1, center_h + j, 131072);
+	}
+}
+
 void	add_lifebar(t_data *data)
 {
 	int i;
@@ -23,7 +48,7 @@ void	add_lifebar(t_data *data)
 	k = 0;
 	b = 10;
 	a = data->y_screen_size - 21;
-	if (data->x_screen_size < 200 || data->y_screen_size < 50)
+	if (data->x_screen_size < 400 || data->y_screen_size < 50)
 		return ;
 	while (k < data->life)
 	{
@@ -108,5 +133,5 @@ void	add_minimap_and_company(t_data *data)
 	}
 	add_player(data);
 	add_lifebar(data);
-	//add_hud(data);
+	add_hud(data);
 }

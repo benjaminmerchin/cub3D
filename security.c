@@ -93,6 +93,7 @@ int	security_data(t_data *data)
 		{
 			ft_putstr_bn("Error\nData Missing in .cub");
 			printf("The security issue %d was trigerred\n", i);
+			printf("If you want to make bonus, please make fclear before\n");
 			return (1);
 		}
 		if (data->security[i] > 1)
