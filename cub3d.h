@@ -33,7 +33,7 @@ typedef struct	s_struct
 }				t_struct;
 
 # define MINIMAP_SIZE 5
-# define MOVING_SPEED 0.1
+# define MOVING_SPEED 0.05
 # define ROTATION_SPEED 0.035
 
 # ifdef __linux__
