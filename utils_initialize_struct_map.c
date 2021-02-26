@@ -29,9 +29,10 @@ void	intialize_struct(t_data *data)
 	data->escape = 0;
 	data->exit = 0;
 	data->time = 0;
-	data->life = 10;
+	data->life = 30;
 	data->sprint = 0;
 	data->door = 0;
+	data->v_bool_print_score = 0;
 	initialize_the_end(data);
 	while (++i < 500)
 		data->sprite[i][4] = 0;
@@ -39,7 +40,7 @@ void	intialize_struct(t_data *data)
 	if (BONUS)
 	{
 		while (++i < 500)
-			data->sprite[i][4] = i % 12;
+			data->sprite[i][4] = (i + 11) % 12;
 		initialize_heart(data);
 	}
 }

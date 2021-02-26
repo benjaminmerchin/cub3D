@@ -52,7 +52,7 @@ void	raycasting_calculation(t_data *data)
 int		render_next_frame(t_data *data)
 {
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	if (data->escape == 1 || (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 2))
+	if (data->escape == 1 || (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3))
 		exit_free(data);
 	/*ft_putnbr((int)data->x_pos);
 	write(1, " ", 1);
@@ -65,6 +65,7 @@ int		render_next_frame(t_data *data)
 	}
 	move_according_to_key_press(data);
 	heal_at_spawn(data);
+	move_door(data);
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size
 	&& MINIMAP_SIZE * data->y_map <= data->y_screen_size && BONUS)

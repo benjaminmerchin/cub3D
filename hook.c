@@ -32,6 +32,8 @@ int		ft_key_hook(int keycode, t_data *data)
 		data->escape = 1;
 	if (keycode == KEY_SPRINT && BONUS)
 		data->sprint = 1;
+	if (keycode == KEY_DOOR && BONUS)
+		data->sprint = 1;
 	//printf("%d\n", keycode);
 	return (0);
 }

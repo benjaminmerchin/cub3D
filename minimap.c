@@ -50,7 +50,7 @@ void	add_lifebar(t_data *data)
 	a = data->y_screen_size - 21;
 	if (data->x_screen_size < 400 || data->y_screen_size < 50)
 		return ;
-	while (k < data->life)
+	while (k < data->life / 3)
 	{
 		i = 0;
 		while (i < 11)

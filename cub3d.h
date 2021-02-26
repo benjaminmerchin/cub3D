@@ -47,6 +47,7 @@ typedef struct	s_struct
 #  define KEY_CROUCH 0
 #  define KEY_ESCAPE 0
 #  define KEY_SPRINT 0
+#  define KEY_DOOR 0
 #  define MACOS 0
 #  define LINUX 1
 # else
@@ -59,6 +60,7 @@ typedef struct	s_struct
 #  define KEY_CROUCH 8
 #  define KEY_ESCAPE 53
 #  define KEY_SPRINT 126
+#  define KEY_DOOR 40
 #  define MACOS 1
 #  define LINUX 0
 # endif
@@ -142,6 +144,7 @@ typedef struct	s_data
 	int				exit;
 	int				life;
 	int				door;
+	int				v_bool_print_score;
 	int				heart[11][11];
 	int				the_end[5][36];
 
@@ -243,6 +246,7 @@ int				is_in_charset(char c, char *str);
 void			ft_putnbr(int n);
 void			ft_putchar(char c);
 
+void			move_door(t_data *data);
 
 
 

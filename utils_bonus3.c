@@ -21,7 +21,7 @@ void	heal_at_spawn(t_data *data)
 	data->map[(int)data->y_pos][(int)data->x_pos] == 'W' ||
 	data->map[(int)data->y_pos][(int)data->x_pos] == 'E')
 	{
-		if (data->life < 10 && data->frame % 5 == 0)
+		if (data->life < 30 && data->frame % 10 == 0)
 			data->life++;
 	}
 }
@@ -100,5 +100,8 @@ void			echo_the_end(t_data *data)
 		}
 		i++;
 	}
+	if 	(data->v_bool_print_score == 0)
+		printf("Your final score is %d frames.\nYou can try again to get a lower time.\n", data->frame);
+	data->v_bool_print_score = 1;
 	add_the_end(data);
 }

@@ -9,7 +9,7 @@ T ./texture/player_blue.xpm
 U ./texture/player_red.xpm
 V ./texture/player_black.xpm
 W ./texture/player_orange.xpm
-a ./texture/player_black.xpm
+a ./texture/player_white.xpm
 b ./texture/player_brown.xpm
 c ./texture/player_light_blue.xpm
 d ./texture/player_lime.xpm

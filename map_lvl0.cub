@@ -9,7 +9,7 @@ T ./texture/player_blue.xpm
 U ./texture/player_red.xpm
 V ./texture/player_black.xpm
 W ./texture/player_orange.xpm
-a ./texture/player_black.xpm
+a ./texture/player_white.xpm
 b ./texture/player_brown.xpm
 c ./texture/player_light_blue.xpm
 d ./texture/player_lime.xpm
@@ -24,5 +24,6 @@ C 94,91,140
 10001000100010001
 10100010001000101
 10111111111111101
-121E0000000000001
-11111111111111111
+101E0000000000001
+12111111111111111
+111
