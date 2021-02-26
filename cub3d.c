@@ -52,8 +52,12 @@ void	raycasting_calculation(t_data *data)
 int		render_next_frame(t_data *data)
 {
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	if (data->escape == 1)
+	if (data->escape == 1 || (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 2))
 		exit_free(data);
+	/*ft_putnbr((int)data->x_pos);
+	write(1, " ", 1);
+	ft_putnbr((int)data->x_pos);
+	write(1, "\n", 1);*/
 	if (data->life == 0)
 	{
 		echo_the_end(data);
@@ -70,8 +74,6 @@ int		render_next_frame(t_data *data)
 		data->time = 1;
 	else
 		data->time = 0;
-	if (data->escape == 1)
-		exit_free(data);
 	return (0);
 }
 

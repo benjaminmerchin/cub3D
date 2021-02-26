@@ -141,6 +141,7 @@ typedef struct	s_data
 	int				escape;
 	int				exit;
 	int				life;
+	int				door;
 	int				heart[11][11];
 	int				the_end[5][36];
 
@@ -238,6 +239,12 @@ void			initialize_the_end(t_data *data);
 void			echo_the_end(t_data *data);
 
 int				is_in_charset(char c, char *str);
+
+void			ft_putnbr(int n);
+void			ft_putchar(char c);
+
+
+
 
 
 #endif

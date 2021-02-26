@@ -12,7 +12,7 @@ cat << "END"
 
 END
 
-make bonus && ./cub3D map_the_skeld.cub
+make bonus && ./cub3D map_lvl0.cub
 
 ./cub3D map_the_skeld.cub
 

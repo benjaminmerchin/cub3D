@@ -7,13 +7,21 @@ EA ./texture/normal_wall.xpm
 S ./texture/player_green.xpm
 T ./texture/player_blue.xpm
 U ./texture/player_red.xpm
-V ./texture/player_yellow.xpm
+V ./texture/player_black.xpm
 W ./texture/player_orange.xpm
+a ./texture/player_black.xpm
+b ./texture/player_brown.xpm
+c ./texture/player_light_blue.xpm
+d ./texture/player_lime.xpm
+e ./texture/player_pink.xpm
+f ./texture/player_purple.xpm
+g ./texture/player_yellow.xpm
+h ./texture/player_yellow_dead.xpm
 F 92,92,92
 C 94,91,140
 
         111111111111111111111111111111111111111111111111111111111111111
-        100000000011000000000000100000000000010000000100000002000000001
+        100000000011000000000000100000000000010000000100000000000000001
         101100000111000000200000100000000000001000001000000000000000001
         100100000000000000000000100000000000000100010000000000000000001
 11111111101100000111000000000000100000000000000210100000000000000000001
