@@ -38,7 +38,7 @@ void	intialize_struct(t_data *data)
 	if (BONUS)
 	{
 		while (++i < 500)
-			data->sprite[i][4] = i % 11;
+			data->sprite[i][4] = i % 12;
 		initialize_heart(data);
 	}
 }

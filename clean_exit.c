@@ -41,8 +41,6 @@ void	exit_free(t_data *data)
 {
 	if (BONUS)
 		echo_the_end(data);
-	echo_the_end(data); ////////////RETIRER
-	//write(1, "WWW", 3);
 	free_struct(data, 1);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);
