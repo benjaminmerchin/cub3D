@@ -98,15 +98,25 @@ int	security_data(t_data *data)
 		}
 		if (data->security[i] > 1)
 		{
-			ft_putstr_bn("Error\nData Provided Multiple Times in .cub");
-			printf("The security issue %d was trigerred\n", i);
-			return (1);
+			if (i == 3 && BONUS && data->security[i] == 1 + NUM_SPRITE_BOMUS)
+				;
+			else
+			{
+				ft_putstr_bn("Error\nData Provided Multiple Times in .cub");
+				printf("The security issue %d was trigerred\n", i);
+				return (1);
+			}
 		}
 		i++;
 	}
 	if (data->x_screen_size > 10000 || data->y_screen_size > 10000)
 	{
 		ft_putstr_bn("Error\nYour Map resolution is too big");
+		return (1);
+	}
+	if (data->x_screen_size < 5 || data->y_screen_size < 5)
+	{
+		ft_putstr_bn("Error\nYour Map resolution is too small");
 		return (1);
 	}
 	return (0);

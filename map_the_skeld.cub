@@ -9,6 +9,13 @@ T ./texture/player_blue.xpm
 U ./texture/player_red.xpm
 V ./texture/player_yellow.xpm
 W ./texture/player_orange.xpm
+a ./texture/player_black.xpm
+b ./texture/player_brown.xpm
+c ./texture/player_light_blue.xpm
+d ./texture/player_lime.xpm
+e ./texture/player_pink.xpm
+f ./texture/player_purple.xpm
+g ./texture/player_black.xpm
 F 92,92,92
 C 94,91,140
 

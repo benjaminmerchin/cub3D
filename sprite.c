@@ -73,7 +73,7 @@ void	sprite(t_data *data)
 	while (i < data->sprite_num)
 	{
 		id = data->sprite[i][4] + 4;
-		if (id == 7 && BONUS)
+		if (id == 14 && BONUS)
 			id += data->time;
 		sprite2(data, i);
 		sprite3(data);

@@ -93,11 +93,13 @@ void	store_path(t_data *data, char *line)
 		data->text[4].path = ft_strdup(&line[i]);
 		data->security[3] += 1;
 	}
-	else if (((line[0] == 'T') || (line[0] == 'U') || (line[0] == 'V') || (line[0] == 'W')) && line[1] == ' ')
+	else if ((is_in_charset(line[0], "TUVWabcdefg")) && line[1] == ' ')
 	{
 		i = 2;
 		while (line[i] == ' ')
 			i++;
+		data->security[3] += 1;
+		//write(1, "AAAAA BBBBB", 11);
 		if (line[0] == 'T')
 			data->text[5].path = ft_strdup(&line[i]);
 		else if (line[0] == 'U')
@@ -106,6 +108,20 @@ void	store_path(t_data *data, char *line)
 			data->text[7].path = ft_strdup(&line[i]);
 		else if (line[0] == 'W')
 			data->text[8].path = ft_strdup(&line[i]);
+		else if (line[0] == 'a')
+			data->text[9].path = ft_strdup(&line[i]);
+		else if (line[0] == 'b')
+			data->text[10].path = ft_strdup(&line[i]);
+		else if (line[0] == 'c')
+			data->text[11].path = ft_strdup(&line[i]);
+		else if (line[0] == 'd')
+			data->text[12].path = ft_strdup(&line[i]);
+		else if (line[0] == 'e')
+			data->text[13].path = ft_strdup(&line[i]);
+		else if (line[0] == 'f')
+			data->text[14].path = ft_strdup(&line[i]);
+		else if (line[0] == 'g')
+			data->text[15].path = ft_strdup(&line[i]);
 	}
 	else
 		store_nswe(data, line);
@@ -122,10 +138,7 @@ void	store_info(int fd, t_data *data, char *line)
 		if ((line[0] == 'R' || line[0] == 'F' || line[0] == 'C')
 			&& line[1] == ' ')
 			store_rfc(data, line);
-		else if ((line[0] == 'S' && line[1] == ' ') || (line[0] == 'T' &&
-			line[1] == ' ' && BONUS) || (line[0] == 'U' &&
-			line[1] == ' ' && BONUS) || (line[0] == 'V' &&
-			line[1] == ' ' && BONUS) || (line[0] == 'W' &&
+		else if ((line[0] == 'S' && line[1] == ' ') || (is_in_charset(line[0], "TUVWabcdefg") &&
 			line[1] == ' ' && BONUS) || (((line[0] == 'N' &&
 			line[1] == 'O') || (line[0] == 'S' && line[1] == 'O') ||
 			(line[0] == 'W' && line[1] == 'E') || (line[0] == 'E' &&
@@ -138,7 +151,7 @@ void	store_info(int fd, t_data *data, char *line)
 		}
 		free(line);
 		if (data->security[0] == 1 && data->security[1] == 1 &&
-		data->security[2] == 1 && data->security[3] == 1 &&
+		data->security[2] == 1 && data->security[3] == 1 + NUM_SPRITE_BOMUS * BONUS &&
 		data->security[4] == 1 && data->security[5] == 1 &&
 		data->security[6] == 1 && data->security[7] == 1)
 			break ;

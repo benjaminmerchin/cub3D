@@ -31,13 +31,14 @@ void	intialize_struct(t_data *data)
 	data->time = 0;
 	data->life = 10;
 	data->sprint = 0;
+	initialize_the_end(data);
 	while (++i < 500)
 		data->sprite[i][4] = 0;
 	i = -1;
 	if (BONUS)
 	{
 		while (++i < 500)
-			data->sprite[i][4] = i % 4;
+			data->sprite[i][4] = i % 11;
 		initialize_heart(data);
 	}
 }

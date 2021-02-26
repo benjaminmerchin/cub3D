@@ -33,16 +33,20 @@ void	open_then_read(char *str, t_data *data)
 
 void	texture_check(t_data *data)
 {
+	int i;
+
+	i = 5;
 	open_then_read(data->text[0].path, data);
 	open_then_read(data->text[1].path, data);
 	open_then_read(data->text[3].path, data);
 	open_then_read(data->text[2].path, data);
 	if (BONUS)
 	{
-		open_then_read(data->text[5].path, data);
-		open_then_read(data->text[6].path, data);
-		open_then_read(data->text[7].path, data);
-		open_then_read(data->text[8].path, data);
+		while (i < 5 + NUM_SPRITE_BOMUS)
+		{
+			open_then_read(data->text[i].path, data);
+			i++;
+		}
 	}
 	if (data->sprite_num > 499)
 	{

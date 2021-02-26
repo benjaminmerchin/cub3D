@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_bonus2.c                                     :+:      :+:    :+:   */
+/*   utils_bonus3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmerchin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,18 @@
 
 #include "cub3d.h"
 
-void	heal_at_spawn(t_data *data)
+int	is_in_charset(char c, char *str)
 {
-	if (!BONUS)
-		return ;
-	if (data->map[(int)data->y_pos][(int)data->x_pos] == 'N' ||
-	data->map[(int)data->y_pos][(int)data->x_pos] == 'S' ||
-	data->map[(int)data->y_pos][(int)data->x_pos] == 'W' ||
-	data->map[(int)data->y_pos][(int)data->x_pos] == 'E')
+	int i;
+	int len;
+
+	i = 0;
+	len = ft_strlen(str);
+	while (i < len)
 	{
-		if (data->life < 10 && data->frame % 5 == 0)
-			data->life++;
+		if (c == str[i])
+			return (1);
+		i++;
 	}
+	return (0);
 }

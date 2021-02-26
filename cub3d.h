@@ -33,8 +33,9 @@ typedef struct	s_struct
 }				t_struct;
 
 # define MINIMAP_SIZE 5
-# define MOVING_SPEED 0.05
+# define MOVING_SPEED 0.1
 # define ROTATION_SPEED 0.035
+# define NUM_SPRITE_BOMUS 11
 
 # ifdef __linux__
 #  define KEY_FORWARD 119
@@ -80,7 +81,7 @@ typedef struct	s_text {
 
 typedef struct	s_data
 {
-	t_text			text[10];
+	t_text			text[20];
 	unsigned short	x_screen_size; //w
 	unsigned short	y_screen_size; //h
 	int				floor;
@@ -141,6 +142,7 @@ typedef struct	s_data
 	int				exit;
 	int				life;
 	int				heart[11][11];
+	int				the_end[5][36];
 
 	int				sprite_num;
 	double			sprite[501][5];
@@ -232,7 +234,10 @@ void			init_images_bonus(t_data *data);
 void			initialize_heart(t_data *data);
 
 void			heal_at_spawn(t_data *data);
+void			initialize_the_end(t_data *data);
+void			echo_the_end(t_data *data);
 
+int				is_in_charset(char c, char *str);
 
 
 #endif

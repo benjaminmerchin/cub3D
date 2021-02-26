@@ -52,6 +52,13 @@ void	raycasting_calculation(t_data *data)
 int		render_next_frame(t_data *data)
 {
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	if (data->escape == 1)
+		exit_free(data);
+	if (data->life == 0)
+	{
+		echo_the_end(data);
+		return (0);
+	}
 	move_according_to_key_press(data);
 	heal_at_spawn(data);
 	raycasting_calculation(data);
@@ -63,7 +70,7 @@ int		render_next_frame(t_data *data)
 		data->time = 1;
 	else
 		data->time = 0;
-	if (data->escape == 1 || data->life == 0)
+	if (data->escape == 1)
 		exit_free(data);
 	return (0);
 }
@@ -127,5 +134,6 @@ int		main(int ac, char **av)
 ** 8 : Life Bar
 ** 9 : HUD
 ** 10 : Enemy can damage your life
-** 11 : 
+** 11 : Exit message on the screen
+** 12 :
 */

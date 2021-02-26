@@ -29,7 +29,7 @@ Idees :
 >
 
 Todo :
-> Bien verifier que je limite la taille de l'ecran a 20000 px en largeur (avec --save) pour que ca fonctionne avec les sprites et que la ca boque avec des tailles trop petites.
+> Penser a mettre la bonne size pour les windows linux.
 
 Divers :
 >Les segfaults : utiliser -fsanitize=address avec les flags du Makefile
@@ -60,4 +60,4 @@ Bonus list Goal : 14 Bonus -> 115%
 > Des armes et des méchants à combattre !
 >vMinimap
 >vSprint
-> Message de fin (the end et fond noir)
+>vMessage de fin a l'ecran

@@ -41,7 +41,6 @@ int		free_struct(t_data *data, int m)
 {
 	int i;
 
-	i = 0;
 	free(data->text[4].path);
 	free(data->text[0].path);
 	free(data->text[1].path);
@@ -49,11 +48,14 @@ int		free_struct(t_data *data, int m)
 	free(data->text[3].path);
 	if (BONUS)
 	{
-		free(data->text[5].path);
-		free(data->text[6].path);
-		free(data->text[7].path);
-		free(data->text[8].path);
+		i = 5;
+		while (i < 5 + NUM_SPRITE_BOMUS)
+		{
+			free(data->text[i].path);
+			i++;
+		}
 	}
+	i = 0;
 	if (m == 1)
 	{
 		while (i < data->y_map)
