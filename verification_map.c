@@ -104,7 +104,7 @@ void	check_map(t_data *data)
 		len = ft_strlen(data->map[y]);
 		while (x < len)
 		{
-			if (is_in(data->map[y][x], "02") || BONUS * is_in(data->map[y][x], "j3"))
+			if (is_in(data->map[y][x], "02") || BONUS * is_in(data->map[y][x], "j345"))
 				find_wall(data, x, y);
 			else if (is_in(data->map[y][x], "NSEW"))
 				check_map2(data, x, y);

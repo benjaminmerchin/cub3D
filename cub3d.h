@@ -143,7 +143,7 @@ typedef struct	s_data
 	int				escape;
 	int				victory;
 	int				life;
-	int				door;
+	int				door_closed;
 	int				v_bool_print_score;
 	int				heart[11][11];
 	int				the_end[5][36];
@@ -247,7 +247,8 @@ void			victory_exit_check(t_data *data);
 void			ft_putnbr(int n);
 void			ft_putchar(char c);
 
-void			move_door(t_data *data);
+void			close_door(t_data *data);
+void			open_door(t_data *data);
 
 
 

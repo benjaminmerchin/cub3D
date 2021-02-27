@@ -50,7 +50,7 @@ void	add_lifebar(t_data *data)
 	a = data->y_screen_size - 21;
 	if (data->x_screen_size < 400 || data->y_screen_size < 50)
 		return ;
-	while (k < data->life / 3)
+	while (k < (data->life + 2) / 3)
 	{
 		i = 0;
 		while (i < 11)
@@ -141,12 +141,12 @@ void	add_minimap_and_company(t_data *data)
 			k = -1;
 			while (++k < pixel)
 			{
-				if (data->map[i][j] == '0')
+				if (is_in(data->map[i][j], "04"))
 					ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
 					i * MINIMAP_SIZE + k % MINIMAP_SIZE, 14737632);
 				else if (is_in(data->map[i][j], "13"))
 					room_nearby(data, i, j, k);
-				else if (data->map[i][j] == '2')
+				else if (is_in(data->map[i][j], "2"))
 					ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
 					i * MINIMAP_SIZE + k % MINIMAP_SIZE, 12237498);
 				else

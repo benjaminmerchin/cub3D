@@ -64,12 +64,13 @@ int		render_next_frame(t_data *data)
 	}
 	move_according_to_key_press(data);
 	heal_at_spawn(data);
-	move_door(data);
+	//move_door(data);
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size
 	&& MINIMAP_SIZE * data->y_map <= data->y_screen_size && BONUS)
 		add_minimap_and_company(data);
 	data->frame++;
+	open_door(data);
 	if (data->frame % 40 > 19)
 		data->time = 1;
 	else
@@ -139,6 +140,6 @@ int		main(int ac, char **av)
 ** 11 : Exit message on the screen
 ** 12 : Multiple level in the game
 ** 13 : Hiden doors
-** 14 : 
+** 14 : Doors
 ** 15 : 
 */

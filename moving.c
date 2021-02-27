@@ -14,7 +14,7 @@
 
 int		mv(t_data *data, int i)
 {
-	if (i == '1')
+	if (is_in(i, "15"))
 		return (0);
 	if (BONUS && i == '2')
 	{

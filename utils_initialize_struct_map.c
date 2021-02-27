@@ -20,7 +20,7 @@ void	initialize_struct2(t_data *data)
 	data->time = 0;
 	data->life = 30;
 	data->sprint = 0;
-	data->door = 0;
+	data->door_closed = 0;
 	data->v_bool_print_score = 0;
 	if (!BONUS)
 		return ;
