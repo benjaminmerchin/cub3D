@@ -27,4 +27,6 @@ cat << "BY"
                                   __/ |
                                  |___/ 
 
+Code and idea by bmerchin
+Textures by vo-nguye
 BY

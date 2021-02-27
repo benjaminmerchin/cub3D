@@ -241,7 +241,7 @@ void			heal_at_spawn(t_data *data);
 void			initialize_the_end(t_data *data);
 void			echo_the_end(t_data *data);
 
-int				is_in_charset(char c, char *str);
+int				is_in(char c, char *str);
 void			victory_exit_check(t_data *data);
 
 void			ft_putnbr(int n);

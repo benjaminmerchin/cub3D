@@ -93,7 +93,7 @@ void	store_path(t_data *data, char *line)
 		data->text[4].path = ft_strdup(&line[i]);
 		data->security[3] += 1;
 	}
-	else if ((is_in_charset(line[0], "TUVWabcdefgh")) && line[1] == ' ')
+	else if ((is_in(line[0], "TUVWabcdefgh")) && line[1] == ' ')
 	{
 		i = 2;
 		while (line[i] == ' ')
@@ -140,7 +140,7 @@ void	store_info(int fd, t_data *data, char *line)
 		if ((line[0] == 'R' || line[0] == 'F' || line[0] == 'C')
 			&& line[1] == ' ')
 			store_rfc(data, line);
-		else if ((line[0] == 'S' && line[1] == ' ') || (is_in_charset(line[0], "TUVWabcdefgh") &&
+		else if ((line[0] == 'S' && line[1] == ' ') || (is_in(line[0], "TUVWabcdefgh") &&
 			line[1] == ' ' && BONUS) || (((line[0] == 'N' &&
 			line[1] == 'O') || (line[0] == 'S' && line[1] == 'O') ||
 			(line[0] == 'W' && line[1] == 'E') || (line[0] == 'E' &&

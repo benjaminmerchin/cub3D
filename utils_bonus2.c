@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int	is_in_charset(char c, char *str)
+int	is_in(char c, char *str)
 {
 	int i;
 	int len;

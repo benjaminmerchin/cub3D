@@ -60,7 +60,7 @@ void	find_wall(t_data *data, int x, int y)
 	int start_x;
 	int start_y;
 
-	if (data->map[y][x] == '2')
+	if (is_in(data->map[y][x], "2") || BONUS * is_in(data->map[y][x], "j"))
 		store_sprite(data, x, y);
 	start_x = x;
 	start_y = y;
@@ -104,8 +104,7 @@ void	check_map(t_data *data)
 		len = ft_strlen(data->map[y]);
 		while (x < len)
 		{
-			if (data->map[y][x] == '0' || data->map[y][x] == '2' ||
-			data->map[y][x] == '3')
+			if (is_in(data->map[y][x], "02") || BONUS * is_in(data->map[y][x], "j"))
 				find_wall(data, x, y);
 			else if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
 				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')

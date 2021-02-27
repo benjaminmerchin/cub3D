@@ -12,6 +12,26 @@
 
 #include "cub3d.h"
 
+void	initialize_struct2(t_data *data)
+{
+	int i;
+
+	data->time = 0;
+	data->life = 30;
+	data->sprint = 0;
+	data->door = 0;
+	data->v_bool_print_score = 0;
+	if (!BONUS)
+		return ;
+	i = 0;
+	while (i < 500)
+	{
+		data->sprite[i][4] = (i + 11) % 12;
+		i++;
+	}
+	initialize_heart(data);
+}
+
 void	intialize_struct(t_data *data)
 {
 	int i;
@@ -28,21 +48,10 @@ void	intialize_struct(t_data *data)
 	data->crouch = 0;
 	data->escape = 0;
 	data->victory = 0;
-	data->time = 0;
-	data->life = 30;
-	data->sprint = 0;
-	data->door = 0;
-	data->v_bool_print_score = 0;
 	initialize_the_end(data);
 	while (++i < 500)
 		data->sprite[i][4] = 0;
-	i = -1;
-	if (BONUS)
-	{
-		while (++i < 500)
-			data->sprite[i][4] = (i + 11) % 12;
-		initialize_heart(data);
-	}
+	initialize_struct2(data);
 }
 
 void	set_vector_dir_extension(t_data *data)
