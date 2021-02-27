@@ -106,8 +106,7 @@ void	check_map(t_data *data)
 		{
 			if (is_in(data->map[y][x], "02") || BONUS * is_in(data->map[y][x], "j"))
 				find_wall(data, x, y);
-			else if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
-				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
+			else if (is_in(data->map[y][x], "NSEW"))
 				check_map2(data, x, y);
 			else if (data->map[y][x] != ' ' && data->map[y][x] != '1')
 				data->security[10] = data->security[10] + 1;

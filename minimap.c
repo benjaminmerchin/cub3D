@@ -110,7 +110,7 @@ void	add_player(t_data *data)
 
 void	room_nearby(t_data *data, int i, int j, int k)
 {
-	if (i != 0 && data->map[i - 1][j] != '1')
+	if (i != 0 && data->map[i - 1][j] != '1') //is_in(data->map[i - 1][j], "1")
 		ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
 		i * MINIMAP_SIZE + k % MINIMAP_SIZE, 0);
 	else if (j != 0 && data->map[i][j - 1] != '1')
