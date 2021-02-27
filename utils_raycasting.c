@@ -84,7 +84,7 @@ void	raycasting_move_until_wall(t_data *data)
 			data->y_raymap += data->y_step;
 			data->side = 1;
 		}
-		if (data->map[data->y_raymap][data->x_raymap] == '1')
+		if (is_in(data->map[data->y_raymap][data->x_raymap], "13"))
 			data->hit = 1;
 	}
 }

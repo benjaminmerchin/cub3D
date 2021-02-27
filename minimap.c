@@ -110,16 +110,16 @@ void	add_player(t_data *data)
 
 void	room_nearby(t_data *data, int i, int j, int k)
 {
-	if (i != 0 && data->map[i - 1][j] != '1') //is_in(data->map[i - 1][j], "1")
+	if (i != 0 && !is_in(data->map[i - 1][j], "13")) //is_in(data->map[i - 1][j], "1")
 		ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
 		i * MINIMAP_SIZE + k % MINIMAP_SIZE, 0);
-	else if (j != 0 && data->map[i][j - 1] != '1')
+	else if (j != 0 && !is_in(data->map[i][j - 1],"13"))
 		ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
 		i * MINIMAP_SIZE + k % MINIMAP_SIZE, 0);
-	else if (j != data->x_map - 1 && data->map[i][j + 1] != '1')
+	else if (j != data->x_map - 1 && !is_in(data->map[i][j + 1], "13"))
 		ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
 		i * MINIMAP_SIZE + k % MINIMAP_SIZE, 0);
-	else if (i != data->y_map - 1 && data->map[i + 1][j] != '1')
+	else if (i != data->y_map - 1 && !is_in(data->map[i + 1][j], "13"))
 		ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
 		i * MINIMAP_SIZE + k % MINIMAP_SIZE, 0);
 }
@@ -144,7 +144,7 @@ void	add_minimap_and_company(t_data *data)
 				if (data->map[i][j] == '0')
 					ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
 					i * MINIMAP_SIZE + k % MINIMAP_SIZE, 14737632);
-				else if (data->map[i][j] == '1')
+				else if (is_in(data->map[i][j], "13"))
 					room_nearby(data, i, j, k);
 				else if (data->map[i][j] == '2')
 					ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,

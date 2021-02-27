@@ -53,7 +53,7 @@ Bonus list Goal : 14 Bonus -> 115%
 >vCollision avec les objets.
 >vGain ou perte de points/de vie en prenant des objets/pièges.
 > Porte qui peuvent être ouvertes/fermées.
-> Portes secrètes.
+>vPortes secrètes.
 >vAnimations (tir d’arme ou des sprites animés).
 > Plusieurs niveaux.
 • Son et musique.

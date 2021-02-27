@@ -138,7 +138,7 @@ int		main(int ac, char **av)
 ** 10 : Enemy can damage your life
 ** 11 : Exit message on the screen
 ** 12 : Multiple level in the game
-** 13 :
-** 14 :
-** 15 :
+** 13 : Hiden doors
+** 14 : 
+** 15 : 
 */
