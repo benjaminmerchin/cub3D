@@ -15,6 +15,7 @@
 void	initialize_struct2(t_data *data)
 {
 	int i;
+	int j;
 
 	data->time = 0;
 	data->life = 30;
@@ -24,9 +25,14 @@ void	initialize_struct2(t_data *data)
 	if (!BONUS)
 		return ;
 	i = 0;
+	j = 0;
 	while (i < 500)
 	{
-		data->sprite[i][4] = (i + 11) % 12;
+		if(data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == '2')
+		{
+			data->sprite[i][4] = (j + 11) % 12;
+			j++;
+		}
 		i++;
 	}
 	initialize_heart(data);

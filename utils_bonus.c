@@ -51,6 +51,22 @@ void	initialize_heart(t_data *data)
 	}
 }
 
+void	put_sprite_id(t_data *data)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	(void)data;
+	while (i < data->sprite_num)
+	{
+		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'j')
+			data->sprite[i][4] = 12;
+		i++;
+	}
+}
+
 void	init_images_bonus(t_data *data)
 {
 	int i;
@@ -67,4 +83,5 @@ void	init_images_bonus(t_data *data)
 		&data->text[i].endian);
 		i++;
 	}
+	put_sprite_id(data);
 }
