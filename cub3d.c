@@ -52,8 +52,7 @@ void	raycasting_calculation(t_data *data)
 int		render_next_frame(t_data *data)
 {
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	if (data->escape == 1 || (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3))
-		exit_free(data);
+	victory_exit_check(data);
 	/*ft_putnbr((int)data->x_pos);
 	write(1, " ", 1);
 	ft_putnbr((int)data->x_pos);
@@ -138,5 +137,8 @@ int		main(int ac, char **av)
 ** 9 : HUD
 ** 10 : Enemy can damage your life
 ** 11 : Exit message on the screen
-** 12 :
+** 12 : Multiple level in the game
+** 13 :
+** 14 :
+** 15 :
 */

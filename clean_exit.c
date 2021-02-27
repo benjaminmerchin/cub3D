@@ -18,7 +18,7 @@ int		clean_exit(int keycode, t_data *data)
 	(void)keycode;
 	write(1, "o", 1);
 	if (keycode == KEY_ESCAPE)
-		data->exit = 1;
+		data->escape = 1;
 	return (0);
 }
 

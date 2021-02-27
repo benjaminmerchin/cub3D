@@ -100,7 +100,7 @@ void			echo_the_end(t_data *data)
 		}
 		i++;
 	}
-	if 	(data->v_bool_print_score == 0)
+	if 	(data->v_bool_print_score == 0 && data->life > 0 && data->victory == 1)
 		printf("Your final score is %d frames.\nYou can try again to get a lower time.\n", data->frame);
 	data->v_bool_print_score = 1;
 	add_the_end(data);

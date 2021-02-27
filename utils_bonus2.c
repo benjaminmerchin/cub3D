@@ -27,3 +27,11 @@ int	is_in_charset(char c, char *str)
 	}
 	return (0);
 }
+
+void	victory_exit_check(t_data *data)
+{
+	if (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3)
+		data->victory = 1;
+	if (data->escape == 1 || data->victory == 1)
+		exit_free(data);
+}

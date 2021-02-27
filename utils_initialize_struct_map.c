@@ -27,7 +27,7 @@ void	intialize_struct(t_data *data)
 	data->frame = 0;
 	data->crouch = 0;
 	data->escape = 0;
-	data->exit = 0;
+	data->victory = 0;
 	data->time = 0;
 	data->life = 30;
 	data->sprint = 0;

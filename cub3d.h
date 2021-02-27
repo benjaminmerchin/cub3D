@@ -141,7 +141,7 @@ typedef struct	s_data
 	int				turn_left;
 	double			crouch;
 	int				escape;
-	int				exit;
+	int				victory;
 	int				life;
 	int				door;
 	int				v_bool_print_score;
@@ -242,6 +242,7 @@ void			initialize_the_end(t_data *data);
 void			echo_the_end(t_data *data);
 
 int				is_in_charset(char c, char *str);
+void			victory_exit_check(t_data *data);
 
 void			ft_putnbr(int n);
 void			ft_putchar(char c);
