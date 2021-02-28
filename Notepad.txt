@@ -61,3 +61,10 @@ Bonus list Goal : 15 Bonus -> 115%
 >vMinimap
 >vSprint
 >vMessage de fin a l'ecran
+
+
+
+. ./texture/heal_cross.xpm
+, ./texture/heal_wall.xpm
+_ ./texture/heal_control.xpm
+@ ./texture/wall_control.xpm

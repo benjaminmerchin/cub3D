@@ -84,7 +84,7 @@ void	raycasting_move_until_wall(t_data *data)
 			data->y_raymap += data->y_step;
 			data->side = 1;
 		}
-		if (is_in(data->map[data->y_raymap][data->x_raymap], "135"))
+		if (is_in(data->map[data->y_raymap][data->x_raymap], "135.,_@"))
 			data->hit = 1;
 	}
 }
@@ -98,10 +98,12 @@ void	raycasting_line_position(t_data *data)
 		data->dist_wall = (data->y_raymap -
 		data->y_pos + (1 - data->y_step) / 2) / data->y_ray_dir;
 	data->line_size = (int)(data->y_screen_size / data->dist_wall);
-	data->line_start = -data->line_size / 2 + data->y_screen_size / 2 + data->crouch;
+	data->line_start = -data->line_size / 2
+	+ data->y_screen_size / 2 + data->crouch;
 	if (data->line_start < 0)
 		data->line_start = 0;
-	data->line_end = data->line_size / 2 + data->y_screen_size / 2 + data->crouch;
+	data->line_end = data->line_size / 2
+	+ data->y_screen_size / 2 + data->crouch;
 	if (data->line_end >= data->y_screen_size)
 		data->line_end = data->y_screen_size - 1;
 }

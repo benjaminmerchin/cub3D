@@ -39,14 +39,17 @@ void	store_map(int fd, t_data *data)
 		i = 0;
 		while (i < ft_strlen(data->map[0]))
 		{
-			if (data->map[0][i] == '1')
+			if (is_in(data->map[0][i], data->wl))
 			{
 				data->y_map = 1;
+				/*write(1, ">>>>>>>>>>", 10);
+				write(1, &data->map[0][i], 1);
+				write(1, "\n\n", 2);*/
 				break ;
 			}
 			i++;
 		}
-		if (data->map[0][i] == '1')
+		if (is_in(data->map[0][i], data->wl))
 			break ;
 		free(data->map[0]);
 	}

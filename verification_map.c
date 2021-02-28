@@ -17,7 +17,7 @@ void	find_wall2(t_data *data, int x, int y, int start_x)
 	while (x + 1 < ft_strlen(data->map[y]))
 	{
 		x++;
-		if (data->map[y][x] == '1')
+		if (is_in(data->map[y][x], data->wl))
 			break ;
 		else if (data->map[y][x] == ' ' || x + 1 == ft_strlen(data->map[y]))
 		{
@@ -29,7 +29,7 @@ void	find_wall2(t_data *data, int x, int y, int start_x)
 	while (x - 1 >= 0)
 	{
 		x--;
-		if (data->map[y][x] == '1')
+		if (is_in(data->map[y][x], data->wl))
 			break ;
 		else if (data->map[y][x] == ' ' || x == 0)
 		{
@@ -44,7 +44,7 @@ void	find_wall3(t_data *data, int x, int y)
 	while (y + 1 <= data->y_map)
 	{
 		y++;
-		if (data->map[y][x] == '1')
+		if (is_in(data->map[y][x], data->wl))
 			break ;
 		else if (data->map[y][x] == ' ' || y == data->y_map ||
 		ft_strlen(data->map[y + 1]) <= x)
@@ -60,7 +60,7 @@ void	find_wall(t_data *data, int x, int y)
 	int start_x;
 	int start_y;
 
-	if (is_in(data->map[y][x], "2") || BONUS * is_in(data->map[y][x], "jklmn"))
+	if (is_in(data->map[y][x], "2") || BONUS * is_in(data->map[y][x], "jklmno"))
 		store_sprite(data, x, y);
 	start_x = x;
 	start_y = y;
@@ -69,7 +69,7 @@ void	find_wall(t_data *data, int x, int y)
 	while (y - 1 >= 0)
 	{
 		y--;
-		if (data->map[y][x] == '1')
+		if (is_in(data->map[y][x], data->wl))
 			break ;
 		else if (data->map[y][x] == ' ' || y == 0 ||
 		ft_strlen(data->map[y - 1]) <= x)
@@ -98,17 +98,19 @@ void	check_map(t_data *data)
 	int len;
 
 	y = 0;
+	//write(1, "\n", 1);
 	while (y <= data->y_map)
 	{
 		x = 0;
+		//ft_putstr_bn(data->map[y]);
 		len = ft_strlen(data->map[y]);
 		while (x < len)
 		{
-			if (is_in(data->map[y][x], "02") || BONUS * is_in(data->map[y][x], "j345klmn"))
+			if (is_in(data->map[y][x], "02") || BONUS * is_in(data->map[y][x], "j345klmno"))
 				find_wall(data, x, y);
 			else if (is_in(data->map[y][x], "NSEW"))
 				check_map2(data, x, y);
-			else if (data->map[y][x] != ' ' && data->map[y][x] != '1')
+			else if (data->map[y][x] != ' ' && !is_in(data->map[y][x], data->wl))
 				data->security[10] = data->security[10] + 1;
 			x++;
 		}

@@ -30,6 +30,14 @@ void	determine_id(t_data *data, int *id)
 	}
 	if (data->map[data->y_raymap][data->x_raymap] == '5')
 		*id = 1;
+	else if (data->map[data->y_raymap][data->x_raymap] == '.')
+		*id = 22;
+	else if (data->map[data->y_raymap][data->x_raymap] == ',')
+		*id = 23;
+	else if (data->map[data->y_raymap][data->x_raymap] == '_')
+		*id = 24;
+	else if (data->map[data->y_raymap][data->x_raymap] == '@')
+		*id = 25;
 }
 
 void	texture_calculation(t_data *data, double *step,

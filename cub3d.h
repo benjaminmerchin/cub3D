@@ -35,7 +35,8 @@ typedef struct	s_struct
 # define MINIMAP_SIZE 5
 # define MOVING_SPEED 0.1
 # define ROTATION_SPEED 0.035
-# define NUM_SPRITE_BOMUS 16
+# define NUM_SPRITE_BOMUS 17
+# define NUM_TEXTURE_BONUS 4
 
 # ifdef __linux__
 #  define KEY_FORWARD 119
@@ -85,6 +86,7 @@ typedef struct	s_data
 {
 	t_text			text[50];
 	char			*av;
+	char			*wl;
 	unsigned short	x_screen_size; //w
 	unsigned short	y_screen_size; //h
 	int				floor;

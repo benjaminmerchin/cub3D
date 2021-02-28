@@ -14,7 +14,7 @@
 
 int		mv(t_data *data, int i)
 {
-	if (is_in(i, "15"))
+	if (is_in(i, "15.,_@"))
 		return (0);
 	if (BONUS && is_in(i, "2klm"))
 	{

@@ -49,7 +49,7 @@ int		free_struct(t_data *data, int m)
 	if (BONUS)
 	{
 		i = 5;
-		while (i < 5 + NUM_SPRITE_BOMUS)
+		while (i < 5 + NUM_SPRITE_BOMUS + NUM_TEXTURE_BONUS)
 		{
 			free(data->text[i].path);
 			i++;

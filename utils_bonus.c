@@ -71,6 +71,8 @@ void	put_sprite_id(t_data *data)
 			data->sprite[i][4] = 15;
 		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'n')
 			data->sprite[i][4] = 16;
+		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'o')
+			data->sprite[i][4] = 17;
 		i++;
 	}
 }
@@ -107,7 +109,7 @@ void	init_images_bonus(t_data *data)
 	if (!BONUS)
 		return ;
 	i = 5;
-	while (i < 5 + NUM_SPRITE_BOMUS) //NUM_SPRITE_BOMUS = 4 pour l'instant
+	while (i < 5 + NUM_SPRITE_BOMUS + NUM_TEXTURE_BONUS) //NUM_SPRITE_BOMUS = 4 pour l'instant
 	{
 		data->text[i].img = mlx_xpm_file_to_image(data->mlx, data->text[i].path,
 		&data->text[i].width, &data->text[i].height);

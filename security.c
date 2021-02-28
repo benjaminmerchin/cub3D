@@ -93,12 +93,13 @@ int	security_data(t_data *data)
 		{
 			ft_putstr_bn("Error\nData Missing in .cub");
 			printf("The security issue %d was trigerred\n", i);
-			printf("If you want to make bonus, please make fclear before\n");
+			printf("There is a problem in the texture/Colors\n");
 			return (1);
 		}
 		if (data->security[i] > 1)
 		{
-			if (i == 3 && BONUS && data->security[i] == 1 + NUM_SPRITE_BOMUS)
+			if (i == 3 && BONUS && data->security[i] == 1
+			+ NUM_SPRITE_BOMUS + NUM_TEXTURE_BONUS)
 				;
 			else
 			{

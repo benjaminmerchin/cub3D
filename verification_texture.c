@@ -43,7 +43,7 @@ void	texture_check(t_data *data)
 	open_then_read(data->text[3].path, data);
 	if (BONUS)
 	{
-		while (i < 5 + NUM_SPRITE_BOMUS)
+		while (i < 5 + NUM_SPRITE_BOMUS + NUM_TEXTURE_BONUS)
 		{
 			open_then_read(data->text[i].path, data);
 			i++;
