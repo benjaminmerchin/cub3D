@@ -53,10 +53,6 @@ int		render_next_frame(t_data *data)
 {
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	victory_exit_check(data);
-	/*ft_putnbr((int)data->x_pos);
-	write(1, " ", 1);
-	ft_putnbr((int)data->x_pos);
-	write(1, "\n", 1);*/
 	if (data->life == 0)
 	{
 		echo_the_end(data);
@@ -64,7 +60,6 @@ int		render_next_frame(t_data *data)
 	}
 	move_according_to_key_press(data);
 	heal_at_spawn(data);
-	//move_door(data);
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size
 	&& MINIMAP_SIZE * data->y_map <= data->y_screen_size && BONUS)
@@ -82,8 +77,7 @@ void	run_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->x_screen_size,
-		data->y_screen_size,
-		"Among Us in cub3D - A 42 Paris Project - by bmerchin");
+		data->y_screen_size, "Among Us in cub3D - A 42 Paris Project");
 	mlx_loop_hook(data->mlx, render_next_frame, data);
 	mlx_hook(data->win, 2, 1L << 0, ft_key_hook, data);
 	mlx_hook(data->win, 3, 1L << 1, ft_key_unhook, data);
@@ -105,6 +99,7 @@ int		main(int ac, char **av)
 	
 	line = NULL;
 	fd = open(av[1], O_RDONLY);
+	data.av = av[1];
 	if (security_cub(ac, av, &data, fd) == 1)
 		return (0);
 	store_info(fd, &data, line);
@@ -129,7 +124,7 @@ int		main(int ac, char **av)
 ** List of Bonus
 ** 1 : Minimap
 ** 2 : Sprint
-** 3 : Different Sprites
+** 3 : Different Sprites (15+)
 ** 4 : Animated Sprites
 ** 5 : Crouch
 ** 6 : Colision with walls
@@ -141,5 +136,8 @@ int		main(int ac, char **av)
 ** 12 : Multiple level in the game
 ** 13 : Hiden doors
 ** 14 : Doors
-** 15 : 
+** 15 : Gameplay
+** 16 : Possibility to heal at spawn
+** 17 : Different textures for one side
+** 18 : Handmade pixel art for this game
 */

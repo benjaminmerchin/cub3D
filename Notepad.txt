@@ -40,7 +40,7 @@ detecte de lui-meme l'OS sur lequel il se trouve et se compile de maniere adecou
 
 
 
-Bonus list Goal : 14 Bonus -> 115%
+Bonus list Goal : 15 Bonus -> 115%
 >vCollision contre les murs
 • Une skybox.
 • Texture sur le sol ou le plafond.
@@ -52,10 +52,10 @@ Bonus list Goal : 14 Bonus -> 115%
 >vPlus d’objets dans le labyrinthe.
 >vCollision avec les objets.
 >vGain ou perte de points/de vie en prenant des objets/pièges.
-> Porte qui peuvent être ouvertes/fermées.
+>vPorte qui peuvent être ouvertes/fermées.
 >vPortes secrètes.
 >vAnimations (tir d’arme ou des sprites animés).
-> Plusieurs niveaux.
+>vPlusieurs niveaux.
 • Son et musique.
 > Des armes et des méchants à combattre !
 >vMinimap

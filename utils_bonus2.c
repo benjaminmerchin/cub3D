@@ -30,7 +30,7 @@ int	is_in(char c, char *str)
 
 void	victory_exit_check(t_data *data)
 {
-	if (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3)
+	if (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3 && "map_lvl0.cub")
 		data->victory = 1;
 	if (data->escape == 1 || data->victory == 1)
 		exit_free(data);

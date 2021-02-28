@@ -16,7 +16,7 @@ int		mv(t_data *data, int i)
 {
 	if (is_in(i, "15"))
 		return (0);
-	if (BONUS && i == '2')
+	if (BONUS && is_in(i, "2klm"))
 	{
 		data->life--;
 		return (0);

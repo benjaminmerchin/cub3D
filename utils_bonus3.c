@@ -16,10 +16,7 @@ void	heal_at_spawn(t_data *data)
 {
 	if (!BONUS)
 		return ;
-	if (data->map[(int)data->y_pos][(int)data->x_pos] == 'N' ||
-	data->map[(int)data->y_pos][(int)data->x_pos] == 'S' ||
-	data->map[(int)data->y_pos][(int)data->x_pos] == 'W' ||
-	data->map[(int)data->y_pos][(int)data->x_pos] == 'E')
+	if (data->map[(int)data->y_pos][(int)data->x_pos] == 'n')
 	{
 		if (data->life < 30 && data->frame % 10 == 0)
 			data->life++;

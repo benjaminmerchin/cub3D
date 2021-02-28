@@ -63,8 +63,41 @@ void	put_sprite_id(t_data *data)
 	{
 		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'j')
 			data->sprite[i][4] = 12;
+		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'k')
+			data->sprite[i][4] = 13;
+		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'l')
+			data->sprite[i][4] = 14;
+		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'm')
+			data->sprite[i][4] = 15;
+		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'n')
+			data->sprite[i][4] = 16;
 		i++;
 	}
+}
+
+void	put_heal_at_spawn(t_data *data)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < data->x_map)
+	{
+		j = 0;
+		while (j < data->y_map)
+		{
+			if (is_in(data->map[j][i], "NSEW"))
+			{
+				data->map[j][i] = 'n';
+				store_sprite(data, i, j);
+				data->sprite[data->sprite_num - 1][4] = 16;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+
 }
 
 void	init_images_bonus(t_data *data)
@@ -84,4 +117,5 @@ void	init_images_bonus(t_data *data)
 		i++;
 	}
 	put_sprite_id(data);
+	put_heal_at_spawn(data);
 }

@@ -19,8 +19,8 @@ void	close_door(t_data *data)
 
 	i = 0;
 	if (!BONUS)
-		return;
-	data->door_closed = 300;
+		return ;
+	data->door_closed = 500;
 	while (i < data->x_map)
 	{
 		j = 0;
@@ -30,15 +30,10 @@ void	close_door(t_data *data)
 			{
 				data->map[j][i] = '5';
 			}
-			//write(1, "1", 1);
 			j++;
 		}
 		i++;
 	}
-	/*ft_putnbr(data->x_map);
-	write(1, " ", 1);
-	ft_putnbr(data->y_map);
-	write(1, "\n", 1);*/
 }
 
 void	open_door(t_data *data)

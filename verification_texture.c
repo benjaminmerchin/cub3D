@@ -17,6 +17,7 @@ void	open_then_read(char *str, t_data *data)
 	int fd;
 
 	fd = open(str, O_RDONLY);
+	//ft_putstr_bn(str);
 	if (fd == -1)
 	{
 		ft_putstr_bn("Error\nWrong texture path");
@@ -25,7 +26,7 @@ void	open_then_read(char *str, t_data *data)
 	}
 	if (read(fd, NULL, 0) == -1)
 	{
-		ft_putstr_bn("Error\nWrong texture path");
+		ft_putstr_bn("Error\nWrong texture path (folder)");
 		data->security[11] = 1;
 		return ;
 	}
@@ -38,8 +39,8 @@ void	texture_check(t_data *data)
 	i = 5;
 	open_then_read(data->text[0].path, data);
 	open_then_read(data->text[1].path, data);
-	open_then_read(data->text[3].path, data);
 	open_then_read(data->text[2].path, data);
+	open_then_read(data->text[3].path, data);
 	if (BONUS)
 	{
 		while (i < 5 + NUM_SPRITE_BOMUS)

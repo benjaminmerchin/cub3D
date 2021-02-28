@@ -28,6 +28,8 @@ void	determine_id(t_data *data, int *id)
 		else
 			*id = 1;
 	}
+	if (data->map[data->y_raymap][data->x_raymap] == '5')
+		*id = 1;
 }
 
 void	texture_calculation(t_data *data, double *step,

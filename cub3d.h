@@ -35,7 +35,7 @@ typedef struct	s_struct
 # define MINIMAP_SIZE 5
 # define MOVING_SPEED 0.1
 # define ROTATION_SPEED 0.035
-# define NUM_SPRITE_BOMUS 12
+# define NUM_SPRITE_BOMUS 16
 
 # ifdef __linux__
 #  define KEY_FORWARD 119
@@ -83,7 +83,8 @@ typedef struct	s_text {
 
 typedef struct	s_data
 {
-	t_text			text[30];
+	t_text			text[50];
+	char			*av;
 	unsigned short	x_screen_size; //w
 	unsigned short	y_screen_size; //h
 	int				floor;
@@ -149,7 +150,7 @@ typedef struct	s_data
 	int				the_end[5][36];
 
 	int				sprite_num;
-	double			sprite[501][5];
+	double			sprite[1001][5];
 	double			buff[20000];		// ZBuffer
 	double			x_sprite;
 	double			y_sprite;
