@@ -54,11 +54,8 @@ void	initialize_heart(t_data *data)
 void	put_sprite_id(t_data *data)
 {
 	int i;
-	int j;
 
 	i = 0;
-	j = 0;
-	(void)data;
 	while (i < data->sprite_num)
 	{
 		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'j')
@@ -109,7 +106,7 @@ void	init_images_bonus(t_data *data)
 	if (!BONUS)
 		return ;
 	i = 5;
-	while (i < 5 + NUM_SPRITE_BOMUS + NUM_TEXTURE_BONUS) //NUM_SPRITE_BOMUS = 4 pour l'instant
+	while (i < 5 + NUM_SPRITE_BOMUS + NUM_TEXTURE_BONUS)
 	{
 		data->text[i].img = mlx_xpm_file_to_image(data->mlx, data->text[i].path,
 		&data->text[i].width, &data->text[i].height);

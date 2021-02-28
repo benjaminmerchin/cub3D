@@ -93,7 +93,7 @@ void	store_path(t_data *data, char *line)
 		data->text[4].path = ft_strdup(&line[i]);
 		data->security[3] += 1;
 	}
-	else if ((is_in(line[0], "TUVWabcdefghklmno.,_@")) && line[1] == ' ')
+	else if ((is_in(line[0], "TUVWabcdefghklmno.,_@#$")) && line[1] == ' ')
 	{
 		i = 2;
 		while (line[i] == ' ')
@@ -142,6 +142,10 @@ void	store_path(t_data *data, char *line)
 			data->text[24].path = ft_strdup(&line[i]);
 		else if (line[0] == '@')
 			data->text[25].path = ft_strdup(&line[i]);
+		else if (line[0] == '#')
+			data->text[26].path = ft_strdup(&line[i]);
+		else if (line[0] == '$')
+			data->text[27].path = ft_strdup(&line[i]);
 	}
 	else
 		store_nswe(data, line);
@@ -152,14 +156,14 @@ void	store_info(int fd, t_data *data, char *line)
 	int retour;
 
 	data->sprite_num = 0;
-	data->wl = "1.,_@";
+	data->wl = "1.,_@#$";
 	while ((retour = get_next_line(fd, &line)) == 1)
 	{
 		ft_putstr_bn(line);
 		if ((line[0] == 'R' || line[0] == 'F' || line[0] == 'C')
 			&& line[1] == ' ')
 			store_rfc(data, line);
-		else if ((line[0] == 'S' && line[1] == ' ') || (is_in(line[0], "TUVWabcdefghklmno.,_@") &&
+		else if ((line[0] == 'S' && line[1] == ' ') || (is_in(line[0], "TUVWabcdefghklmno.,_@#$") &&
 			line[1] == ' ' && BONUS) || (((line[0] == 'N' &&
 			line[1] == 'O') || (line[0] == 'S' && line[1] == 'O') ||
 			(line[0] == 'W' && line[1] == 'E') || (line[0] == 'E' &&

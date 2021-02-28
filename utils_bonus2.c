@@ -28,9 +28,21 @@ int	is_in(char c, char *str)
 	return (0);
 }
 
+int	ft_strncmp_loc(const char *s1, const char *s2, int n)
+{
+	int i;
+
+	if (n == 0)
+		return (0);
+	i = 0;
+	while (s1[i] && s1[i] == s2[i] && i + 1 < n)
+		i++;
+	return (s1[i] - s2[i]);
+}
+
 void	victory_exit_check(t_data *data)
 {
-	if (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3 && "map_lvl0.cub")
+	if (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3 && ft_strncmp_loc(data->av, "map_lvl0.cub", 12) == 0)
 		data->victory = 1;
 	if (data->escape == 1 || data->victory == 1)
 		exit_free(data);

@@ -28,6 +28,8 @@ void	determine_id(t_data *data, int *id)
 		else
 			*id = 1;
 	}
+	if (!BONUS)
+		return ;
 	if (data->map[data->y_raymap][data->x_raymap] == '5')
 		*id = 1;
 	else if (data->map[data->y_raymap][data->x_raymap] == '.')
@@ -38,6 +40,12 @@ void	determine_id(t_data *data, int *id)
 		*id = 24;
 	else if (data->map[data->y_raymap][data->x_raymap] == '@')
 		*id = 25;
+	else if (data->map[data->y_raymap][data->x_raymap] == '#')
+		*id = 26;
+	else if (data->map[data->y_raymap][data->x_raymap] == '$')
+		*id = 27;
+	else if (data->side == 1 && data->y_ray_dir > 0)
+		*id = 2;
 }
 
 void	texture_calculation(t_data *data, double *step,
@@ -49,9 +57,9 @@ void	texture_calculation(t_data *data, double *step,
 		data->wall_hit = data->x_pos + data->dist_wall * data->x_ray_dir;
 	data->wall_hit -= floor(data->wall_hit);
 	data->x_texture = (int)(data->wall_hit * (double)(data->text[*id].width));
-	if (data->side == 0 && data->x_ray_dir > 0)
+	if (data->side == 0 && data->x_ray_dir < 0)
 		data->x_texture = data->text[*id].width - data->x_texture - 1;
-	if (data->side == 1 && data->y_ray_dir < 0)
+	if (data->side == 1 && data->y_ray_dir > 0)
 		data->x_texture = data->text[*id].width - data->x_texture - 1;
 	*step = 1.0 * data->text[*id].height / data->line_size;
 	*tex_pos = (data->line_start - data->y_screen_size / 2 +

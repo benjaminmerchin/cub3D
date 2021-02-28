@@ -42,9 +42,6 @@ void	store_map(int fd, t_data *data)
 			if (is_in(data->map[0][i], data->wl))
 			{
 				data->y_map = 1;
-				/*write(1, ">>>>>>>>>>", 10);
-				write(1, &data->map[0][i], 1);
-				write(1, "\n\n", 2);*/
 				break ;
 			}
 			i++;

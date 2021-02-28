@@ -36,7 +36,7 @@ typedef struct	s_struct
 # define MOVING_SPEED 0.1
 # define ROTATION_SPEED 0.035
 # define NUM_SPRITE_BOMUS 17
-# define NUM_TEXTURE_BONUS 4
+# define NUM_TEXTURE_BONUS 6
 
 # ifdef __linux__
 #  define KEY_FORWARD 119
