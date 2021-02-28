@@ -11,3 +11,5 @@ mlx/mlx_window.swiftmodule
 *.swiftsourceinfo
 .vscode/
 *.bmp
+cub3D.dSYM/
+mlx/libmlx.dylib.dSYM/
