@@ -10,7 +10,7 @@ HEADER	=	cub3d.h
 OBJ 	=	$(SRC:.c=.o)
 CFLAGS	=	-Wall -Wextra -Werror -g #-fsanitize=address
 MLX_DIR	=	mlx
-MLX_LNX	=	minilibx-linux
+MLX_LNX	=	mlx-linux
 MLX		=	libmlx.dylib
 BONUS	=	-D BONUS=1
 
@@ -49,7 +49,7 @@ ifeq ($(OS), Linux)
 all: $(NAME)
 
 $(NAME): mlx $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L ./minilibx-linux -lmlx -lXext -lX11 -lm
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L ./mlx-linux -lmlx -lXext -lX11 -lm
 
 mlx:
 	make -C $(MLX_LNX)
