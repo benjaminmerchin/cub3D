@@ -14,3 +14,6 @@ miilibx-linux/*.o
 *.bmp
 cub3D.dSYM/
 mlx/libmlx.dylib.dSYM/
+mlx-linux/libmlx.a
+mlx-linux/libmlx_Linux.a
+mlx-linux/test/mlx-test

@@ -72,3 +72,26 @@ void	save_image(t_data *data)
 		exit(0);
 	}
 }
+
+#if LINUX == 1
+
+void	screen_resize(t_data *data)
+{
+	int x;
+	int y;
+	
+	mlx_get_screen_size(data->mlx, &x, &y);
+	if (data->x_screen_size > x && data->save == 0)
+		data->x_screen_size = x;
+	if (data->y_screen_size > y && data->save == 0)
+		data->y_screen_size = y;
+}
+
+#else
+
+void	screen_resize(t_data *data)
+{
+	(void)data;
+}
+
+#endif

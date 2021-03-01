@@ -19,27 +19,44 @@ int		clean_exit(int keycode, t_data *data)
 	return (0);
 }
 
-#ifdef __LINUX__
+#if LINUX == 1
 
-void	exit_free(t_data *data)
+int	exit_free(t_data *data)
 {
+	int i;
+
+	i = 0;
 	if (BONUS)
 		echo_the_end(data);
 	free_struct(data, 1);
 	mlx_destroy_image(data->mlx, data->img);
+	while (i < 5 + BONUS * (NUM_SPRITE_BOMUS + NUM_TEXTURE_BONUS))
+	{
+		mlx_destroy_image(data->mlx, data->text[i].img);
+		i++;
+	}
 	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 	exit(0);
 }
 
 #else
 
-void	exit_free(t_data *data)
+int	exit_free(t_data *data)
 {
+	int i;
+
+	i = 0;
 	if (BONUS)
 		echo_the_end(data);
 	free_struct(data, 1);
 	mlx_destroy_image(data->mlx, data->img);
+	while (i < 5 + NUM_SPRITE_BOMUS + NUM_TEXTURE_BONUS)
+	{
+		mlx_destroy_image(data->mlx, data->text[i].img);
+		i++;
+	}
 	mlx_destroy_window(data->mlx, data->win);
 	free(data->mlx);
 	exit(0);

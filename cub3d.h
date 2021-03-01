@@ -221,6 +221,7 @@ void			move_according_to_key_press(t_data *data);
 void			texture_check(t_data *data);
 
 void			save_image(t_data *data);
+void			screen_resize(t_data *data);
 
 void			ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void			sort_sprite(t_data *data);
@@ -238,7 +239,7 @@ void			raycasting_line_position(t_data *data);
 void			sprite(t_data *data);
 
 int				clean_exit(int keycode, t_data *data);
-void			exit_free(t_data *data);
+int				exit_free(t_data *data);
 
 void			init_images_bonus(t_data *data);
 void			initialize_heart(t_data *data);
