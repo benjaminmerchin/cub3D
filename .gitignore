@@ -8,7 +8,7 @@ mlx/mlx_init.swiftdoc
 mlx/mlx_init.swiftmodule
 mlx/mlx_window.swiftdoc
 mlx/mlx_window.swiftmodule
-minilibx-linux/*.o
+miilibx-linux/*.o
 *.swiftsourceinfo
 .vscode/
 *.bmp
