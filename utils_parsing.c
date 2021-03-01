@@ -55,14 +55,11 @@ int		free_struct(t_data *data, int m)
 			i++;
 		}
 	}
-	i = 0;
+	i = -1;
 	if (m == 1)
 	{
-		while (i < data->y_map)
-		{
+		while (++i < data->y_map)
 			free(data->map[i]);
-			i++;
-		}
 	}
 	return (0);
 }

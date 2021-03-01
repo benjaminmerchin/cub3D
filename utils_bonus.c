@@ -12,21 +12,10 @@
 
 #include "cub3d.h"
 
-void	initialize_heart(t_data *data)
+void	initialize_heart2(t_data *data, char *tab[11])
 {
 	int i;
 	int j;
-	int tab[11][11] = {{0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0},
-	{0, 1, 2, 2, 1, 0, 1, 2, 2, 1, 0},
-	{1, 2, 3, 4, 2, 1, 2, 4, 4, 2, 1},
-	{1, 2, 3, 4, 4, 2, 4, 4, 4, 2, 1},
-	{1, 2, 4, 4, 4, 4, 4, 4, 4, 2, 1},
-	{1, 2, 4, 4, 4, 4, 4, 4, 4, 2, 1},
-	{0, 1, 2, 4, 4, 4, 4, 4, 2, 1, 0},
-	{0, 0, 1, 2, 4, 4, 4, 2, 1, 0, 0},
-	{0, 0, 0, 1, 2, 4, 2, 1, 0, 0, 0},
-	{0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}};
 
 	i = 0;
 	while (i < 11)
@@ -34,21 +23,38 @@ void	initialize_heart(t_data *data)
 		j = 0;
 		while (j < 11)
 		{
-			if (tab[j][i] == 0)
+			if (tab[j][i] == '0')
 				data->heart[j][i] = 0;
-			else if (tab[j][i] == 1)
+			else if (tab[j][i] == '1')
 				data->heart[j][i] = 131072;
-			else if (tab[j][i] == 2)
+			else if (tab[j][i] == '2')
 				data->heart[j][i] = 10944515;
-			else if (tab[j][i] == 3)
+			else if (tab[j][i] == '3')
 				data->heart[j][i] = 16709366;
-			else if (tab[j][i] == 4)
+			else if (tab[j][i] == '4')
 				data->heart[j][i] = 15269892;
-			//ft_putnbr_fd(data->heart[j][i], 1);
 			j++;
 		}
 		i++;
 	}
+}
+
+void	initialize_heart(t_data *data)
+{
+	char *tab[11];
+
+	tab[0] = "00110001100";
+	tab[1] = "01221012210";
+	tab[2] = "12342124421";
+	tab[3] = "12344244421";
+	tab[4] = "12444444421";
+	tab[5] = "12444444421";
+	tab[6] = "01244444210";
+	tab[7] = "00124442100";
+	tab[8] = "00012421000";
+	tab[9] = "00001210000";
+	tab[10] = "00000100000";
+	initialize_heart2(data, tab);
 }
 
 void	put_sprite_id(t_data *data)
@@ -60,15 +66,20 @@ void	put_sprite_id(t_data *data)
 	{
 		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'j')
 			data->sprite[i][4] = 12;
-		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'k')
+		else if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]]
+		== 'k')
 			data->sprite[i][4] = 13;
-		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'l')
+		else if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]]
+		== 'l')
 			data->sprite[i][4] = 14;
-		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'm')
+		else if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]]
+		== 'm')
 			data->sprite[i][4] = 15;
-		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'n')
+		else if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]]
+		== 'n')
 			data->sprite[i][4] = 16;
-		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'o')
+		else if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]]
+		== 'o')
 			data->sprite[i][4] = 17;
 		i++;
 	}
@@ -96,13 +107,12 @@ void	put_heal_at_spawn(t_data *data)
 		}
 		i++;
 	}
-
 }
 
 void	init_images_bonus(t_data *data)
 {
 	int i;
-	
+
 	if (!BONUS)
 		return ;
 	i = 5;

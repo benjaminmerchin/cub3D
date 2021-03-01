@@ -25,14 +25,16 @@ void	sprite2(t_data *data, int i)
 	data->x_sprscr = (int)((data->x_screen_size / 2) *
 	(1 + data->x_trans / data->y_trans));
 	data->h_sprite = abs((int)(data->y_screen_size / data->y_trans));
-	data->y_drawstart = -data->h_sprite / 2 + data->y_screen_size / 2 + data->crouch;
+	data->y_drawstart = -data->h_sprite / 2
+	+ data->y_screen_size / 2 + data->crouch;
 }
 
 void	sprite3(t_data *data)
 {
 	if (data->y_drawstart < 0)
 		data->y_drawstart = 0;
-	data->y_drawend = data->h_sprite / 2 + data->y_screen_size / 2 + data->crouch;
+	data->y_drawend = data->h_sprite / 2
+	+ data->y_screen_size / 2 + data->crouch;
 	if (data->y_drawend >= data->y_screen_size)
 		data->y_drawend = data->y_screen_size;
 	data->w_sprite = abs((int)(data->y_screen_size / data->y_trans));
@@ -52,7 +54,8 @@ void	draw_sprite_column(t_data *data, int j, int id)
 	k = data->y_drawstart;
 	while (k < data->y_drawend)
 	{
-		d = (k - data->crouch) * 256 - data->y_screen_size * 128 + data->h_sprite * 128;
+		d = (k - data->crouch) * 256 - data->y_screen_size * 128
+		+ data->h_sprite * 128;
 		data->y_tex = ((d * data->text[id].height) / data->h_sprite) / 256;
 		if (*(unsigned int *)(data->text[id].add +
 		data->text[id].line_length * data->y_tex + data->x_tex * 4) != 0)

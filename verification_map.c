@@ -98,19 +98,19 @@ void	check_map(t_data *data)
 	int len;
 
 	y = 0;
-	//write(1, "\n", 1);
 	while (y <= data->y_map)
 	{
 		x = 0;
-		//ft_putstr_bn(data->map[y]);
 		len = ft_strlen(data->map[y]);
 		while (x < len)
 		{
-			if (is_in(data->map[y][x], "02") || BONUS * is_in(data->map[y][x], "j345klmno"))
+			if (is_in(data->map[y][x], "02")
+			|| BONUS * is_in(data->map[y][x], "j345klmno"))
 				find_wall(data, x, y);
 			else if (is_in(data->map[y][x], "NSEW"))
 				check_map2(data, x, y);
-			else if (data->map[y][x] != ' ' && !is_in(data->map[y][x], data->wl))
+			else if (data->map[y][x] != ' '
+			&& !is_in(data->map[y][x], data->wl))
 				data->security[10] = data->security[10] + 1;
 			x++;
 		}

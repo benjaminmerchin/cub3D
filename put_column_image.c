@@ -12,6 +12,26 @@
 
 #include "cub3d.h"
 
+void	determine_id_bonus(t_data *data, int *id)
+{
+	if (data->map[data->y_raymap][data->x_raymap] == '5')
+		*id = 1;
+	else if (data->map[data->y_raymap][data->x_raymap] == '.')
+		*id = 22;
+	else if (data->map[data->y_raymap][data->x_raymap] == ',')
+		*id = 23;
+	else if (data->map[data->y_raymap][data->x_raymap] == '_')
+		*id = 24;
+	else if (data->map[data->y_raymap][data->x_raymap] == '@')
+		*id = 25;
+	else if (data->map[data->y_raymap][data->x_raymap] == '#')
+		*id = 26;
+	else if (data->map[data->y_raymap][data->x_raymap] == '$')
+		*id = 27;
+	else if (data->side == 1 && data->y_ray_dir > 0)
+		*id = 2;
+}
+
 void	determine_id(t_data *data, int *id)
 {
 	if (data->side == 0)
@@ -30,22 +50,7 @@ void	determine_id(t_data *data, int *id)
 	}
 	if (!BONUS)
 		return ;
-	if (data->map[data->y_raymap][data->x_raymap] == '5')
-		*id = 1;
-	else if (data->map[data->y_raymap][data->x_raymap] == '.')
-		*id = 22;
-	else if (data->map[data->y_raymap][data->x_raymap] == ',')
-		*id = 23;
-	else if (data->map[data->y_raymap][data->x_raymap] == '_')
-		*id = 24;
-	else if (data->map[data->y_raymap][data->x_raymap] == '@')
-		*id = 25;
-	else if (data->map[data->y_raymap][data->x_raymap] == '#')
-		*id = 26;
-	else if (data->map[data->y_raymap][data->x_raymap] == '$')
-		*id = 27;
-	else if (data->side == 1 && data->y_ray_dir > 0)
-		*id = 2;
+	determine_id_bonus(data, id);
 }
 
 void	texture_calculation(t_data *data, double *step,

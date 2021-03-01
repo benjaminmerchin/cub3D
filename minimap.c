@@ -12,63 +12,6 @@
 
 #include "cub3d.h"
 
-void	add_hud(t_data *data)
-{
-	int i;
-	int j;
-	int center_w;
-	int center_h;
-	
-	i = -7;
-	j = -7;
-	center_w = data->x_screen_size / 2;
-	center_h = data->y_screen_size / 2;
-	if (data->x_screen_size < 400 || data->y_screen_size < 300)
-		return ;
-	while (++i < 8)
-	{
-		ft_mlx_pixel_put(data, center_w + i,  center_h, 131072);
-		ft_mlx_pixel_put(data, center_w + i,  center_h + 1, 131072);
-	}
-	while (++j < 8)
-	{
-		ft_mlx_pixel_put(data, center_w, center_h + j, 131072);
-		ft_mlx_pixel_put(data, center_w + 1, center_h + j, 131072);
-	}
-}
-
-void	add_lifebar(t_data *data)
-{
-	int i;
-	int j;
-	int k;
-	int a;
-	int b;
-
-	k = 0;
-	b = 10;
-	a = data->y_screen_size - 21;
-	if (data->x_screen_size < 400 || data->y_screen_size < 50)
-		return ;
-	while (k < (data->life + 2) / 3)
-	{
-		i = 0;
-		while (i < 11)
-		{
-			j = 0;
-			while (j < 11)
-			{
-				if (data->heart[i][j] != 0)
-					ft_mlx_pixel_put(data, j + b, a + i, data->heart[i][j]);
-				j++;
-			}
-			i++;
-		}
-		b += 15;
-		k++;
-	}
-}
-
 void	add_direction(t_data *data)
 {
 	int a;
@@ -110,10 +53,10 @@ void	add_player(t_data *data)
 
 void	room_nearby(t_data *data, int i, int j, int k)
 {
-	if (i != 0 && !is_in(data->map[i - 1][j], "13.,_@#$")) //is_in(data->map[i - 1][j], "1")
+	if (i != 0 && !is_in(data->map[i - 1][j], "13.,_@#$"))
 		ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
 		i * MINIMAP_SIZE + k % MINIMAP_SIZE, 0);
-	else if (j != 0 && !is_in(data->map[i][j - 1],"13.,_@#$"))
+	else if (j != 0 && !is_in(data->map[i][j - 1], "13.,_@#$"))
 		ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
 		i * MINIMAP_SIZE + k % MINIMAP_SIZE, 0);
 	else if (j != data->x_map - 1 && !is_in(data->map[i][j + 1], "13.,_@#$"))
@@ -124,22 +67,15 @@ void	room_nearby(t_data *data, int i, int j, int k)
 		i * MINIMAP_SIZE + k % MINIMAP_SIZE, 0);
 }
 
-void	add_minimap_and_company(t_data *data)
+void	add_minimap_and_company2(t_data *data, int i, int j, int k)
 {
-	int i;
-	int j;
-	int k;
-	int pixel;
-
-	i = 0;
-	pixel = MINIMAP_SIZE * MINIMAP_SIZE;
 	while (i < data->y_map && i * MINIMAP_SIZE < data->y_screen_size)
 	{
 		j = 0;
 		while (j < data->x_map && j * MINIMAP_SIZE < data->x_screen_size)
 		{
 			k = -1;
-			while (++k < pixel)
+			while (++k < MINIMAP_SIZE * MINIMAP_SIZE)
 			{
 				if (is_in(data->map[i][j], "04"))
 					ft_mlx_pixel_put(data, j * MINIMAP_SIZE + k / MINIMAP_SIZE,
@@ -157,6 +93,18 @@ void	add_minimap_and_company(t_data *data)
 		}
 		i++;
 	}
+}
+
+void	add_minimap_and_company(t_data *data)
+{
+	int i;
+	int k;
+	int j;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	add_minimap_and_company2(data, i, j, k);
 	add_player(data);
 	add_lifebar(data);
 	add_hud(data);

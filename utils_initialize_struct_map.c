@@ -28,7 +28,7 @@ void	initialize_struct2(t_data *data)
 	j = 0;
 	while (i < 500)
 	{
-		if(data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == '2')
+		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == '2')
 		{
 			data->sprite[i][4] = (j + 11) % 12;
 			j++;
@@ -58,17 +58,6 @@ void	intialize_struct(t_data *data)
 	while (++i < 500)
 		data->sprite[i][4] = 0;
 	initialize_struct2(data);
-}
-
-void	set_vector_dir_extension(t_data *data)
-{
-	if (data->start_dir == 'W')
-	{
-		data->x_dir = -1;
-		data->y_dir = 0;
-		data->x_plane = 0;
-		data->y_plane = -0.66;
-	}
 }
 
 void	set_vector_dir(t_data *data)

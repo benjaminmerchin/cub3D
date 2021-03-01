@@ -14,9 +14,6 @@
 
 int		clean_exit(int keycode, t_data *data)
 {
-	(void)data;
-	(void)keycode;
-	write(1, "o", 1);
 	if (keycode == KEY_ESCAPE)
 		data->escape = 1;
 	return (0);
@@ -27,8 +24,8 @@ int		clean_exit(int keycode, t_data *data)
 void	exit_free(t_data *data)
 {
 	if (BONUS)
-		echo_the_end(data);	
-	free_struct(&data, 1);
+		echo_the_end(data);
+	free_struct(data, 1);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	free(data->mlx);

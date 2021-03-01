@@ -17,7 +17,6 @@ void	open_then_read(char *str, t_data *data)
 	int fd;
 
 	fd = open(str, O_RDONLY);
-	//ft_putstr_bn(str);
 	if (fd == -1)
 	{
 		ft_putstr_bn("Error\nWrong texture path");

@@ -96,7 +96,7 @@ int		main(int ac, char **av)
 	int		fd;
 	char	*line;
 	t_data	data;
-	
+
 	line = NULL;
 	fd = open(av[1], O_RDONLY);
 	data.av = av[1];

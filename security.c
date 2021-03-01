@@ -32,18 +32,6 @@ int	security_check(t_data *data)
 	return (0);
 }
 
-int	ft_strncmp(char *s1, char *s2, int n)
-{
-	int i;
-
-	if (n == 0)
-		return (0);
-	i = 0;
-	while (s1[i] && s1[i] == s2[i] && i + 1 < n)
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
 int	security_cub_av_check(char **av, t_data *data)
 {
 	if (ft_strncmp(av[2], "--save", 10) == 0)
@@ -82,18 +70,32 @@ int	security_cub(int ac, char **av, t_data *data, int fd)
 	return (0);
 }
 
+int	security_data_extension(t_data *data)
+{
+	if (data->x_screen_size > 10000 || data->y_screen_size > 10000)
+	{
+		ft_putstr_bn("Error\nYour Map resolution is too big");
+		return (1);
+	}
+	if (data->x_screen_size < 5 || data->y_screen_size < 5)
+	{
+		ft_putstr_bn("Error\nYour Map resolution is too small");
+		return (1);
+	}
+	return (0);
+}
+
 int	security_data(t_data *data)
 {
 	int i;
 
-	i = 0;
-	while (i < 8)
+	i = -1;
+	while (++i < 8)
 	{
 		if (data->security[i] == 0)
 		{
 			ft_putstr_bn("Error\nData Missing in .cub");
-			printf("The security issue %d was trigerred\n", i);
-			printf("There is a problem in the texture/Colors\n");
+			printf("Trigerred issue %d (Wrong data or missing)\n", i);
 			return (1);
 		}
 		if (data->security[i] > 1)
@@ -108,17 +110,6 @@ int	security_data(t_data *data)
 				return (1);
 			}
 		}
-		i++;
 	}
-	if (data->x_screen_size > 10000 || data->y_screen_size > 10000)
-	{
-		ft_putstr_bn("Error\nYour Map resolution is too big");
-		return (1);
-	}
-	if (data->x_screen_size < 5 || data->y_screen_size < 5)
-	{
-		ft_putstr_bn("Error\nYour Map resolution is too small");
-		return (1);
-	}
-	return (0);
+	return (security_data_extension(data));
 }

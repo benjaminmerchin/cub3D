@@ -212,6 +212,9 @@ int				ft_key_hook(int keycode, t_data *data);
 int				ft_key_unhook(int keycode, t_data *data);
 
 void			add_minimap_and_company(t_data *data);
+void			add_lifebar(t_data *data);
+void			add_hud(t_data *data);
+
 
 void			move_according_to_key_press(t_data *data);
 
@@ -249,11 +252,17 @@ void			victory_exit_check(t_data *data);
 
 void			ft_putnbr(int n);
 void			ft_putchar(char c);
+int				ft_strncmp(char *s1, char *s2, int n);
+
 
 void			close_door(t_data *data);
 void			open_door(t_data *data);
 
+int				long_condition(char *line);
+void			store_path1(t_data *data, char *line);
+void			store_path2(t_data *data, char *line);
+void			store_path3(t_data *data, char *line);
 
-
+void			set_vector_dir_extension(t_data *data);
 
 #endif

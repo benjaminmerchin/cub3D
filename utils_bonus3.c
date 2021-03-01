@@ -25,22 +25,22 @@ void	heal_at_spawn(t_data *data)
 
 void	initialize_the_end(t_data *data)
 {
-	int i;
-	int j;
-	int tab[5][36] =
-	{{0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1,0,1,1,1,0,1,0,0,0,1},
-	{1,1,0,1,1,1,0,1,1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,1,0},
-	{1,1,0,1,1,1,0,0,0,0,1,0,0,0,1,1,1,1,1,1,1,0,0,0,1,1,0,1,0,1,0,1,0,1,1,0},
-	{1,1,0,1,1,1,0,1,1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,0,0,1,0,1,1,0},
-	{1,1,0,1,1,1,0,1,1,0,1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1,0,1,1,1,0,1,0,0,0,1}};
+	int		i;
+	int		j;
+	char	*tab[5];
 
+	tab[0] = "000001011010000111111000010111010001";
+	tab[1] = "110111011010111111111011110011010110";
+	tab[2] = "110111000010001111111000110101010110";
+	tab[3] = "110111011010111111111011110110010110";
+	tab[4] = "110111011010000111111000010111010001";
 	i = 0;
 	while (i < 36)
 	{
 		j = 0;
 		while (j < 5)
 		{
-			if (tab[j][i] == 0)
+			if (tab[j][i] == '0')
 				data->the_end[j][i] = 16709366;
 			else
 				data->the_end[j][i] = 0;
@@ -79,7 +79,7 @@ void	add_the_end(t_data *data)
 	}
 }
 
-void			echo_the_end(t_data *data)
+void	echo_the_end(t_data *data)
 {
 	int i;
 	int j;
@@ -97,8 +97,11 @@ void			echo_the_end(t_data *data)
 		}
 		i++;
 	}
-	if 	(data->v_bool_print_score == 0 && data->life > 0 && data->victory == 1)
-		printf("Your final score is %d frames.\nYou can try again to get a lower time.\n", data->frame);
+	if (data->v_bool_print_score == 0 && data->life > 0 && data->victory == 1)
+	{
+		printf("Your final score is %d frames.", data->frame);
+		printf("You can try again to get a lower time.\n");
+	}
 	data->v_bool_print_score = 1;
 	add_the_end(data);
 }

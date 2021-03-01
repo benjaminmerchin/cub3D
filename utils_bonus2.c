@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int	is_in(char c, char *str)
+int		is_in(char c, char *str)
 {
 	int i;
 	int len;
@@ -28,7 +28,7 @@ int	is_in(char c, char *str)
 	return (0);
 }
 
-int	ft_strncmp_loc(const char *s1, const char *s2, int n)
+int		ft_strncmp_loc(const char *s1, const char *s2, int n)
 {
 	int i;
 
@@ -42,7 +42,8 @@ int	ft_strncmp_loc(const char *s1, const char *s2, int n)
 
 void	victory_exit_check(t_data *data)
 {
-	if (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3 && ft_strncmp_loc(data->av, "map_lvl0.cub", 12) == 0)
+	if (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3
+	&& ft_strncmp_loc(data->av, "map_lvl0.cub", 12) == 0)
 		data->victory = 1;
 	if (data->escape == 1 || data->victory == 1)
 		exit_free(data);

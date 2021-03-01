@@ -72,30 +72,17 @@ void	sprite_dist_calc(t_data *data)
 
 void	init_images_mlx(t_data *data)
 {
-	data->text[0].img = mlx_xpm_file_to_image(data->mlx, data->text[0].path,
-	&data->text[0].width, &data->text[0].height);
-	data->text[1].img = mlx_xpm_file_to_image(data->mlx, data->text[1].path,
-	&data->text[1].width, &data->text[1].height);
-	data->text[2].img = mlx_xpm_file_to_image(data->mlx, data->text[2].path,
-	&data->text[2].width, &data->text[2].height);
-	data->text[3].img = mlx_xpm_file_to_image(data->mlx, data->text[3].path,
-	&data->text[3].width, &data->text[3].height);
-	data->text[4].img = mlx_xpm_file_to_image(data->mlx, data->text[4].path,
-	&data->text[4].width, &data->text[4].height);
-	data->text[0].add = mlx_get_data_addr(data->text[0].img,
-	&data->text[0].bits_per_pixel, &data->text[0].line_length,
-	&data->text[0].endian);
-	data->text[1].add = mlx_get_data_addr(data->text[1].img,
-	&data->text[1].bits_per_pixel, &data->text[1].line_length,
-	&data->text[1].endian);
-	data->text[2].add = mlx_get_data_addr(data->text[2].img,
-	&data->text[2].bits_per_pixel, &data->text[2].line_length,
-	&data->text[2].endian);
-	data->text[3].add = mlx_get_data_addr(data->text[3].img,
-	&data->text[3].bits_per_pixel, &data->text[3].line_length,
-	&data->text[3].endian);
-	data->text[4].add = mlx_get_data_addr(data->text[4].img,
-	&data->text[4].bits_per_pixel, &data->text[4].line_length,
-	&data->text[4].endian);
+	int i;
+
+	i = 0;
+	while (i < 5)
+	{
+		data->text[i].img = mlx_xpm_file_to_image(data->mlx, data->text[i].path,
+		&data->text[i].width, &data->text[i].height);
+		data->text[i].add = mlx_get_data_addr(data->text[i].img,
+		&data->text[i].bits_per_pixel, &data->text[i].line_length,
+		&data->text[i].endian);
+		i++;
+	}
 	init_images_bonus(data);
 }
