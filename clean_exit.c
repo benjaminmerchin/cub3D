@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int		clean_exit(int keycode, t_data *data)
+int	clean_exit(int keycode, t_data *data)
 {
 	if (keycode == KEY_ESCAPE)
 		data->escape = 1;

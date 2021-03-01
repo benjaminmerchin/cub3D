@@ -87,44 +87,43 @@ typedef struct	s_data
 	t_text			text[50];
 	char			*av;
 	char			*wl;
-	unsigned short	x_screen_size; //w
-	unsigned short	y_screen_size; //h
+	unsigned short	x_screen_size;
+	unsigned short	y_screen_size;
 	int				floor;
 	int				ceiling;
 	char			start_dir;
 	char			*map[1024];
 	int				security[20];
 	int				save;
-	int				x_map; // Taille de la map (plus longue ligne et plus longue colonne) 
+	int				x_map;
 	int				y_map;
 	int				frame;
 	int				time;
 
-	int				x_raymap; // Position sans chiffres apres la virgule // mapX
+	int				x_raymap;
 	int				y_raymap;
-	double			x_pos; // Position precise de la personnes sur la map // posX
+	double			x_pos;
 	double			y_pos;
-	double			x_dir; // Direction de la personne (set au debut) // dirX
+	double			x_dir;
 	double			y_dir;
-	double			x_plane; // Direction du plan de la camera (set au debut) // planeX
+	double			x_plane;
 	double			y_plane;
-	double			x_ray_dir; // Calcul de la directin du rayon
+	double			x_ray_dir;
 	double			y_ray_dir;
-	double			x_side_dist; // Distance parcourue jusqu'au peochain cote x;
+	double			x_side_dist;
 	double			y_side_dist;
-	double			dist_wall;	// Distance avec le mur // perpWallDist
-	double			x_delta_dist; // Distance parcourue entre chaque point d'intersection vertical
+	double			dist_wall;
+	double			x_delta_dist;
 	double			y_delta_dist;
-	double			pos_plane; // Position sur le plan de la camera (delta de -1 a 1 avec 0 au milieu) // cameraX
-	double			temp; // Pour stocker une valeur qui est immediatement reutilisee dans le calcul
-	int				x_step; // -1 si doit sauter un carre dans direction x negative, 1 dans la direction x positive
-	int				y_step; // -1 si doit sauter un carre dans la direction y negative, 1 dans la direction y positive
-	int				hit; // 1 si un mur a ete touche, 0 sinon
-	int				side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
-	int				line_start; // drawStart
-	int				line_end; // drawEnd
-	int				line_size; // lineHeight
-
+	double			pos_plane;
+	double			temp;
+	int				x_step;
+	int				y_step;
+	int				hit;
+	int				side;
+	int				line_start;
+	int				line_end;
+	int				line_size;
 	double			wall_hit;
 
 	void			*mlx;
@@ -153,20 +152,20 @@ typedef struct	s_data
 
 	int				sprite_num;
 	double			sprite[1001][5];
-	double			buff[20000];		// ZBuffer
+	double			buff[20000];
 	double			x_sprite;
 	double			y_sprite;
-	double			matrice; // Utilise pour inverser la matrice // invDet
-	double			x_trans; //transformX
-	double			y_trans; //transformY
-	int				x_sprscr; //spritescreenX
-	int				y_sprscr; //spritescreenY
-	int				h_sprite; //spriteheight
-	int				w_sprite; //spritewidth
-	int				x_drawstart; // drawStartX
-	int				y_drawstart; // drawStartY
-	int				x_drawend; // drawEndX
-	int				y_drawend; // drawEndY
+	double			matrice;
+	double			x_trans;
+	double			y_trans;
+	int				x_sprscr;
+	int				y_sprscr;
+	int				h_sprite;
+	int				w_sprite;
+	int				x_drawstart;
+	int				y_drawstart;
+	int				x_drawend;
+	int				y_drawend;
 	int				x_tex;
 	int				y_tex;
 	int				x_texture;
@@ -215,7 +214,6 @@ void			add_minimap_and_company(t_data *data);
 void			add_lifebar(t_data *data);
 void			add_hud(t_data *data);
 
-
 void			move_according_to_key_press(t_data *data);
 
 void			texture_check(t_data *data);
@@ -254,7 +252,6 @@ void			victory_exit_check(t_data *data);
 void			ft_putnbr(int n);
 void			ft_putchar(char c);
 int				ft_strncmp(char *s1, char *s2, int n);
-
 
 void			close_door(t_data *data);
 void			open_door(t_data *data);

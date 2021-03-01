@@ -74,7 +74,7 @@ int		render_next_frame(t_data *data)
 }
 
 void	run_mlx(t_data *data)
-{	
+{
 	data->mlx = mlx_init();
 	screen_resize(data);
 	data->win = mlx_new_window(data->mlx, data->x_screen_size,

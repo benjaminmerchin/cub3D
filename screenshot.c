@@ -79,7 +79,7 @@ void	screen_resize(t_data *data)
 {
 	int x;
 	int y;
-	
+
 	mlx_get_screen_size(data->mlx, &x, &y);
 	if (data->x_screen_size > x && data->save == 0)
 		data->x_screen_size = x;
