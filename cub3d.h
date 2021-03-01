@@ -43,12 +43,12 @@ typedef struct	s_struct
 #  define KEY_BACKWARD 115
 #  define KEY_RIGHT 100
 #  define KEY_LEFT 97
-#  define KEY_TURN_LEFT 65361
-#  define KEY_TURN_RIGHT 65363
-#  define KEY_CROUCH 0
-#  define KEY_ESCAPE 0
-#  define KEY_SPRINT 0
-#  define KEY_DOOR 0
+#  define KEY_TURN_LEFT 65363
+#  define KEY_TURN_RIGHT 65361
+#  define KEY_CROUCH 99
+#  define KEY_ESCAPE 65307
+#  define KEY_SPRINT 65362
+#  define KEY_DOOR 107
 #  define MACOS 0
 #  define LINUX 1
 # else

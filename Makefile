@@ -36,13 +36,6 @@ bonus: mlx $(OBJ)
 clean:
 	rm -f $(OBJ)
 	make clean -C $(MLX_DIR)
-
-fclean: clean
-	rm -f $(NAME)
-
-re: fclean all
-
-.PHONY: clean fclean all re mlx bonus
 endif
 
 ifeq ($(OS), Linux)
@@ -61,10 +54,16 @@ clean:
 	rm -f $(OBJ)
 	make clean -C $(MLX_LNX)
 
+bonus: CFLAGS	=	-Wall -Wextra -Werror $(BONUS)
+
+bonus: mlx $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L ./mlx-linux -lmlx -lXext -lX11 -lm
+
+endif
+
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
 .PHONY: clean fclean all re mlx bonus
-endif
