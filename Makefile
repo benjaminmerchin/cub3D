@@ -1,5 +1,6 @@
 NAME	=	cub3D
 CC		=	clang
+OS		=	$(shell uname -s)
 SRC		=	cub3d.c get_next_line.c get_next_line_utils.c utils_basic.c utils_color.c store_map.c \
 			utils_parsing.c security.c verification_map.c utils_initialize_struct_map.c hook.c \
 			minimap.c moving.c verification_texture.c screenshot.c utils_mlx.c put_column_image.c \
@@ -9,9 +10,11 @@ HEADER	=	cub3d.h
 OBJ 	=	$(SRC:.c=.o)
 CFLAGS	=	-Wall -Wextra -Werror -g #-fsanitize=address
 MLX_DIR	=	mlx
+MLX_LNX	=	minilibx-linux
 MLX		=	libmlx.dylib
 BONUS	=	-D BONUS=1
 
+ifeq ($(OS), Darwin)
 all: $(NAME)
 
 $(NAME): mlx $(OBJ)
@@ -40,3 +43,28 @@ fclean: clean
 re: fclean all
 
 .PHONY: clean fclean all re mlx bonus
+endif
+
+ifeq ($(OS), Linux)
+all: $(NAME)
+
+$(NAME): mlx $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L ./minilibx-linux -lmlx -lXext -lX11 -lm
+
+mlx:
+	make -C $(MLX_LNX)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -Iincludes -c $< -o $@
+
+clean:
+	rm -f $(OBJ)
+	make clean -C $(MLX_LNX)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: clean fclean all re mlx bonus
+endif
