@@ -98,6 +98,7 @@ void	check_map(t_data *data)
 	int len;
 
 	y = 0;
+	data->crew = 0;
 	while (y <= data->y_map)
 	{
 		x = 0;

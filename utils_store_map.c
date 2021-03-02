@@ -111,7 +111,8 @@ void	store_info(int fd, t_data *data, char *line)
 	data->wl = "1.,_@#$";
 	while ((retour = get_next_line(fd, &line)) == 1)
 	{
-		ft_putstr_bn(line);
+		if (!BONUS)
+			ft_putstr_bn(line);
 		if (is_in(line[0], "RFC") && line[1] == ' ')
 			store_rfc(data, line);
 		else if (long_condition(line))

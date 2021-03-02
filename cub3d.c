@@ -60,6 +60,7 @@ int		render_next_frame(t_data *data)
 	}
 	move_according_to_key_press(data);
 	heal_at_spawn(data);
+	attack_if_possible(data);
 	raycasting_calculation(data);
 	if (MINIMAP_SIZE * data->x_map <= data->x_screen_size
 	&& MINIMAP_SIZE * data->y_map <= data->y_screen_size && BONUS)

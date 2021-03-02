@@ -52,7 +52,7 @@ int	exit_free(t_data *data)
 		echo_the_end(data);
 	free_struct(data, 1);
 	mlx_destroy_image(data->mlx, data->img);
-	while (i < 5 + NUM_SPRITE_BOMUS + NUM_TEXTURE_BONUS)
+	while (i < 5 + BONUS * (NUM_SPRITE_BOMUS + NUM_TEXTURE_BONUS))
 	{
 		mlx_destroy_image(data->mlx, data->text[i].img);
 		i++;

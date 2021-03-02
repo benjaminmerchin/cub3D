@@ -64,7 +64,7 @@ int	security_cub(int ac, char **av, t_data *data, int fd)
 	}
 	if (fd < 0)
 	{
-		ft_putstr_bn("Error\nOpen Folder");
+		ft_putstr_bn("Error\nOpen Folder, wrong map");
 		return (1);
 	}
 	return (0);

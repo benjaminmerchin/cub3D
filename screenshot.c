@@ -66,10 +66,14 @@ void	save_image(t_data *data)
 	if (data->save == 1)
 	{
 		if (MINIMAP_SIZE * data->x_map <= data->x_screen_size &&
-		MINIMAP_SIZE * data->y_map <= data->y_screen_size)
+		MINIMAP_SIZE * data->y_map <= data->y_screen_size && BONUS)
+		{
 			add_minimap_and_company(data);
+			add_lifebar(data);
+			add_hud(data);
+		}
 		screenshot(data);
-		exit(0);
+		exit_free(data);
 	}
 }
 

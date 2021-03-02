@@ -3,6 +3,12 @@ NO ./texture/darker_wall.xpm
 SO ./texture/door_wall.xpm
 WE ./texture/normal_wall.xpm
 EA ./texture/normal_wall.xpm
+. ./texture/heal_cross.xpm
+, ./texture/heal_wall.xpm
+_ ./texture/heal_control.xpm
+@ ./texture/wall_control.xpm
+# ./texture/technic.xpm
+$ ./texture/window.xpm
 
 S ./texture/player_green.xpm
 T ./texture/player_blue.xpm
@@ -21,6 +27,7 @@ k ./texture/bad_brown.xpm
 l ./texture/bad_green.xpm
 m ./texture/bad_pink.xpm
 n ./texture/heart.xpm
+o ./texture/scan.xpm
 F 92,92,92
 C 94,91,140
 

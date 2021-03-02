@@ -49,6 +49,7 @@ typedef struct	s_struct
 #  define KEY_ESCAPE 65307
 #  define KEY_SPRINT 65362
 #  define KEY_DOOR 107
+#  define KEY_ATTACK 0
 #  define MACOS 0
 #  define LINUX 1
 # else
@@ -62,6 +63,7 @@ typedef struct	s_struct
 #  define KEY_ESCAPE 53
 #  define KEY_SPRINT 126
 #  define KEY_DOOR 40
+#  define KEY_ATTACK 257
 #  define MACOS 1
 #  define LINUX 0
 # endif
@@ -146,6 +148,8 @@ typedef struct	s_data
 	int				victory;
 	int				life;
 	int				door_closed;
+	int				attack;
+	int				crew;
 	int				v_bool_print_score;
 	int				heart[11][11];
 	int				the_end[5][36];
@@ -248,6 +252,7 @@ void			echo_the_end(t_data *data);
 
 int				is_in(char c, char *str);
 void			victory_exit_check(t_data *data);
+void			attack_if_possible(t_data *data);
 
 void			ft_putnbr(int n);
 void			ft_putchar(char c);

@@ -83,6 +83,8 @@ void	print_map(t_data *data)
 void	store_sprite(t_data *data, int x, int y)
 {
 	data->sprite_num++;
+	if (data->map[y][x] == '2')
+		data->crew++;
 	if (data->sprite_num > 499)
 		return ;
 	data->sprite[data->sprite_num - 1][0] = x + 0.5;

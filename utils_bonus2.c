@@ -43,8 +43,29 @@ int		ft_strncmp_loc(const char *s1, const char *s2, int n)
 void	victory_exit_check(t_data *data)
 {
 	if (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3
-	&& ft_strncmp_loc(data->av, "map_lvl0.cub", 12) == 0)
+	&& ft_strncmp_loc(data->av, "mapbonus_lvl0.cub", 18) == 0)
 		data->victory = 1;
 	if (data->escape == 1 || data->victory == 1)
 		exit_free(data);
+}
+
+void	attack_if_possible(t_data *data)
+{
+	if (!BONUS)
+		return ;
+	//printf("%f\n",data->sprite[data->sprite_num - 1][3]);
+	//printf("%d\n",data->crew);
+	if (data->attack == 300)
+	{
+		if (there is a crewmate in a radius of 1)
+		{
+			remove 1 from list;
+			data->crew--;
+		}
+		else
+			data->attack = 0;
+		printf("Kill confirmed, %d crew members left\n", data->crew);
+	}
+	if (data->attack > 0)
+		data->attack--;
 }

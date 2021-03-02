@@ -99,8 +99,9 @@ void	echo_the_end(t_data *data)
 	}
 	if (data->v_bool_print_score == 0 && data->life > 0 && data->victory == 1)
 	{
-		printf("Your final score is %d frames.", data->frame);
+		printf("Your final score is %d frames. ", data->frame);
 		printf("You can try again to get a lower time.\n");
+		printf("Congratulations, Green was the Impostor.\n");
 	}
 	data->v_bool_print_score = 1;
 	add_the_end(data);

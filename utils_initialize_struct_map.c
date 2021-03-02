@@ -54,6 +54,7 @@ void	intialize_struct(t_data *data)
 	data->crouch = 0;
 	data->escape = 0;
 	data->victory = 0;
+	data->attack = 0;
 	initialize_the_end(data);
 	while (++i < 500)
 		data->sprite[i][4] = 0;
