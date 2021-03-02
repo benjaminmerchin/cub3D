@@ -45,26 +45,54 @@ void	victory_exit_check(t_data *data)
 	if (BONUS && (int)data->x_pos == 1 && (int)data->y_pos == 3
 	&& ft_strncmp_loc(data->av, "mapbonus_lvl0.cub", 18) == 0)
 		data->victory = 1;
+	if (BONUS && data->crew == 0
+	&& ft_strncmp_loc(data->av, "mapbonus_the_skeld.cub", 23) == 0)
+		data->victory = 1;
 	if (data->escape == 1 || data->victory == 1)
 		exit_free(data);
 }
 
+void	search_and_replace(t_data *data, int y, int x)
+{
+	int i;
+	
+	i = 0;
+	while (i < data->sprite_num)
+	{
+		if ((int)data->sprite[i][0] == x && (int)data->sprite[i][1] == y)
+		{
+			data->sprite[i][4] += 1;
+			return ;
+		}
+		i++;
+	}
+}
+
 void	attack_if_possible(t_data *data)
 {
+	int i;
+	
+	i = 0;
 	if (!BONUS)
 		return ;
-	//printf("%f\n",data->sprite[data->sprite_num - 1][3]);
-	//printf("%d\n",data->crew);
 	if (data->attack == 300)
 	{
-		if (there is a crewmate in a radius of 1)
+		while (i < 9)
 		{
-			remove 1 from list;
-			data->crew--;
+			if (data->map[(int)data->y_pos + i % 3 - 1][(int)data->x_pos + i / 3 - 1] == '2')
+			{
+				data->crew--;
+				data->map[(int)data->y_pos + i % 3 - 1][(int)data->x_pos + i / 3 - 1] = '0';
+				search_and_replace(data, (int)data->y_pos + i % 3 - 1, (int)data->x_pos + i / 3 - 1);
+				printf("Kill confirmed, %d crew members left\n", data->crew);
+				data->attack--;
+				if (data->frame % 10 == 0)
+					close_door(data);
+				return ;
+			}
+			i++;
 		}
-		else
-			data->attack = 0;
-		printf("Kill confirmed, %d crew members left\n", data->crew);
+		data->attack = 0;
 	}
 	if (data->attack > 0)
 		data->attack--;

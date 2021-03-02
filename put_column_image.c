@@ -17,17 +17,17 @@ void	determine_id_bonus(t_data *data, int *id)
 	if (data->map[data->y_raymap][data->x_raymap] == '5')
 		*id = 1;
 	else if (data->map[data->y_raymap][data->x_raymap] == '.')
-		*id = 22;
+		*id = 33;
 	else if (data->map[data->y_raymap][data->x_raymap] == ',')
-		*id = 23;
+		*id = 34;
 	else if (data->map[data->y_raymap][data->x_raymap] == '_')
-		*id = 24;
+		*id = 35;
 	else if (data->map[data->y_raymap][data->x_raymap] == '@')
-		*id = 25;
+		*id = 36;
 	else if (data->map[data->y_raymap][data->x_raymap] == '#')
-		*id = 26;
+		*id = 37;
 	else if (data->map[data->y_raymap][data->x_raymap] == '$')
-		*id = 27;
+		*id = 38;
 	else if (data->side == 1 && data->y_ray_dir > 0)
 		*id = 2;
 }

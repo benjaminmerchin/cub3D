@@ -30,7 +30,7 @@ void	initialize_struct2(t_data *data)
 	{
 		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == '2')
 		{
-			data->sprite[i][4] = (j + 11) % 12;
+			data->sprite[i][4] = (j * 2 + 22) % 12;
 			j++;
 		}
 		i++;

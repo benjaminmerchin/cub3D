@@ -33,7 +33,7 @@ int		ft_key_hook(int keycode, t_data *data)
 	if (keycode == KEY_ATTACK && BONUS && data->attack == 0)
 		data->attack = 300;
 	else if (keycode == KEY_ATTACK && BONUS)
-		printf("You have still %d frames of cooldown left.", data->attack);
+		printf("You have still %d frames of cooldown left\n", data->attack);
 	if (keycode == KEY_SPRINT && BONUS)
 		data->sprint = 1;
 	if (keycode == KEY_DOOR && BONUS)

@@ -25,6 +25,8 @@ echo -e "${NC}"
 echo -e "${RED}"
 echo -e "You are an Impostor this round, kill all the crewmates to win"
 echo -e "Press Shift to Kill. 300 Frames cooldown."
+echo -e "There is a 10% chance that doors will close when you kill."
+echo -e "You can find secret passages in the map. Good Luck!"
 echo -e "${NC}"
 ./cub3D mapbonus_the_skeld.cub
 cat << "BY" 

@@ -93,12 +93,14 @@ void	store_path(t_data *data, char *line)
 		data->text[4].path = ft_strdup(&line[i]);
 		data->security[3] += 1;
 	}
-	else if ((is_in(line[0], "TU@#$$")) && line[1] == ' ')
+	else if ((is_in(line[0], "GTHUIVJWK")) && line[1] == ' ')
 		store_path1(data, line);
-	else if ((is_in(line[0], "VWabcdefg")) && line[1] == ' ')
+	else if ((is_in(line[0], "aLbMcNdOe")) && line[1] == ' ')
 		store_path2(data, line);
-	else if ((is_in(line[0], "hklmno.,_")) && line[1] == ' ')
+	else if ((is_in(line[0], "PfQghklmn")) && line[1] == ' ')
 		store_path3(data, line);
+	else if ((is_in(line[0], "o.,_@#$")) && line[1] == ' ')
+		store_path4(data, line);
 	else
 		store_nswe(data, line);
 }

@@ -101,7 +101,8 @@ void	echo_the_end(t_data *data)
 	{
 		printf("Your final score is %d frames. ", data->frame);
 		printf("You can try again to get a lower time.\n");
-		printf("Congratulations, Green was the Impostor.\n");
+		if (ft_strncmp_loc(data->av, "mapbonus_lvl0.cub", 18) == 0)
+			printf("Congratulations, Green was the Impostor.\n");
 	}
 	data->v_bool_print_score = 1;
 	add_the_end(data);

@@ -65,22 +65,22 @@ void	put_sprite_id(t_data *data)
 	while (i < data->sprite_num)
 	{
 		if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]] == 'j')
-			data->sprite[i][4] = 12;
+			data->sprite[i][4] = 100;
 		else if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]]
 		== 'k')
-			data->sprite[i][4] = 13;
+			data->sprite[i][4] = 24;
 		else if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]]
 		== 'l')
-			data->sprite[i][4] = 14;
+			data->sprite[i][4] = 25;
 		else if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]]
 		== 'm')
-			data->sprite[i][4] = 15;
+			data->sprite[i][4] = 26;
 		else if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]]
 		== 'n')
-			data->sprite[i][4] = 16;
+			data->sprite[i][4] = 27;
 		else if (data->map[(int)data->sprite[i][1]][(int)data->sprite[i][0]]
 		== 'o')
-			data->sprite[i][4] = 17;
+			data->sprite[i][4] = 28;
 		i++;
 	}
 }
@@ -100,7 +100,7 @@ void	put_heal_at_spawn(t_data *data)
 			{
 				data->map[j][i] = 'n';
 				store_sprite(data, i, j);
-				data->sprite[data->sprite_num - 1][4] = 16;
+				data->sprite[data->sprite_num - 1][4] = 27;
 				return ;
 			}
 			j++;

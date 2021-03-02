@@ -76,8 +76,8 @@ void	sprite(t_data *data)
 	while (i < data->sprite_num)
 	{
 		id = data->sprite[i][4] + 4;
-		if (id == 16)
-			id -= data->time;
+		if (id == 104)
+			id = 23 + data->time * 2;
 		sprite2(data, i);
 		sprite3(data);
 		j = data->x_drawstart;

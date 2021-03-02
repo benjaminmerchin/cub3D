@@ -20,7 +20,7 @@ void	close_door(t_data *data)
 	i = 0;
 	if (!BONUS)
 		return ;
-	data->door_closed = 500;
+	data->door_closed = 400;
 	while (i < data->x_map)
 	{
 		j = 0;

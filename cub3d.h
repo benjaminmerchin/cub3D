@@ -35,7 +35,7 @@ typedef struct	s_struct
 # define MINIMAP_SIZE 5
 # define MOVING_SPEED 0.1
 # define ROTATION_SPEED 0.035
-# define NUM_SPRITE_BOMUS 17
+# define NUM_SPRITE_BOMUS 28
 # define NUM_TEXTURE_BONUS 6
 
 # ifdef __linux__
@@ -251,6 +251,7 @@ void			initialize_the_end(t_data *data);
 void			echo_the_end(t_data *data);
 
 int				is_in(char c, char *str);
+int				ft_strncmp_loc(const char *s1, const char *s2, int n);
 void			victory_exit_check(t_data *data);
 void			attack_if_possible(t_data *data);
 
@@ -265,6 +266,7 @@ int				long_condition(char *line);
 void			store_path1(t_data *data, char *line);
 void			store_path2(t_data *data, char *line);
 void			store_path3(t_data *data, char *line);
+void			store_path4(t_data *data, char *line);
 
 void			set_vector_dir_extension(t_data *data);
 
