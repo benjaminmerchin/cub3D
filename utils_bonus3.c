@@ -99,7 +99,7 @@ void	echo_the_end(t_data *data)
 	}
 	if (data->v_bool_print_score == 0 && data->life > 0 && data->victory == 1)
 	{
-		printf("Your final score is %d frames. ", data->frame);
+		printf("Good Game! Your final score is %d frames. ", data->frame);
 		printf("You can try again to get a lower time.\n");
 		if (ft_strncmp_loc(data->av, "mapbonus_lvl0.cub", 18) == 0)
 			printf("Congratulations, Green was the Impostor.\n");

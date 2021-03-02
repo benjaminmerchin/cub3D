@@ -55,8 +55,12 @@ void	victory_exit_check(t_data *data)
 void	search_and_replace(t_data *data, int y, int x)
 {
 	int i;
-	
+
 	i = 0;
+	printf("Kill confirmed, %d crew members left\n", data->crew);
+	data->attack--;
+	if (data->frame % 10 == 0)
+		close_door(data);
 	while (i < data->sprite_num)
 	{
 		if ((int)data->sprite[i][0] == x && (int)data->sprite[i][1] == y)
@@ -71,26 +75,24 @@ void	search_and_replace(t_data *data, int y, int x)
 void	attack_if_possible(t_data *data)
 {
 	int i;
-	
-	i = 0;
+
+	i = -1;
 	if (!BONUS)
 		return ;
 	if (data->attack == 300)
 	{
-		while (i < 9)
+		while (++i < 9)
 		{
-			if (data->map[(int)data->y_pos + i % 3 - 1][(int)data->x_pos + i / 3 - 1] == '2')
+			if (data->map[(int)data->y_pos
+			+ i % 3 - 1][(int)data->x_pos + i / 3 - 1] == '2')
 			{
 				data->crew--;
-				data->map[(int)data->y_pos + i % 3 - 1][(int)data->x_pos + i / 3 - 1] = '0';
-				search_and_replace(data, (int)data->y_pos + i % 3 - 1, (int)data->x_pos + i / 3 - 1);
-				printf("Kill confirmed, %d crew members left\n", data->crew);
-				data->attack--;
-				if (data->frame % 10 == 0)
-					close_door(data);
+				data->map[(int)data->y_pos
+				+ i % 3 - 1][(int)data->x_pos + i / 3 - 1] = '0';
+				search_and_replace(data, (int)data->y_pos
+				+ i % 3 - 1, (int)data->x_pos + i / 3 - 1);
 				return ;
 			}
-			i++;
 		}
 		data->attack = 0;
 	}

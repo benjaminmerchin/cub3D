@@ -13,7 +13,7 @@ cat << "END"
                                __/ |            
                               |___/             
 END
-wmake fclean
+make fclean
 make bonus
 echo ""
 echo ""
