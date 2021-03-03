@@ -22,3 +22,14 @@ void	set_vector_dir_extension(t_data *data)
 		data->y_plane = -0.66;
 	}
 }
+
+void	store_fc2(char c, int *i, unsigned short *red)
+{
+	if (c == ',')
+		(*i)++;
+	else
+	{
+		(*i)--;
+		*red = 1000;
+	}
+}

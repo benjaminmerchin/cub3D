@@ -105,7 +105,7 @@ int	security_data(t_data *data)
 				;
 			else
 			{
-				ft_putstr_bn("Error\nData Provided Multiple Times in .cub");
+				ft_putstr_bn("Error\nBad data in the first part");
 				printf("The security issue %d was trigerred\n", i);
 				return (1);
 			}

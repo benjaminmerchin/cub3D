@@ -269,5 +269,6 @@ void			store_path3(t_data *data, char *line);
 void			store_path4(t_data *data, char *line);
 
 void			set_vector_dir_extension(t_data *data);
+void			store_fc2(char c, int *i, unsigned short *red);
 
 #endif

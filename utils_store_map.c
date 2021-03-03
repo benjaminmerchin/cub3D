@@ -14,15 +14,17 @@
 
 void	store_fc(t_data *data, int i, char *line)
 {
-	unsigned short red;
-	unsigned short green;
-	unsigned short blue;
+	unsigned short	red;
+	unsigned short	green;
+	unsigned short	blue;
 
 	red = ft_atoi_parsing(line, &i);
-	i++;
+	store_fc2(line[i], &i, &red);
 	green = ft_atoi_parsing(line, &i);
-	i++;
+	store_fc2(line[i], &i, &red);
 	blue = ft_atoi_parsing(line, &i);
+	if (line[i] != '\0')
+		blue = 1000;
 	if (red < 0 || green < 0 || blue < 0 ||
 	red > 255 || green > 255 || blue > 255)
 		data->security[1] += 2;
