@@ -48,6 +48,7 @@ int	exit_free(t_data *data)
 	int i;
 
 	i = 0;
+	exit(0);
 	if (BONUS)
 		echo_the_end(data);
 	free_struct(data, 1);

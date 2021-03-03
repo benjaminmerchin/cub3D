@@ -1,6 +1,7 @@
 cub3D
 *.o
 mlx/*.o
+object/*.o
 mlx/libmlx.dylib
 mlx/mlx_image.swiftdoc
 mlx/mlx_image.swiftmodule

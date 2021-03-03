@@ -7,7 +7,8 @@ SRC		=	cub3d.c get_next_line.c get_next_line_utils.c utils_basic.c utils_color.c
 			utils_store_map.c utils_raycasting.c sprite.c clean_exit.c utils_bonus.c utils_bonus2.c \
 			utils_bonus3.c utils_libft.c door.c bonus_texture_id.c minimap2.c utils_space.c
 HEADER	=	cub3d.h
-OBJ 	=	$(SRC:.c=.o)
+OBJDIR	=	object
+OBJ 	=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 CFLAGS	=	-Wall -Wextra -Werror -g#-fsanitize=address
 MLX_DIR	=	mlx
 MLX_LNX	=	mlx-linux
@@ -24,7 +25,7 @@ $(NAME): mlx $(OBJ)
 mlx:
 	make -C $(MLX_DIR) 
 
-%.o: %.c $(MLX_DIR)/$(MLX) $(HEADER)
+$(OBJDIR)/%.o: %.c $(MLX_DIR)/$(MLX) $(HEADER)
 	$(CC) $(CFLAGS) -I $(MLX_DIR) -c $< -o $@
 
 bonus: CFLAGS	=	-Wall -Wextra -Werror $(BONUS)
@@ -47,7 +48,7 @@ $(NAME): mlx $(OBJ)
 mlx:
 	make -C $(MLX_LNX)
 
-%.o: %.c
+$(OBJDIR)/%.o: %.c
 	$(CC) $(CFLAGS) -Iincludes -c $< -o $@
 
 bonus: CFLAGS	=	-Wall -Wextra -Werror $(BONUS)
