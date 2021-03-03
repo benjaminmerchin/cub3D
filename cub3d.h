@@ -33,8 +33,8 @@ typedef struct	s_struct
 }				t_struct;
 
 # define MINIMAP_SIZE 5
-# define MOVING_SPEED 0.1
-# define ROTATION_SPEED 0.035
+# define MOVING_SPEED 0.04
+# define ROTATION_SPEED 0.015
 # define NUM_SPRITE_BOMUS 28
 # define NUM_TEXTURE_BONUS 6
 
