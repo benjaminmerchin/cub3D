@@ -51,7 +51,8 @@ void	raycasting_calculation(t_data *data)
 
 int		render_next_frame(t_data *data)
 {
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	if (data->save == 0)
+		mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	victory_exit_check(data);
 	if (data->life == 0)
 	{
@@ -78,7 +79,7 @@ void	run_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
 	screen_resize(data);
-	if (data->save == 1)
+	if (data->save == 0)
 		data->win = mlx_new_window(data->mlx, data->x_screen_size, data->y_screen_size, "Among Us in cub3D - A 42 Paris Project");
 	mlx_loop_hook(data->mlx, render_next_frame, data);
 	mlx_hook(data->win, 2, 1L << 0, ft_key_hook, data);

@@ -8,7 +8,7 @@ SRC		=	cub3d.c get_next_line.c get_next_line_utils.c utils_basic.c utils_color.c
 			utils_bonus3.c utils_libft.c door.c bonus_texture_id.c minimap2.c utils_space.c
 HEADER	=	cub3d.h
 OBJ 	=	$(SRC:.c=.o)
-CFLAGS	=	-Wall -Wextra -Werror #-g #-fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g#-fsanitize=address
 MLX_DIR	=	mlx
 MLX_LNX	=	mlx-linux
 MLX		=	libmlx.dylib
@@ -50,15 +50,14 @@ mlx:
 %.o: %.c
 	$(CC) $(CFLAGS) -Iincludes -c $< -o $@
 
-clean:
-	rm -f $(OBJ)
-	make clean -C $(MLX_LNX)
-
 bonus: CFLAGS	=	-Wall -Wextra -Werror $(BONUS)
 
 bonus: mlx $(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L ./mlx-linux -lmlx -lXext -lX11 -lm
 
+clean:
+	rm -f $(OBJ)
+	make clean -C $(MLX_LNX)
 endif
 
 fclean: clean
