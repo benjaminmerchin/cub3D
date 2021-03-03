@@ -23,6 +23,9 @@ void	store_fc(t_data *data, int i, char *line)
 	green = ft_atoi_parsing(line, &i);
 	i++;
 	blue = ft_atoi_parsing(line, &i);
+	if (red < 0 || green < 0 || blue < 0 ||
+	red > 255 || green > 255 || blue > 255)
+		data->security[1] += 2;
 	if (line[0] == 'F')
 	{
 		data->floor = store_color(0, red, green, blue);

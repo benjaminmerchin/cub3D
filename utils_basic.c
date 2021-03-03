@@ -50,6 +50,7 @@ int		ft_atoi_parsing(char *str, int *i)
 {
 	int		sign;
 	long	nbr;
+	int		temp;
 
 	nbr = 0;
 	sign = 1;
@@ -61,15 +62,14 @@ int		ft_atoi_parsing(char *str, int *i)
 			sign = -1;
 		(*i)++;
 	}
+	temp = *i;
 	while (str[*i] >= '0' && str[*i] <= '9')
 	{
-		if (sign == 1 && nbr > 922337203685477580)
-			return (-1);
-		else if (nbr > 922337203685477580)
-			return (0);
 		nbr = nbr * 10 + str[*i] - '0';
 		(*i)++;
 	}
+	if (temp == *i)
+		return (-1);
 	return (nbr * sign);
 }
 

@@ -35,7 +35,8 @@ int	exit_free(t_data *data)
 		mlx_destroy_image(data->mlx, data->text[i].img);
 		i++;
 	}
-	mlx_destroy_window(data->mlx, data->win);
+	if (data->save == 0)
+		mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 	exit(0);
@@ -48,7 +49,6 @@ int	exit_free(t_data *data)
 	int i;
 
 	i = 0;
-	exit(0);
 	if (BONUS)
 		echo_the_end(data);
 	free_struct(data, 1);
@@ -58,7 +58,8 @@ int	exit_free(t_data *data)
 		mlx_destroy_image(data->mlx, data->text[i].img);
 		i++;
 	}
-	mlx_destroy_window(data->mlx, data->win);
+	if (data->save == 0)
+		mlx_destroy_window(data->mlx, data->win);
 	free(data->mlx);
 	exit(0);
 }
