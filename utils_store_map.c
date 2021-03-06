@@ -47,10 +47,10 @@ void	store_rfc(t_data *data, char *line)
 	i = 1;
 	if (line[0] == 'R')
 	{
-		data->x_screen_size = ft_atoi_parsing(&line[i], &i);
-		while (line[i] != ' ')
-			i++;
-		data->y_screen_size = ft_atoi(&line[i]);
+		data->x_screen_size = ft_atoi_parsing(line, &i);
+		data->y_screen_size = ft_atoi_parsing(line, &i);
+		if (line[i] != '\0')
+			data->security[0] += 1;
 		data->security[0] += 1;
 	}
 	else
