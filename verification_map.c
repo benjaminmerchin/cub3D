@@ -117,4 +117,5 @@ void	check_map(t_data *data)
 		}
 		y++;
 	}
+	multiple_empty_lines(data);
 }

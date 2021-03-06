@@ -1,12 +1,12 @@
-R 80 240
-NO ./texture/wall_1.xpm
-SO ./texture/wall_1.xpm
-WE ./texture/wall_1.xpm
-EA ./texture/wall_1.xpm
+R 700 500
+NO ./texture/greystone.xpm
+SO ./texture/eagle.xpm
+WE ./texture/purplestone.xpm
+EA ./texture/redbrick.xpm
 
-S ./texture/barrel2.xpm
-F 220,100,0
-C 225,30,0
+S ./texture/barrel.xpm
+F 92, 92, 92
+C 148, 227, 224
 
         111111111111111111111111111111111111111111111111111111111111111
         100000000011000000000000100000000000010000000100000002000000001

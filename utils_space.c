@@ -33,3 +33,15 @@ void	store_fc2(char c, int *i, unsigned short *red)
 		*red = 1000;
 	}
 }
+
+void	multiple_empty_lines(t_data *data)
+{
+	if (data->y_map < 2)
+		return ;
+	if (ft_strlen(data->map[data->y_map]) == 0 &&
+	ft_strlen(data->map[data->y_map - 1]) == 0)
+	{
+		data->security[11] = 1;
+		ft_putstr_bn("Error\nMultiple empty lines at the end of the file");
+	}
+}

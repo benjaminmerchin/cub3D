@@ -1,12 +1,12 @@
-R 800 500
-NO ./texture/eagle.xpm
-SO ./texture/greystone.xpm
+R 700 500
+NO ./texture/greystone.xpm
+SO ./texture/eagle.xpm
 WE ./texture/purplestone.xpm
 EA ./texture/redbrick.xpm
 
 S ./texture/barrel.xpm
-F 220,100,0
-C 225,30,0
+F 92, 92, 92
+C 148, 227, 224
 
 1111111111111111111111111
 1000000000000000000000001
