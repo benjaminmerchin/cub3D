@@ -1,5 +1,5 @@
-R 700 500
-NO ./texture/greystone.xpm
+R 9000 9000
+NO ./texture/eagle.xpm
 SO ./texture/eagle.xpm
 WE ./texture/purplestone.xpm
 EA ./texture/redbrick.xpm
