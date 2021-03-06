@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # ifdef __linux__
-#  include "/mlx-linux/mlx.h"
+#  include "./mlx-linux/mlx.h"
 # else
 #  include "mlx.h"
 # endif
