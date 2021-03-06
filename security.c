@@ -32,9 +32,9 @@ int	security_check(t_data *data)
 	return (0);
 }
 
-int	security_cub_av_check(char **av, t_data *data)
+int	security_cub_av_check(char **av, t_data *data, int ac)
 {
-	if (ft_strncmp(av[2], "--save", 10) == 0)
+	if (ft_strncmp(av[2], "--save", 10) == 0 && ac == 3)
 		data->save = 1;
 	else
 	{
@@ -54,7 +54,7 @@ int	security_cub(int ac, char **av, t_data *data, int fd)
 	data->save = 0;
 	while (i < 20)
 		data->security[i++] = 0;
-	if (ac != 2 && security_cub_av_check(av, data))
+	if (ac != 2 && security_cub_av_check(av, data, ac))
 		return (1);
 	if (av[1][len - 1] != 'b' || av[1][len - 2] != 'u' ||
 	av[1][len - 3] != 'c' || av[1][len - 4] != '.')

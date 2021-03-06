@@ -13,7 +13,11 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "mlx.h"
+# ifdef __linux__
+#  include "/mlx-linux/mlx.h"
+# else
+#  include "mlx.h"
+# endif
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -33,8 +37,8 @@ typedef struct	s_struct
 }				t_struct;
 
 # define MINIMAP_SIZE 5
-# define MOVING_SPEED 0.04
-# define ROTATION_SPEED 0.015
+# define MOVING_SPEED 0.08
+# define ROTATION_SPEED 0.03
 # define NUM_SPRITE_BOMUS 28
 # define NUM_TEXTURE_BONUS 6
 
