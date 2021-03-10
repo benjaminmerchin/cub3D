@@ -76,12 +76,12 @@ void	store_nswe(t_data *data, char *line)
 	}
 	else if (line[0] == 'W')
 	{
-		data->text[3].path = ft_strdup(&line[i]);
+		data->text[2].path = ft_strdup(&line[i]);
 		data->security[6] += 1;
 	}
 	else if (line[0] == 'E')
 	{
-		data->text[2].path = ft_strdup(&line[i]);
+		data->text[3].path = ft_strdup(&line[i]);
 		data->security[7] += 1;
 	}
 }
